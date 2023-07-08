@@ -80,7 +80,7 @@ tweet_mapper.TweetMapper(csv_file_path,model_file)
 ```
 
 
-![topicwizard visualization](docs/_static/topicwizard.png)
+
 
 ## 🎓 References
 
