@@ -58,10 +58,13 @@ model.run()
 
 Topic Insights Visualisation 
 
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
+
 ```python
 vis_model = topic_visualise.PyLDAvis('../csv/file/path/to/load/data.csv',text_column='text')
 vis_model.visualize()
 ```
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
 
 ```python
 vis_model = topic_visualise.TopicWizardvis('../csv/file/path/to/load/data.csv',num_topics=20)
@@ -76,27 +79,6 @@ model_file = '../file/path/of/model.pkl'
 tweet_mapper.TweetMapper(csv_file_path,model_file)
 ```
 
-You may fit the model with a stream of short texts:
-
-```python
-pipeline.fit(texts)
-```
-
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
-
-Install it from PyPI:
-
-```bash
-pip install topic-wizard
-```
-
-Then visualize your topic model:
-
-```python
-import topicwizard
-
-topicwizard.visualize(pipeline=pipeline, corpus=texts)
-```
 
 ![topicwizard visualization](docs/_static/topicwizard.png)
 
