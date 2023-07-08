@@ -49,9 +49,31 @@ clean_data.saving('../folder/path/to/store/the/cleaned/data/')
 Train your a topic model on a corpus of short texts
 
 ```python
-model = topic_model.TopicModeling(num_topics=10, dataset_path='/content/drive/MyDrive/Thesis Pipeline/raw_data_json/reddit_part_1.csv', learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100, dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
+model = topic_model.TopicModeling(num_topics=10, dataset_path='../csv/file/path/to/load/data.csv',
+learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
+dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
 
 model.run()
+```
+
+Topic Insights Visualisation 
+
+```python
+vis_model = topic_visualise.PyLDAvis('../csv/file/path/to/load/data.csv',text_column='text')
+vis_model.visualize()
+```
+
+```python
+vis_model = topic_visualise.TopicWizardvis('../csv/file/path/to/load/data.csv',num_topics=20)
+vis_model.visualize()
+```
+
+Twitter Topic Geo Visualisation 
+
+```python
+csv_file_path = '../file/path/of/data.csv'
+model_file = '../file/path/of/model.pkl'
+tweet_mapper.TweetMapper(csv_file_path,model_file)
 ```
 
 You may fit the model with a stream of short texts:
