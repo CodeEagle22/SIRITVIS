@@ -5,8 +5,8 @@
 
 ## Features
 
-- Reddit Data Extracting :zap:
-- Reddit Data PReprocessing :collision:
+- Data Extraction :zap:
+- Data Preprocessing :collision:
 - Topic Model Training and Evaluation :dart:
 - Topic Visual Insights :eyes:
 
