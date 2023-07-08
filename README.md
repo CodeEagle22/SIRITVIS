@@ -58,7 +58,7 @@ model.run()
 
 Topic Insights Visualisation 
 
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 
 ```python
 vis_model = topic_visualise.PyLDAvis('../csv/file/path/to/load/data.csv',text_column='text')
