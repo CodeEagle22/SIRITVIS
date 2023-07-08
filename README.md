@@ -5,8 +5,8 @@
 
 ## Features
 
-- Data Extraction :zap:
-- Data Preprocessing :Broom:
+- Data Extraction 💾:
+- Data Preprocessing 🧹:
 - Topic Model Training and Evaluation :dart:
 - Topic Visual Insights :eyes:
 
