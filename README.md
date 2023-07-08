@@ -15,7 +15,7 @@
 Install from PyPI:
 
 ```bash
-cd dist
+cd ../dist
 pip install SIRITVIS-1.0.tar.gz
 ```
 
@@ -28,34 +28,30 @@ from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, twe
 ```
 
 Streaming Reddit Data
+
 ```python
 client_id = "XXXXXXXXXX"
 client_secret = "XXXXXXXXX"
 user_agent = "XXXXXXXXXX"
 keywords = ['Specific','Keywords']
-save_path = 'Path/Directory/Store/Data/'
-RedditStreamer(client_id,client_secret,user_agent,save_path,keywords)
+save_path = '../folder/path/to/store/the/data/'
+streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords)
 ```
 
-Train your a topic model on a corpus of short texts:
+Cleaning Reddit, Twitter or Any External Text Data
 
 ```python
-from tweetopic import DMM
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.pipeline import Pipeline
+clean_data = cleaner.Cleaner('../folder/path/or/csv/file/path/to/load/data/',data_save_name='twitter',data='twitter')
 
-# Creating a vectorizer for extracting document-term matrix from the
-# text corpus.
-vectorizer = CountVectorizer(min_df=15, max_df=0.1)
+clean_data.saving('../folder/path/to/store/the/cleaned/data/')
+```
 
-# Creating a Dirichlet Multinomial Mixture Model with 30 components
-dmm = DMM(n_components=30, n_iterations=100, alpha=0.1, beta=0.1)
+Train your a topic model on a corpus of short texts
 
-# Creating topic pipeline
-pipeline = Pipeline([
-    ("vectorizer", vectorizer),
-    ("dmm", dmm),
-])
+```python
+model = topic_model.TopicModeling(num_topics=10, dataset_path='/content/drive/MyDrive/Thesis Pipeline/raw_data_json/reddit_part_1.csv', learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100, dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
+
+model.run()
 ```
 
 You may fit the model with a stream of short texts:
