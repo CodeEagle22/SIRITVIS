@@ -5,10 +5,10 @@
 
 ## Features
 
-- Data Extraction 💾:
-- Data Preprocessing 🧹:
+- Data Streaming 💾
+- Data Cleaning 🧹
 - Topic Model Training and Evaluation :dart:
-- Topic Visual Insights :eyes:
+- Topic Visual Insights 🔍
 
 ## 🛠 Installation
 
