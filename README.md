@@ -24,7 +24,7 @@ pip install SIRITVIS-1.0.tar.gz
 Import Libraries
 
 ```python
-from SIRITVIS import reddit_streamer, reddit_cleaner, topic_model, topic_visualise
+from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, tweet_mapper
 ```
 
 Streaming Reddit Data
