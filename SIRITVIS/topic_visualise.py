@@ -66,7 +66,7 @@ class PyLDAvis():
             else:
                 print("Unsupported file format.")
               
-            self.lines = data['text'].tolist()
+            self.lines = data[self.column_name].tolist()
 
             # Create the TF vectorizer
             self.tf_vectorizer = CountVectorizer(strip_accents='unicode',
@@ -103,20 +103,30 @@ class PyLDAvis():
 
 
 class TopicWizardvis():
-    def __init__(self, csv_file, num_topics=10):
+    def __init__(self, csv_file, num_topics=10, text_column='text'):
         self.csv_file = csv_file
         self.num_topics = num_topics
+        self.column_name = text_column
+        self.vis = None
         self.visualize()
         
 
     def preprocess_data(self):
-        try:
-            df = pd.read_csv(self.csv_file).dropna()
-            texts = df['text'].str.replace('rt', '').tolist()
-            return texts
-        except (FileNotFoundError, KeyError) as e:
-            print(f"Error: {e}")
-            return None
+        # Read the CSV file and retrieve the specified column
+        file_extension = os.path.splitext(self.file_path)[1]
+
+        if file_extension == ".pkl":
+            # Read pickle file
+            df = pd.read_pickle(self.file_path).dropna().reset_index(drop=True)
+        elif file_extension == ".csv":
+            # Read CSV file
+            df = pd.read_csv(self.file_path).dropna().reset_index(drop=True)
+        else:
+            print("Unsupported file format.")
+
+        texts = df[self.column_name].str.replace('rt', '').tolist()
+        return texts
+        
 
     def create_topic_pipeline(self):
         return make_pipeline(
@@ -125,16 +135,27 @@ class TopicWizardvis():
         )
 
     def visualize(self):
-        texts = self.preprocess_data()
-        if texts is None:
-            return
-        
-        topic_pipeline = self.create_topic_pipeline()
-
         try:
+            texts = self.preprocess_data()
+            if texts is None:
+                return
+            
+            topic_pipeline = self.create_topic_pipeline()
+
+            
             topic_pipeline.fit(texts)
-            return topicwizard.visualize(pipeline=topic_pipeline, corpus=texts)
+            self.vis = topicwizard.visualize(pipeline=topic_pipeline, corpus=texts)
+        
+        except FileNotFoundError:
+            print("Error: File not found.")
+        except pd.errors.EmptyDataError:
+            print("Error: The CSV file is empty.")
+        except KeyError:
+            print(f"Error: The column '{self.column_name}' does not exist in the CSV file. Define text_column name of your dataset")
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"An error occurred: {str(e)}")
+
+        return self.vis
+
 
 

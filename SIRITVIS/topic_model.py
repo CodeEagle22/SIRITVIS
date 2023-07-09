@@ -423,7 +423,9 @@ class TopicModeling:
         Reads the dataset from the provided file path.
         """
         try:
-            if self.dataset_path.endswith('.pkl'):
+            if type(self.dataset_path)!='str':
+                self.df = self.dataset_path
+            elif self.dataset_path.endswith('.pkl'):
                 self.df = pd.read_pickle(self.dataset_path).reset_index(drop=True)
             elif self.dataset_path.endswith('.csv'):
                 self.df = pd.read_csv(self.dataset_path).reset_index(drop=True)
@@ -596,7 +598,7 @@ class TopicModeling:
             return False
         if not self.evaluate_model():
             return False
-        return True
+        return self.nlda
 
 
 

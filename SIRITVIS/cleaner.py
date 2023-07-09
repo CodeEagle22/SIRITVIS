@@ -110,6 +110,7 @@ class Cleaner(object):
                 return process_pickles()
 
         def process_tweets():
+            
             load_path = self.load_path  # Replace with the actual path to your tweet files
             if load_path.endswith('.csv'):
               df_data = pd.read_csv(load_path)
@@ -351,7 +352,7 @@ class Cleaner(object):
               except:
                 self.raw_data['created_at'] = datetime.datetime.now()
                 self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags']]
-
+        
         return self.raw_data
 
     @staticmethod  # using static method, see: https://realpython.com/instance-class-and-static-methods-demystified/
@@ -403,4 +404,5 @@ class Cleaner(object):
                   file_to_save.to_pickle(os.path.join(save_path, self.data_save_name + '_part_' + str(i + 1) + '.pkl'))
               else:
                   file_to_save.to_csv(os.path.join(save_path, self.data_save_name + '_part_' + str(i + 1) + '.csv'))
-        return
+        
+        return file_to_save

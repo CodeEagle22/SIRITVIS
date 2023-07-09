@@ -173,6 +173,7 @@ class RedditStreamer():
 
     def run(self):
         self.connect_to_reddit()
+        return self.save_path
         while True:
             try:
                 self.scrape_data()
