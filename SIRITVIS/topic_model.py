@@ -387,7 +387,7 @@ class TopicModeling:
         """
 
         assert isinstance(num_topics, int) and num_topics > 0, "num_topics should be a positive integer."
-        assert isinstance(dataset_path, str), "dataset_path should be a string."
+        assert isinstance(dataset_path, (str,pd.DataFrame)), "dataset_path should be a string or preprocessed dataset variable"
         assert isinstance(learning_rate, float) and learning_rate > 0, "learning_rate should be a positive float."
         assert isinstance(batch_size, int) and batch_size > 0, "batch_size should be a positive integer."
         assert activation in ['softplus', 'relu', 'sigmoid', 'swish', 'leakyrelu', 'rrelu', 'elu', 'selu', 'tanh'], "activation must be 'softplus', 'relu', 'sigmoid', 'swish', 'leakyrelu', 'rrelu', 'elu', 'selu' or 'tanh'."
@@ -423,15 +423,16 @@ class TopicModeling:
         Reads the dataset from the provided file path.
         """
         try:
-            if type(self.dataset_path)!='str':
-                self.df = self.dataset_path
-            elif self.dataset_path.endswith('.pkl'):
-                self.df = pd.read_pickle(self.dataset_path).reset_index(drop=True)
-            elif self.dataset_path.endswith('.csv'):
-                self.df = pd.read_csv(self.dataset_path).reset_index(drop=True)
+            if isinstance(self.dataset_path, str):
+                if self.dataset_path.endswith('.pkl'):
+                    self.df = pd.read_pickle(self.dataset_path).reset_index(drop=True)
+                elif self.dataset_path.endswith('.csv'):
+                    self.df = pd.read_csv(self.dataset_path).reset_index(drop=True)
+                else:
+                    print("Error: Invalid dataset file format. Only .pkl and .csv formats are supported.")
+                    return False
             else:
-                print("Error: Invalid dataset file format. Only .pkl and .csv formats are supported.")
-                return False
+                self.df = self.dataset_path
         except FileNotFoundError:
             print("Error: Dataset file not found.")
             return False
@@ -444,6 +445,7 @@ class TopicModeling:
         """
         Preprocesses the data by removing 'RT', dropping NaN values, and saving the processed text to a file.
         """
+        
         if self.df is None:
             print("Error: No data loaded. Call read_data() first.")
             return False
@@ -599,6 +601,5 @@ class TopicModeling:
         if not self.evaluate_model():
             return False
         return self.nlda
-
 
 

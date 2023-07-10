@@ -1,5 +1,6 @@
 import pandas as pd
 import folium
+
 import pickle
 import re
 from ipywidgets import Dropdown, interact, Checkbox
@@ -271,6 +272,7 @@ class TweetMapper:
                 icon=folium.Icon(icon='info-sign', color=color)
             )
             marker.add_to(self.map)
+
 
         # Display the map
         display(self.map)

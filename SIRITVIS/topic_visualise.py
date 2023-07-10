@@ -8,35 +8,44 @@
 import glob
 from heapq import nlargest
 
+from sklearn.decomposition import NMF
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.pipeline import make_pipeline
 import topicwizard
 import pandas as pd
 from sklearn.decomposition import NMF
 from sklearn.decomposition import LatentDirichletAllocation
+
+
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import make_pipeline
 from multiprocessing import Pool
 from multiprocessing import cpu_count
 import numpy as np
 import os
+import matplotlib.pyplot as plt
+
 import pandas as pd
+from IPython.core.display import display, HTML
+
 import pyLDAvis
 import pyLDAvis.lda_model
-pyLDAvis.enable_notebook()
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
+
 
 class PyLDAvis():
     def __init__(self, file_path, text_column='text'):
         """
-        Initialize the LDAPackage class.
+        Initialize the PyLDAvis class.
 
         Parameters:
-        - file_path (str): The path to the CSV file.
-        - text_column (str): The name of the text column in the CSV file.
+        - file_path (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
+        - text_column (str): The name of the text column in the CSV file or DataFrame.
         """
         self.file_path = file_path
         self.column_name = text_column
-        self.df = None
         self.lines = None
         self.tf_vectorizer = None
         self.dtms_tf = None
@@ -44,7 +53,6 @@ class PyLDAvis():
         self.dtms_tfidf = None
         self.lda_tf = None
         self.vis = None
-        self.visualize()
 
     def visualize(self):
         """
@@ -54,18 +62,28 @@ class PyLDAvis():
         - vis: The prepared visualization object.
         """
         try:
-            # Read the CSV file and retrieve the specified column
-            file_extension = os.path.splitext(self.file_path)[1]
-
-            if file_extension == ".pkl":
-                # Read pickle file
-                data = pd.read_pickle(self.file_path).dropna().reset_index(drop=True)
-            elif file_extension == ".csv":
-                # Read CSV file
-                data = pd.read_csv(self.file_path).dropna().reset_index(drop=True)
+            # Read the CSV file or use the provided DataFrame
+            if isinstance(self.file_path, pd.DataFrame):
+                data = self.file_path
+            elif isinstance(self.file_path, str):
+                file_extension = os.path.splitext(self.file_path)[1]
+                if file_extension == ".pkl":
+                    # Read pickle file
+                    data = pd.read_pickle(self.file_path).dropna().reset_index(drop=True)
+                elif file_extension == ".csv":
+                    # Read CSV file
+                    data = pd.read_csv(self.file_path).dropna().reset_index(drop=True)
+                else:
+                    print("Unsupported file format.")
+                    return None
             else:
-                print("Unsupported file format.")
-              
+                print("Invalid data type. Please provide either a DataFrame or a file path.")
+                return None
+
+            if self.column_name not in data.columns:
+                print(f"Error: The column '{self.column_name}' does not exist in the data.")
+                return None
+
             self.lines = data[self.column_name].tolist()
 
             # Create the TF vectorizer
@@ -86,21 +104,27 @@ class PyLDAvis():
             self.lda_tf.fit(self.dtms_tf)
 
             # Prepare the visualization
+            
+            
             self.vis = pyLDAvis.lda_model.prepare(self.lda_tf, self.dtms_tf, self.tf_vectorizer)
-
+            pyLDAvis.enable_notebook()
+            return pyLDAvis.display(self.vis)
+            display(HTML("<style>.container { max-width:100% !important; }</style>"))
+            display(HTML("<style>.output_result { max-width:100% !important; }</style>"))
+            display(HTML("<style>.output_area { max-width:100% !important; }</style>"))
+            display(HTML("<style>.input_area { max-width:100% !important; }</style>"))
+            
+        
         except FileNotFoundError:
             print("Error: File not found.")
         except pd.errors.EmptyDataError:
             print("Error: The CSV file is empty.")
-        except KeyError:
-            print(f"Error: The column '{self.column_name}' does not exist in the CSV file. Define text_column name of your dataset")
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
-        return self.vis
+        
 
-
-
+    
 
 class TopicWizardvis():
     def __init__(self, csv_file, num_topics=10, text_column='text'):
@@ -108,54 +132,57 @@ class TopicWizardvis():
         self.num_topics = num_topics
         self.column_name = text_column
         self.vis = None
-        self.visualize()
+        self.cloud = None
+        self.word = None
         
-
-    def preprocess_data(self):
-        # Read the CSV file and retrieve the specified column
-        file_extension = os.path.splitext(self.file_path)[1]
-
-        if file_extension == ".pkl":
-            # Read pickle file
-            df = pd.read_pickle(self.file_path).dropna().reset_index(drop=True)
-        elif file_extension == ".csv":
-            # Read CSV file
-            df = pd.read_csv(self.file_path).dropna().reset_index(drop=True)
-        else:
-            print("Unsupported file format.")
-
-        texts = df[self.column_name].str.replace('rt', '').tolist()
-        return texts
         
-
-    def create_topic_pipeline(self):
-        return make_pipeline(
-            CountVectorizer(),
-            LatentDirichletAllocation(n_components=self.num_topics),
-        )
-
-    def visualize(self):
+    def viz(self):
         try:
-            texts = self.preprocess_data()
-            if texts is None:
-                return
-            
-            topic_pipeline = self.create_topic_pipeline()
+            # Read the CSV file and retrieve the specified column
+            if isinstance(self.csv_file, str):
+                file_extension = os.path.splitext(self.csv_file)[1]
 
-            
-            topic_pipeline.fit(texts)
-            self.vis = topicwizard.visualize(pipeline=topic_pipeline, corpus=texts)
-        
+                if file_extension == ".pkl":
+                    # Read pickle file
+                    df = pd.read_pickle(self.csv_file).dropna().reset_index(drop=True)
+                elif file_extension == ".csv":
+                    # Read CSV file
+                    df = pd.read_csv(self.csv_file).dropna().reset_index(drop=True)
+                else:
+                    print("Unsupported file format.")
+                    return None
+            elif isinstance(self.csv_file, pd.DataFrame):
+                df = self.csv_file.dropna().reset_index(drop=True)
+            else:
+                print("Unsupported data type.")
+                return None
+
+
+            cor = df[self.column_name].str.replace('rt', '').tolist()
+            # Create topic pipeline
+            pipeline = make_pipeline(
+                CountVectorizer(stop_words="english", min_df=10),
+                NMF(n_components=self.num_topics),
+            )
+
+            # Then fit it on the given texts
+            pipeline.fit(cor)
+
+
+            # A large corpus takes a looong time to compute 2D projections for so
+            # so you can speed up preprocessing by disabling it alltogether.
+            return topicwizard.visualize(cor, pipeline=pipeline, exclude_pages=["documents"])
+                
         except FileNotFoundError:
             print("Error: File not found.")
         except pd.errors.EmptyDataError:
             print("Error: The CSV file is empty.")
         except KeyError:
             print(f"Error: The column '{self.column_name}' does not exist in the CSV file. Define text_column name of your dataset")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+        except:
+            return
 
-        return self.vis
+        
+        
 
-
-
+ 

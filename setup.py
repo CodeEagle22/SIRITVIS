@@ -1,8 +1,18 @@
 from setuptools import setup, find_packages
 
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError:
+    print("README.md file not found.")
+    long_description = ""
+except Exception as e:
+    print("An error occurred while reading README.md:", str(e))
+    long_description = ""
+
 setup(
     name='SIRITVIS',
-    version='2.0',
+    version='1.0',
     author='Sagar Narwade, Gillian Kant, Benjamin Saefken',
     description="SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisation",
     maintainer="Sagar Narwade",
@@ -20,18 +30,26 @@ setup(
         'wordcloud',
         'langdetect',
         'octis',
-        'topic-wizard',
+        'topic-wizard==0.3.1',
+        'Pillow==8.4.0',
         'tweepy==3.9.0',
-        'scikit-learn==1.3.0',
+        'scikit-learn==1.2.2',
         'urllib3',
         'langdetect',
-        'folium==0.12.1',
-        'pickle5==0.0.11',
+        'folium==0.14.0',
+        'pickle4==0.0.1',
+        'plotly==5.15.0',
         'nltk==3.6.2',
+        'notebook==6.4.8',
         'ipywidgets',
         'tensorflow',
         'vaderSentiment',
         'ipyleaflet',
-        'IPython'
+        'geopy',
+        'Flask==2.2.5',
+        'Flask-Caching==2.0.1',
+        'wordcloud==1.8.2.2',
+        'ipython==7.34.0'
     ],
+    
 )

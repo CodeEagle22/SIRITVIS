@@ -173,7 +173,7 @@ class RedditStreamer():
 
     def run(self):
         self.connect_to_reddit()
-        return self.save_path
+        
         while True:
             try:
                 self.scrape_data()
@@ -183,3 +183,4 @@ class RedditStreamer():
             except Exception as e:
                 print("Error occurred: ", e)
                 continue
+        return self.save_path
