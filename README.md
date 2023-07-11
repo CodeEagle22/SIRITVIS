@@ -45,7 +45,7 @@ cd ../dist
 pip install SIRITVIS-1.0.tar.gz
 ```
 
-## 👩‍💻 Usage ([documentation](https://centre-for-humanities-computing.github.io/tweetopic/))
+## 👩‍💻 Usage ([documentation])
 
 Import Libraries
 
