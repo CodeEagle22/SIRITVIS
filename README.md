@@ -6,7 +6,11 @@ Social Interaction Research Insights Topic Visualization
 
 ## Summary   
 
-The integration of a robust Python package SIRITVIS, incorporating data preprocessing, model training, topic evaluation metrics, and geo-visualization tools, provides valuable insights into the spatial distribution of topics across live Twitter, Reddit, and other external data sources. This approach showcases promising potential across domains including marketing, politics, and disaster management, enabling data-driven decision-making through spatial topic distribution insights. The adoption of this approach empowers organizations to deepen their understanding of customers and stakeholders, enhance engagement, and facilitate informed decision-making.
+The integration of the SIRITVIS Python package offers a robust and scientifically grounded approach for getting insights of data from platforms like Twitter and Reddit. It provides a comprehensive set of features including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution and graph visualisation, and geo-visualization tools. By leveraging these capabilities, organizations can gain valuable insights into the spatial distribution of topics and make data-driven decisions.
+
+The package combines established methodologies from data science, machine learning, and geospatial analysis, ensuring the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The geo-visualization tools enable clear and intuitive understanding of the spatial distribution of topics.
+
+Overall, the adoption of the SIRITVIS package empowers organizations across domains such as marketing, politics, and disaster management to deepen their understanding of customers and stakeholders. By leveraging spatial topic distribution insights, they can enhance engagement and facilitate informed decision-making processes, leading to improved outcomes.
 
 ## Features
 
