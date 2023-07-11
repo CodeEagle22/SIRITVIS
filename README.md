@@ -53,7 +53,7 @@ Import Libraries
 from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, tweet_mapper
 ```
 
-Streaming Reddit Data
+### Streaming Reddit Data
 
 ```python
 client_id = "XXXXXXXXXX"
@@ -64,7 +64,7 @@ save_path = '../folder/path/to/store/the/data/'
 raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords).run()
 ```
 
-Cleaning Reddit, Twitter or Any External Text Data
+### Cleaning Reddit, Twitter or Any External Text Data
 
 ```python
 # raw_data variable could also used as load_path attribute value
@@ -74,7 +74,7 @@ clean_data = cleaner.Cleaner(load_path='../folder/path/or/csv/file/path/to/load/
 cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
 ```
 
-Train your a topic model on a corpus of short texts
+### Train your a topic model on a corpus of short texts
 
 ```python
 # cleaned_file variable could also used as dataset_path attribute value
@@ -86,28 +86,26 @@ dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='Neu
 saved_model = model.run()
 ```
 
-Topic Insights Visualisation 
+### Topic Insights Visualisation 
 
 To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
-
 ```python
 # cleaned_file variable could also used as file_path attribute value
 
 vis_model = topic_visualise.PyLDAvis(file_path='../csv/file/path/to/load/data.csv',text_column='text')
 vis_model.visualize()
 ```
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard]
 ```python
 # cleaned_file variable could also used as csv_file attribute value
 
 vis_model = topic_visualise.TopicWizardvis(csv_file='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text)
 vis_model.visualize()
 ```
+(https://github.com/x-tabdeveloping/topic-wizard).
 
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
-
-Twitter Topic Geo Visualisation 
+### Twitter Topic Geo Visualisation 
 
 ```python
 csv_file_path = '../file/path/of/data.csv'
