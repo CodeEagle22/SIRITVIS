@@ -109,10 +109,6 @@ class PyLDAvis():
             self.vis = pyLDAvis.lda_model.prepare(self.lda_tf, self.dtms_tf, self.tf_vectorizer)
             pyLDAvis.enable_notebook()
             return pyLDAvis.display(self.vis)
-            display(HTML("<style>.container { max-width:100% !important; }</style>"))
-            display(HTML("<style>.output_result { max-width:100% !important; }</style>"))
-            display(HTML("<style>.output_area { max-width:100% !important; }</style>"))
-            display(HTML("<style>.input_area { max-width:100% !important; }</style>"))
             
         
         except FileNotFoundError:
