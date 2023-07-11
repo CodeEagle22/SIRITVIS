@@ -6,9 +6,7 @@ Social Interaction Research Insights Topic Visualization
 
 ## Summary   
 
-The package TTLocVis provides a broad range of methods to generate, clean, analyze and visualize the contents of Twitter
-data. TTLocVis enables the user to work with geo-spatial Twitter data and to generate topic distributions from Latent 
-Dirichlet Allocation (LDA) Topic Models for geo-coded Tweets. As such, TTLocVis is an innovative 
+The package SIRITVIS provides a broad range of methods to generate, clean, analyze and visualize the contents of Social Media Data (Reddit and Twitter). SIRITVIS enables the user to work with geo-spatial Twitter data and to generate topic distributions from NeuralLDA and ProdLDA Topic Models for geo-coded Tweets. As such, SIRITVIS is an innovative 
 tool to work with geo-coded text on a high geo-spatial resolution to analyse the public discourse on various topics in 
 space and time. The package can be used for a broad range of applications for scientific research to gain insights into 
 topics discussed on Twitter. 
@@ -63,25 +61,29 @@ client_secret = "XXXXXXXXX"
 user_agent = "XXXXXXXXXX"
 keywords = ['Specific','Keywords']
 save_path = '../folder/path/to/store/the/data/'
-streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords)
+raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords).run()
 ```
 
 Cleaning Reddit, Twitter or Any External Text Data
 
 ```python
-clean_data = cleaner.Cleaner('../folder/path/or/csv/file/path/to/load/data/',data_save_name='twitter',data='twitter')
+# raw_data variable could also used as load_path attribute value
 
-clean_data.saving('../folder/path/to/store/the/cleaned/data/')
+clean_data = cleaner.Cleaner(load_path='../folder/path/or/csv/file/path/to/load/data/',data_save_name='twitter',data='twitter')
+
+cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
 ```
 
 Train your a topic model on a corpus of short texts
 
 ```python
+# cleaned_file variable could also used as dataset_path attribute value
+
 model = topic_model.TopicModeling(num_topics=10, dataset_path='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
 dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
 
-model.run()
+saved_model = model.run()
 ```
 
 Topic Insights Visualisation 
@@ -89,15 +91,21 @@ Topic Insights Visualisation
 To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 
 ```python
-vis_model = topic_visualise.PyLDAvis('../csv/file/path/to/load/data.csv',text_column='text')
+# cleaned_file variable could also used as file_path attribute value
+
+vis_model = topic_visualise.PyLDAvis(file_path='../csv/file/path/to/load/data.csv',text_column='text')
 vis_model.visualize()
 ```
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 
 ```python
-vis_model = topic_visualise.TopicWizardvis('../csv/file/path/to/load/data.csv',num_topics=20)
+# cleaned_file variable could also used as csv_file attribute value
+
+vis_model = topic_visualise.TopicWizardvis(csv_file='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text)
 vis_model.visualize()
 ```
+
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
 
 Twitter Topic Geo Visualisation 
 
