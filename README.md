@@ -6,27 +6,7 @@ Social Interaction Research Insights Topic Visualization
 
 ## Summary   
 
-The package SIRITVIS provides a broad range of methods to generate, clean, analyze and visualize the contents of Social Media Data (Reddit and Twitter). SIRITVIS enables the user to work with geo-spatial Twitter data and to generate topic distributions from NeuralLDA and ProdLDA Topic Models for geo-coded Tweets. As such, SIRITVIS is an innovative 
-tool to work with geo-coded text on a high geo-spatial resolution to analyse the public discourse on various topics in 
-space and time. The package can be used for a broad range of applications for scientific research to gain insights into 
-topics discussed on Twitter. 
-
-In general, Topic Models are generative probabilistic models, that provide an insight into hidden information 
-in large text corpora by estimating the underlying topics of the texts in an unsupervised manner.
-
-Firstly, the package allows the user to collect Tweets using a Twitter developer account for any area in the world.
-Subsequently, the inherently noisy Twitter data can be cleaned, transformed and exported. 
-In particular, TTLocVis enables the user to apply LDA Topic Models on extremely sparse Twitter data by preparing 
-the Tweets for LDA analysis by the pooling Tweets by hashtags.
-
-TTLocVis provides options for automatized Topic Model parameter optimization. Furthermore, a distribution over 
-topics is generated for each document. The distribution of topics over documents can be visualized with various 
-plotting methods. The average prevalence of topics in the documents at each day can 
-be plotted as a time series, in order to visualize, how topics develop over time.
- 
-Above this, the spatial distribution of Tweets can be plotted on a world map, which automatically chooses an appropriate
-part of the world, in order to visualise the chosen sample of Tweets. As part of the mapping process, each Tweet is 
-classified by its most prevalent topic and colour coded.
+The integration of a robust Python package SIRITVIS, incorporating data preprocessing, model training, topic evaluation metrics, and geo-visualization tools, provides valuable insights into the spatial distribution of topics across live Twitter, Reddit, and other external data sources. This approach showcases promising potential across domains including marketing, politics, and disaster management, enabling data-driven decision-making through spatial topic distribution insights. The adoption of this approach empowers organizations to deepen their understanding of customers and stakeholders, enhance engagement, and facilitate informed decision-making.
 
 ## Features
 
@@ -106,6 +86,7 @@ vis_model.visualize()
 (https://github.com/x-tabdeveloping/topic-wizard).
 
 ### Twitter Topic Geo Visualisation 
+(under production)
 
 ```python
 csv_file_path = '../file/path/of/data.csv'
@@ -114,8 +95,6 @@ tweet_mapper.TweetMapper(csv_file_path,model_file)
 ```
 
 
-
-
 ## 🎓 References
 
-- Yin, J., & Wang, J. (2014). A Dirichlet Multinomial Mixture Model-Based Approach for Short Text Clustering. _In Proceedings of the 20th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 233–242). Association for Computing Machinery._
+
