@@ -104,17 +104,15 @@ model_file = '../file/path/of/model.pkl'
 tweet_mapper.TweetMapper(csv_file_path,model_file)
 ```
 ## Community guidelines
-Contributions to SIRITVIS are welcome.
 
-Just file an Issue to ask questions, report bugs, or request new features.
-Pull requests via GitHub are also welcome.
-Potential contributions include ways to further improve the quality of the topics of topic models in handling the noisy Reddit and Twitter data and an improvement of the tweet_mapper function in a way that it becomes independent form the notebook.
+We encourage and welcome contributions to the SIRITVIS package. If you have any questions, want to report bugs, or have ideas for new features, please file an issue. 
+
+Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit and Twitter or any external data sources, and improving the tweet_mapper function to make it more interactive and independent from the notebook.
 
 ## Authors
+
 Sagar Narwade
-
 Gillian Kant
-
 Benjamin Säfken
 
 ## License
