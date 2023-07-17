@@ -12,6 +12,10 @@ The package combines established methodologies from data science, machine learni
 
 Overall, the adoption of the SIRITVIS package empowers organizations across domains such as marketing, politics, and disaster management to deepen their understanding of customers and stakeholders. By leveraging spatial topic distribution insights, they can enhance engagement and facilitate informed decision-making processes, leading to improved outcomes.
 
+## How to cite
+Narwade, S., Kant, G., and Säfken, B. (2020), SIRITVIS: Social Interaction Research Insights Topic Visualization. SoftwareX, 5 (54), 2507, https://doi.org/10.21105/joss.02507.
+
+
 ## Features
 
 - Data Streaming 💾
@@ -22,7 +26,9 @@ Overall, the adoption of the SIRITVIS package empowers organizations across doma
 
 ## 🛠 Installation
 
-Install from PyPI:
+Attention: SIRITVIS is designed to run on Python 3.10, it has been fully tested under these conditions. We recommend installing a new (conda) environment using Python 3.10.10 for optimal compatibility and performance.
+
+The package can be installed via pip:
 
 ```bash
 cd ../dist
@@ -97,6 +103,21 @@ csv_file_path = '../file/path/of/data.csv'
 model_file = '../file/path/of/model.pkl'
 tweet_mapper.TweetMapper(csv_file_path,model_file)
 ```
+## Community guidelines
+Contributions to SIRITVIS are welcome.
+
+Just file an Issue to ask questions, report bugs, or request new features.
+Pull requests via GitHub are also welcome.
+Potential contributions include ways to further improve the quality of the topics of topic models in handling the noisy Reddit and Twitter data and an improvement of the tweet_mapper function in a way that it becomes independent form the notebook.
+
+## Authors
+Sagar Narwade
+Gillian Kant
+Benjamin Säfken
+
+## License
+TTLocVis is published under the GNU GPLv3 license.
+
 
 
 ## 🎓 References
