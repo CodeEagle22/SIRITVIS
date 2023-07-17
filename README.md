@@ -112,7 +112,9 @@ Potential contributions include ways to further improve the quality of the topic
 
 ## Authors
 Sagar Narwade
+
 Gillian Kant
+
 Benjamin Säfken
 
 ## License
