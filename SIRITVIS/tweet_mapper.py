@@ -1,23 +1,23 @@
 import pandas as pd
 import folium
-
-import pickle
+from ipywidgets import Dropdown, interact
 import re
-from ipywidgets import Dropdown, interact, Checkbox
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from nltk.sentiment import SentimentIntensityAnalyzer
+import pickle
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from folium import MacroElement
-from ipyleaflet import Map, Marker, Popup, Icon
+from IPython.display import display, HTML
+from branca.element import Element
+import folium
 import math
-import webbrowser
-from IPython.display import display
+import warnings
+# Suppress warnings
+warnings.filterwarnings("ignore")
 
+# Adjust log level to suppress log messages
+import logging
+logging.getLogger().setLevel(logging.ERROR)
 
 class TweetMapper:
-    def __init__(self, csv_file,model_file):
-
+    def __init__(self, data_source, model_source):
         """
         Initialize the TweetMapper object.
 
@@ -26,12 +26,17 @@ class TweetMapper:
             model_file (str or dict): The path to the model file (if str) or the model dictionary (if dict).
         """
 
-        assert isinstance(csv_file, str), "csv_file must be a string"
-        assert isinstance(model_file, (str, dict)), "model_file must be a string path or a dictionary variable"
+        assert isinstance(data_source, (str,pd.DataFrame)), "csv_file must be a string"
+        assert isinstance(model_source, (str, dict)), "model_file must be a string path or a dictionary variable"
 
         # Read the data into a pandas DataFrame
-        self.df = pd.read_csv(csv_file)[:15000]
-        self.model_file = model_file
+
+        if isinstance(data_source, str):
+            self.df = pd.read_csv(data_source)
+        else:
+            self.df = data_source
+
+        self.model_file = model_source
         try:
           self.center_lat = self.df['center_coord_Y'].mean()
           self.center_lon = self.df['center_coord_X'].mean()
@@ -40,8 +45,6 @@ class TweetMapper:
         self.keyword_rankings = {}
         self.country_dropdown = None
 
-        # Preprocess text tokens
-        self.preprocess_text_tokens()
 
         # Create dropdowns
         self.create_dropdowns()
@@ -52,15 +55,14 @@ class TweetMapper:
         sentiments = []
 
         # Perform sentiment classification for each text in the dataset
-        for index, row in self.df.iterrows():
-            text = row['text']
+        for index, row in self.df.iterrows():  # Iterate over DataFrame rows
+            text = row['text']  # Access 'text' column using row indexing
             if isinstance(text, str):
                 scores = analyzer.polarity_scores(text)
                 compound_score = scores['compound']
                 sentiments.append(compound_score)
             else:
                 sentiments.append(0)  # Set a neutral sentiment for non-string values
-
 
         # Add 'sentiment' column to the DataFrame
         self.df['sentiment'] = sentiments
@@ -69,35 +71,17 @@ class TweetMapper:
         self.df['positive_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x > 0 else 0)
         self.df['negative_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x < 0 else 0)
         self.df['neutral_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x == 0 else 0)
-
-        return self.df
-
-    def preprocess_text_tokens(self):
-        # Remove unnecessary characters from text tokens
         self.df['text_tokens'] = self.df['text_tokens'].str.replace('\'', '')
 
-    def merge_data(self, keyword=None):
-        self.df = self.perform_sentiment_analysis()
-
-        # Merge data by grouping on coordinates and aggregating text tokens and sentiment
-
-        merged_df = self.df.groupby(['center_coord_X', 'center_coord_Y', 'country']).agg({'text_tokens': lambda x: ''.join([item for sublist in x for item in sublist]), 'sentiment': 'mean', 'positive_tweet_count': 'sum', 'negative_tweet_count': 'sum', 'neutral_tweet_count': 'sum'}).reset_index()
-
-        # Check if the selected keyword is present in all records with the same 'center_coord_X' and 'center_coord_Y'
-        if keyword:
-            filtered_df = merged_df[merged_df['text_tokens'].apply(lambda x: keyword in x)]
-            grouped_df = filtered_df.groupby(['center_coord_X', 'center_coord_Y', 'country']).size().reset_index(name='count')
-            same_keyword_coords = set(grouped_df[grouped_df['count'] == grouped_df['count'].max()][['center_coord_X', 'center_coord_Y','country']].itertuples(index=False))
-
-            # Exclude sentiment mean aggregation if the keyword is present in all records with the same coordinates
-            merged_df.loc[merged_df.apply(lambda row: (row['center_coord_X'], row['center_coord_Y'],row['country']) in same_keyword_coords, axis=1), 'sentiment'] = None
-
-        return merged_df
+        return self.df
+    
+        
 
 
-    def filter_dataset(self):
-        merge_df = self.merge_data()
-
+    def filter_dataset(self,keyword=None,country=None):
+        df = self.perform_sentiment_analysis()
+        # Load the model and get merged keywords
+         
         # Load the model and get merged keywords
         if type(self.model_file)==dict:
               model = self.model_file
@@ -109,14 +93,67 @@ class TweetMapper:
               merged_keywords = [item for sublist in model['topics'] for item in sublist]
               self.keyword_rankings = {keyword: rank + 1 for rank, keyword in enumerate(merged_keywords)}
 
-        filtered_dataset = merge_df.copy()
+        # Calculate the mean topic-document matrix
+        n = math.floor(len(model['topic-document-matrix'][0]) / len(model['topics'][0]))
+        mean_list = [[sum(sublist[i:i+n]) / n for i in range(0, len(sublist), n)] for sublist in model['topic-document-matrix'].tolist()]
+        two_list = [item for sublist in mean_list for item in sublist[:len(model['topics'][0])]]
+
+        total_count = sum(two_list)
+
+        # Create a DataFrame with the mean topic-document matrix values and percentages
+        percentage_list = [(item / total_count) * 100 for item in two_list]
+        dfr = pd.DataFrame({'tdm': two_list, 'values': merged_keywords, 'percentage': percentage_list})
+
+        # Calculate the mean topic-document matrix by values
+        mean_tdm = dfr.groupby('values')['tdm'].mean().reset_index().sort_values('tdm', ascending=False).reset_index(drop=True)
+
+        
+        filtered_dataset = df.copy()
+
+        # Convert the 'text_tokens' column to string type if necessary
+        filtered_dataset['text_tokens'] = filtered_dataset['text_tokens'].astype(str)
 
         # Filter the dataset based on keyword rankings and length of tokens
-        filtered_dataset['text_tokens'] = filtered_dataset['text_tokens'].apply(lambda x: re.findall(r'\w+', x)).apply(lambda x: list(set(x))).apply(lambda x: [token for token in x if len(token) >= 3]).apply(lambda x: sorted(set(x), key=lambda token: self.keyword_rankings.get(token, float('inf')))[:10])
+        filtered_dataset['text_tokens'] = (filtered_dataset['text_tokens']
+                                          .apply(lambda x: [token for token in re.findall(r'\w+', x) if len(token) >= 3])
+                                          .apply(lambda x: sorted(set(x), key=lambda token: self.keyword_rankings.get(token, float('inf'))))
+                                          )
 
         filtered_dataset = filtered_dataset[filtered_dataset['text_tokens'].apply(lambda x: any(token in self.keyword_rankings for token in x))]
 
-        return filtered_dataset, merged_keywords
+        if keyword:
+          filtered_dataset = filtered_dataset[filtered_dataset['text_tokens'].apply(lambda x: keyword in x)]
+
+
+        filtered_dataset['text_token_dict'] = (filtered_dataset['text_tokens']
+                                          .apply(lambda x: {value: mean_tdm.loc[mean_tdm['values'] == value, 'tdm'].values[0] for value in x if value in mean_tdm['values'].values})
+                                          .apply(lambda x: {k: v for k, v in sorted(x.items(), key=lambda item: item[1], reverse=True)})
+                                        )
+        merged_keyword = mean_tdm['values'].to_list()
+        return filtered_dataset, merged_keyword
+
+    def merge_data(self,dataset):
+        merge_df = dataset
+        
+        
+        # Merge data by grouping on coordinates and aggregating text tokens and sentiment
+        merged_df = merge_df.groupby(['center_coord_X', 'center_coord_Y','country']).agg(
+              {
+                  'text_token_dict': lambda x: dict(sorted({k: v for item in x for k, v in item.items()}.items(), key=lambda item: item[1], reverse=True)),
+                  'text_tokens': lambda x: ''.join([item for sublist in x for item in sublist]),
+                  'sentiment': 'mean',
+                  'positive_tweet_count': 'sum',
+                  'negative_tweet_count': 'sum',
+                  'neutral_tweet_count': 'sum'
+              }
+          ).reset_index()
+
+
+         
+
+        
+        return merged_df
+
 
     def create_dropdowns(self):
         merged_df, merged_keyword = self.filter_dataset()
@@ -154,13 +191,14 @@ class TweetMapper:
 
     def on_country_dropdown_change(self, change):
         # Reset country dropdown value if ' ' is selected
+        merged_df, merged_keyword = self.filter_dataset()
         if change['new'] == ' ':
             self.country_dropdown.value = None
-            self.keyword_dropdown.options = [' '] + self.filter_dataset()[1]
+            self.keyword_dropdown.options = [' '] + merged_keyword.copy()[:10]
         else:
             selected_country = change['new']
             keywords = self.get_keywords_by_country(selected_country)
-            options = [' '] + keywords
+            options = [' '] + merged_keyword.copy()[:10]
             self.keyword_dropdown.options = options
 
     def get_keywords_by_country(self, country):
@@ -175,30 +213,38 @@ class TweetMapper:
     def add_markers(self, keyword=None, country=None, enable_sentiment=True, enable_tweet_count=False):
         # Clear the map
         self.map = folium.Map(location=[self.center_lat, self.center_lon], zoom_start=2)
-
-        merged_df, merged_keywords = self.filter_dataset()
+        
+        if keyword:
+            filtered_dataset, merged_keywords = self.filter_dataset(keyword=keyword)
+        elif keyword and country:
+            filtered_dataset, merged_keywords = self.filter_dataset(keyword=keyword)
+            filtered_dataset = filtered_dataset[filtered_dataset['country'] == country]
+        else:
+            filtered_dataset, merged_keywords = self.filter_dataset()
+        merged_df = self.merge_data(filtered_dataset)
         filtered_df = merged_df.copy()
 
-        if keyword:
-            self.df = self.df[self.df['text_tokens'].apply(lambda x: keyword in x)]
-            self.df['text_tokens'] = self.df['text_tokens'].str.replace('\'', '')
-
         if country:
-            self.df = self.df[self.df['country'] == country]
+            filtered_df = filtered_df[filtered_df['country'] == country]
 
-
-        filtered_df = self.df.groupby(['center_coord_X', 'center_coord_Y', 'country']).agg({'text_tokens': lambda x: ''.join([item for sublist in x for item in sublist]), 'sentiment': 'mean', 'positive_tweet_count': 'sum', 'negative_tweet_count': 'sum', 'neutral_tweet_count': 'sum'}).reset_index()
+        # Perform sentiment analysis on the original filtered DataFrame
+        analyzer = SentimentIntensityAnalyzer()
+        sentiments = []
 
         for index, row in filtered_df.iterrows():
             lat = row['center_coord_Y']
             lon = row['center_coord_X']
-            input_string = row['text_tokens'].strip('[]')
-            output_list = input_string.split(',')
-            row['text_tokens'] = [item.strip() for item in output_list]
-            tokens = list(set(row['text_tokens']))[:10]
+            tokens = list(row['text_token_dict'].keys())
+            frequency = list(row['text_token_dict'].values())
+            total = sum(row['text_token_dict'].values())
+            if row['positive_tweet_count'] > row['negative_tweet_count'] and row['positive_tweet_count'] > row['neutral_tweet_count']:
+                priority = 1
+            elif row['negative_tweet_count'] > row['positive_tweet_count']and row['negative_tweet_count'] > row['neutral_tweet_count']:
+                priority = 2
+            else:
+                priority = 3
             sentiment = row['sentiment']
             country_name = row['country']
-
 
             popup_text = ""
 
@@ -207,59 +253,67 @@ class TweetMapper:
 
             count = ""
             if enable_tweet_count:
-
                 if keyword and country:
+                    summed_counts = filtered_df.groupby('country').agg({
+                        'positive_tweet_count': 'sum',
+                        'negative_tweet_count': 'sum',
+                        'neutral_tweet_count': 'sum'
+                    }).reset_index()
+                    tweet_count = int(summed_counts['positive_tweet_count'] + summed_counts['negative_tweet_count'] + summed_counts['neutral_tweet_count'])
+                    positive_count = int(summed_counts['positive_tweet_count'])
+                    negative_count = int(summed_counts['negative_tweet_count'])
+                    neutral_count = int(summed_counts['neutral_tweet_count'])
                     pos_count = row['positive_tweet_count']
                     neg_count = row['negative_tweet_count']
                     neu_count = row['neutral_tweet_count']
-                    count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive tweets: {pos_count}</span><br><span style='color: red'>Negative tweets: {neg_count}</span><br><span style='color: gray'>Neutral tweets: {neu_count}</span>"
-
-                elif country:
-                    pos_count = row['positive_tweet_count']
-                    neg_count = row['negative_tweet_count']
-                    neu_count = row['neutral_tweet_count']
-                    original_filtered_df = self.df[self.df['country'] == country]
-                    tweet_count = len(original_filtered_df)
-                    positive_count = len(original_filtered_df[original_filtered_df['sentiment'] > 0])
-                    negative_count = len(original_filtered_df[original_filtered_df['sentiment'] < 0])
-                    neutral_count = len(original_filtered_df[original_filtered_df['sentiment'] == 0])
                     count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span>  <b>({tweet_count})</b><br><span style='color: green'>Positive tweets: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative tweets: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral tweets: {neu_count}</span>  <b>({neutral_count})</b>"
-
                 elif keyword:
                     pos_count = row['positive_tweet_count']
                     neg_count = row['negative_tweet_count']
                     neu_count = row['neutral_tweet_count']
-                    original_filtered_df = self.df[self.df['text_tokens'].apply(lambda x: keyword in x)]
-                    tweet_count = len(original_filtered_df)
-                    positive_count = len(original_filtered_df[original_filtered_df['sentiment'] > 0])
-                    negative_count = len(original_filtered_df[original_filtered_df['sentiment'] < 0])
-                    neutral_count = len(original_filtered_df[original_filtered_df['sentiment'] == 0])
                     count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive tweets: {pos_count}</span><br><span style='color: red'>Negative tweets: {neg_count}</span><br><span style='color: gray'>Neutral tweets: {neu_count}</span>"
+                elif country:
+                    summed_counts = filtered_df.groupby('country').agg({
+                        'positive_tweet_count': 'sum',
+                        'negative_tweet_count': 'sum',
+                        'neutral_tweet_count': 'sum'
+                    }).reset_index()
+                    tweet_count = int(summed_counts['positive_tweet_count'] + summed_counts['negative_tweet_count'] + summed_counts['neutral_tweet_count'])
+                    positive_count = int(summed_counts['positive_tweet_count'])
+                    negative_count = int(summed_counts['negative_tweet_count'])
+                    neutral_count = int(summed_counts['neutral_tweet_count'])
 
+                    pos_count = row['positive_tweet_count']
+                    neg_count = row['negative_tweet_count']
+                    neu_count = row['neutral_tweet_count']
+                    count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span>  <b>({tweet_count})</b><br><span style='color: green'>Positive tweets: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative tweets: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral tweets: {neu_count}</span>  <b>({neutral_count})</b>"
                 else:
                     pos_count = row['positive_tweet_count']
                     neg_count = row['negative_tweet_count']
                     neu_count = row['neutral_tweet_count']
                     count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive tweets: {pos_count}</span><br><span style='color: red'>Negative tweets: {neg_count}</span><br><span style='color: gray'>Neutral tweets: {neu_count}</span>"
-
             else:
+                popup_text += "<br>".join([
+                    f"<b>{rank} {token.capitalize()} {round((fre / sum(frequency)) * 100, 2)}%</b>"
+                    if token == keyword else f"<b>{rank}</b> {token.capitalize()} {round((fre / sum(frequency)) * 100, 2)}%"
+                    for rank, (token, fre) in enumerate(zip(tokens[:10], frequency[:10]), start=1)
+                ])
 
-                popup_text += "<br>".join([f"<b>{rank} {token.capitalize()}</b>" if token == keyword else f"<b>{rank}</b> {token.capitalize()}" for rank, token in enumerate(tokens, start=1)])
+                if len(tokens) > 10:
+                    popup_text += f"<br><b>Other:</b> {round((sum(frequency[10:]) / sum(frequency)) * 100, 2)}%"
 
             popup_width = max(len(max(popup_text.split("<br>"), key=len)), 200)  # Adjust popup width
 
             popup_text += count if enable_tweet_count else ""
 
-
-
             # Determine the color of the marker based on sentiment if enabled, otherwise use the default color
             if enable_sentiment:
                 if sentiment is not None:
-                    if sentiment > 0:
+                    if priority == 1:
                         color = 'green'
-                    elif sentiment < 0:
+                    elif priority == 2:
                         color = 'red'
-                    else:
+                    elif priority == 3:
                         color = 'blue'
                 else:
                     color = 'blue'
@@ -273,9 +327,11 @@ class TweetMapper:
             )
             marker.add_to(self.map)
 
-
         # Display the map
-        display(self.map)
+        display(HTML(self.map._repr_html_()))
+
+
+    
 
 
 

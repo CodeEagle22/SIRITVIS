@@ -1,19 +1,14 @@
 
 import pickle
-
 from datetime import datetime
-
-
 import pandas as pd
-
 import re
-
 import warnings
-
 import praw
 from langdetect import detect
+import textblob as TextBlob
 
-
+import warnings
 
 
 
@@ -63,7 +58,12 @@ from langdetect import detect
 # the respective platform's documentation and policies to ensure legal and ethical usage of the data.
 
 
+# Suppress warnings
+warnings.filterwarnings("ignore")
 
+# Adjust log level to suppress log messages
+import logging
+logging.getLogger().setLevel(logging.ERROR)
 
 class RedditStreamer():
     def __init__(self, client_id, client_secret, user_agent, save_path, keywords='all', subreddit_name='all'):
@@ -145,23 +145,24 @@ class RedditStreamer():
 
             # Extract the desired data from the posts
             for post in posts:
-                if post.selftext != "":
-                    data.append([
-                        self.clean_text(str(post.title)),
-                        post.score,
-                        str(post.author.name),
-                        str(post.id),
-                        str(post.subreddit),
-                        str(post.url),
-                        str(post.num_comments),
-                        self.clean_text(str(post.selftext)),
-                        str(post.created)
-                    ])
+                if post.selftext != '' and TextBlob(post.selftext).sentiment.polarity<0:
+                      
+                      data.append([
+                          self.clean_text(str(post.title)),
+                          post.score,
+                          str(post.author.name),
+                          str(post.id),
+                          str(post.subreddit),
+                          str(post.url),
+                          str(post.num_comments),
+                          self.clean_text(str(post.selftext)),
+                          str(post.created)
+                      ])
 
         df = pd.DataFrame(data, columns=self.columns)
 
         # Chunk dataframe to reduce memory usage
-        chunk_size = 90000000
+        chunk_size = 9000000000
         chunks = [df[i:i + chunk_size] for i in range(0, len(df), chunk_size)]
 
         # Write chunks to separate pickle files
@@ -172,11 +173,13 @@ class RedditStreamer():
 
 
     def run(self):
+        
         self.connect_to_reddit()
         
         while True:
             try:
                 self.scrape_data()
+                
             except KeyboardInterrupt:
                 print("Stopped at: " + datetime.now().strftime('%Y%m%d-%H%M%S'))
                 break

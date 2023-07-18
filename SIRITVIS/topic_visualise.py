@@ -33,10 +33,17 @@ import pyLDAvis
 import pyLDAvis.lda_model
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
+import warnings
 
+# Suppress warnings
+warnings.filterwarnings("ignore")
+
+# Adjust log level to suppress log messages
+import logging
+logging.getLogger().setLevel(logging.ERROR)
 
 class PyLDAvis():
-    def __init__(self, file_path, text_column='text'):
+    def __init__(self, data_source,num_topics=10, text_column='text'):
         """
         Initialize the PyLDAvis class.
 
@@ -44,8 +51,9 @@ class PyLDAvis():
         - file_path (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
         - text_column (str): The name of the text column in the CSV file or DataFrame.
         """
-        self.file_path = file_path
+        self.file_path = data_source
         self.column_name = text_column
+        self.num_topics = num_topics
         self.lines = None
         self.tf_vectorizer = None
         self.dtms_tf = None
@@ -100,7 +108,7 @@ class PyLDAvis():
             self.dtms_tfidf = self.tfidf_vectorizer.fit_transform(self.lines)
 
             # Perform Latent Dirichlet Allocation
-            self.lda_tf = LatentDirichletAllocation(n_components=20, random_state=0)
+            self.lda_tf = LatentDirichletAllocation(n_components=self.num_topics, random_state=0)
             self.lda_tf.fit(self.dtms_tf)
 
             # Prepare the visualization
@@ -123,8 +131,8 @@ class PyLDAvis():
     
 
 class TopicWizardvis():
-    def __init__(self, csv_file, num_topics=10, text_column='text'):
-        self.csv_file = csv_file
+    def __init__(self, data_source, num_topics=10, text_column='text'):
+        self.csv_file = data_source
         self.num_topics = num_topics
         self.column_name = text_column
         self.vis = None
@@ -132,7 +140,7 @@ class TopicWizardvis():
         self.word = None
         
         
-    def viz(self):
+    def visualize(self):
         try:
             # Read the CSV file and retrieve the specified column
             if isinstance(self.csv_file, str):
@@ -158,7 +166,7 @@ class TopicWizardvis():
             # Create topic pipeline
             pipeline = make_pipeline(
                 CountVectorizer(stop_words="english", min_df=10),
-                NMF(n_components=self.num_topics),
+                LatentDirichletAllocation(n_components=self.num_topics),
             )
 
             # Then fit it on the given texts

@@ -20,6 +20,13 @@ from wordcloud import WordCloud
 import praw
 from geopy.geocoders import Nominatim
 import folium
+import warnings
+# Suppress warnings
+warnings.filterwarnings("ignore")
+
+# Adjust log level to suppress log messages
+import logging
+logging.getLogger().setLevel(logging.ERROR)
 
 class Cleaner(object):
 
@@ -33,7 +40,7 @@ class Cleaner(object):
     # spacy_model (str): Choose the desired spacy model for text tokenization. Non-default model installation tutorial
     # and an overview about the supported languages can be found at https://spacy.io/usage/models.
     # Default is the small "English" model called 'en_core_web_sm'.
-    def __init__(self, load_path, data_save_name='my_cleaned_and_tokenized_data', languages=None, metadata=False,
+    def __init__(self, data_source, data_save_name='my_cleaned_and_tokenized_data', languages=None, metadata=False,
                  min_post_len=None, spacy_model='en_core_web_sm',data=None,file_format='csv',text_case=True):
         
 
@@ -42,7 +49,7 @@ class Cleaner(object):
         Initialize the TopicModeling object.
 
         Args:
-            load_path (str): Path to the streameed data to load or external csv data file path.
+            data_source (str): Path to the streameed data to load or external csv data file path.
 
             data_save_name (str): Name of the cleaned and tokenized data file (default: 'my_cleaned_and_tokenized_data').
 
@@ -64,7 +71,7 @@ class Cleaner(object):
 
         """
 
-        assert isinstance(load_path, str), "load_path should be a string."
+        assert isinstance(data_source, str), "load_path should be a string."
         assert isinstance(data_save_name, str), "data_save_name should be a string."
         assert languages is None or isinstance(languages, list), "languages should be a list or None. ['en']"
         assert isinstance(metadata, bool), "metadata should be a boolean."
@@ -79,7 +86,7 @@ class Cleaner(object):
         
         self.data_save_name = data_save_name
         self.languages = languages
-        self.load_path = load_path
+        self.load_path = data_source
         self.metadata = metadata
         self.min_post_len = min_post_len
         self.data = data
@@ -382,7 +389,7 @@ class Cleaner(object):
 
     def saving(self, save_path):
         # save data as pickle or csv.
-        _pack_size = 300000000  # no of tweets saved in one go
+        _pack_size = 9000000000  # no of tweets saved in one go
         parts_to_save = math.ceil(len(self.raw_data) / _pack_size)  # calculate how many parts to save (rounds up)
         upper_bound = _pack_size
         for i in range(0, parts_to_save):

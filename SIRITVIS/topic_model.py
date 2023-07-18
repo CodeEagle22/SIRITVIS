@@ -24,8 +24,13 @@ from octis.dataset.dataset import Dataset
 from collections import Counter
 import nltk
 nltk.download('stopwords')
+import warnings
+# Suppress warnings
+warnings.filterwarnings("ignore")
 
-
+# Adjust log level to suppress log messages
+import logging
+logging.getLogger().setLevel(logging.ERROR)
 
 """
 Maps the language to its corresponding spacy model
@@ -48,8 +53,7 @@ class Preprocessing:
         remove_punctuation: bool = True, punctuation: str = string.punctuation,
         remove_numbers: bool = True, lemmatize: bool = True,
         stopword_list: Union[str, List[str]] = None, min_chars: int = 1,
-        min_words_docs: int = 0, language: str = 'english', split: bool = True,
-        verbose: bool = False, num_processes: int = None,
+        min_words_docs: int = 0, language: str = 'english', split: bool = True, num_processes: int = None,
         save_original_indexes=True, remove_stopwords_spacy: bool = True):
         """
         init Preprocessing
@@ -101,9 +105,7 @@ class Preprocessing:
         :param split: if true, the corpus will be split in train (85%),
             testing (7.5%) and validation (7.5%) set (default: true)
         :type split: bool
-        :param verbose: if true, some steps of the preprocessing will be
-            printed on screen (default: false)
-        :type verbose: bool
+        
         :param num_processes: number of processes to run the preprocessing
         :type num_processes: int
         :param save_original_indexes: if true, it keeps track of the original
@@ -130,7 +132,7 @@ class Preprocessing:
                 raise IOError("Can't find model " + lang + ". Check the data directory or download it using the "
                                                            "following command:\npython -m spacy download " + lang)
         self.split = split
-        self.verbose = verbose
+        
 
         self.remove_stopwords_spacy = remove_stopwords_spacy
 
@@ -229,8 +231,7 @@ class Preprocessing:
                     document_indexes.append(i)
 
         self.preprocessing_steps.append('filter documents with less than ' + str(self.min_doc_words) + " words")
-        if self.verbose:
-            print("words filtering done")
+        
         metadata = {"total_documents": len(docs), "vocabulary_length": len(vocabulary),
                     "preprocessing-info": self.preprocessing_steps
                     # ,"labels": list(set(final_labels)), "total_labels": len(set(final_labels))
@@ -353,7 +354,7 @@ class Preprocessing:
     
 
 class TopicModeling:
-    def __init__(self, num_topics, dataset_path, learning_rate=0.001, batch_size=32, activation='softplus',
+    def __init__(self, num_topics, dataset_source, learning_rate=0.001, batch_size=32, activation='softplus',
                  num_layers=3, num_neurons=100, dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA'):
 
         """
@@ -387,7 +388,7 @@ class TopicModeling:
         """
 
         assert isinstance(num_topics, int) and num_topics > 0, "num_topics should be a positive integer."
-        assert isinstance(dataset_path, (str,pd.DataFrame)), "dataset_path should be a string or preprocessed dataset variable"
+        assert isinstance(dataset_source, (str,pd.DataFrame)), "dataset_path should be a string or preprocessed dataset variable"
         assert isinstance(learning_rate, float) and learning_rate > 0, "learning_rate should be a positive float."
         assert isinstance(batch_size, int) and batch_size > 0, "batch_size should be a positive integer."
         assert activation in ['softplus', 'relu', 'sigmoid', 'swish', 'leakyrelu', 'rrelu', 'elu', 'selu', 'tanh'], "activation must be 'softplus', 'relu', 'sigmoid', 'swish', 'leakyrelu', 'rrelu', 'elu', 'selu' or 'tanh'."
@@ -401,7 +402,7 @@ class TopicModeling:
 
 
         self.topk = num_topics
-        self.dataset_path = dataset_path
+        self.dataset_path = dataset_source
         self.lr = learning_rate
         self.batch_size = batch_size
         self.activation = activation
@@ -416,6 +417,7 @@ class TopicModeling:
         self.processed = None
         self.dataset = None
         self.nlda = None
+        self.evaluation_results = None
         
 
     def read_data(self):
@@ -525,12 +527,11 @@ class TopicModeling:
                               dropout=self.dropout, num_epochs=self.num_epochs,
                               num_layers=self.num_layers, num_neurons=self.num_neurons)
             self.nlda = model.train_model(self.dataset)
-            print('\nTrending Topics \n')
-            print(self.nlda['topics'])
+            
         except Exception as e:
             print("Error: Training model failed:", e)
             return False
-        return self.nlda
+        return True
 
 
     def save_trained_model(self):
@@ -543,9 +544,9 @@ class TopicModeling:
                 return False
 
             if self.model_path is None:
-                pkl_filename = 'NeuralLDA_trained_model.pkl'
+                pkl_filename = self.model+'_trained_model.pkl'
             else:
-                pkl_filename = self.model_path+'NeuralLDA_trained_model.pkl'
+                pkl_filename = self.model_path+self.model+'_trained_model.pkl'
 
             try:
                 
@@ -565,18 +566,41 @@ class TopicModeling:
             return False
 
         try:
-            topic_diversity_score = TopicDiversity(topk=self.topk).score(self.nlda)
-            inverted_rbo_score = InvertedRBO(topk=self.topk).score(self.nlda)
-            accuracy_score = AccuracyScore(self.dataset).score(self.nlda)
-            pairwise_jaccard_similarity_score = PairwiseJaccardSimilarity(topk=self.topk).score(self.nlda)
-            coherence_score = Coherence(texts=self.nlda['topics'], topk=self.topk, measure='c_v').score(self.nlda)
+            try:
+                topic_diversity_score = TopicDiversity(topk=self.topk).score(self.nlda)
+            except Exception as e:
+                print("Error: topic diversity failed:", e)
+            try:
+                inverted_rbo_score = InvertedRBO(topk=self.topk).score(self.nlda)
+            except Exception as e:
+                print("Error: inverted rbo failed:", e)
+            
+            try:
+                accuracy_score = AccuracyScore(self.dataset).score(self.nlda)
+            except Exception as e:
+                print("Error: accuracy score failed:", e)
+            try:
+                pairwise_jaccard_similarity_score = PairwiseJaccardSimilarity(topk=self.topk).score(self.nlda)
+            except Exception as e:
+                print("Error: pairwise jaccard similarity score failed:", e)
+            try:
+                coherence_score = Coherence(texts=self.nlda['topics'], topk=self.topk, measure='c_v').score(self.nlda)
+            except Exception as e:
+                print("Error: coherence score failed:", e)
 
-            print('\nModel Evaluation \n')
-            print('Topic Diversity Score: {:.3f}'.format(topic_diversity_score))
-            print('Inverted RBO Score: {:.3f}'.format(inverted_rbo_score))
-            print('Accuracy Score: {:.3f}'.format(accuracy_score))
-            print('Pairwise Jaccard Similarity Score: {:.3f}'.format(pairwise_jaccard_similarity_score))
-            print('Coherence Score: {:.3f}'.format(coherence_score))
+            
+            self.evaluation_results = ' Model Evaluation '
+            self.evaluation_results += ' Topic Diversity Score: {:.3f}   '.format(topic_diversity_score)
+            self.evaluation_results += ' Inverted RBO Score: {:.3f}  '.format(inverted_rbo_score)
+            self.evaluation_results += ' Accuracy Score: {:.3f}  '.format(accuracy_score)
+            self.evaluation_results += ' Pairwise Jaccard Similarity Score: {:.3f}   '.format(pairwise_jaccard_similarity_score)
+            self.evaluation_results += ' Coherence Score: {:.3f}  '.format(coherence_score)
+            self.evaluation_results += '                                                        '
+
+            print('')
+            print('')
+            print(str(self.evaluation_results))
+
         except Exception as e:
             print("Error: Evaluating model failed:", e)
             return False
@@ -600,6 +624,9 @@ class TopicModeling:
             return False
         if not self.evaluate_model():
             return False
+        
         return self.nlda
+        
+        
 
 
