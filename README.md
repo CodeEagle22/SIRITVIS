@@ -99,6 +99,9 @@ vis_model.visualize()
 (under production)
 
 ```python
+# cleaned_file variable could also used as csv_file_path attribute value
+# saved_model variable could also used as model_file attribute value
+
 csv_file_path = '../file/path/of/data.csv'
 model_file = '../file/path/of/model.pkl'
 tweet_mapper.TweetMapper(csv_file_path,model_file)
