@@ -97,7 +97,6 @@ vis_model.visualize()
 
 
 ### Twitter Topic Geo Visualisation 
-(under production)
 
 ```python
 # cleaned_file variable could also used as csv_file_path attribute value
