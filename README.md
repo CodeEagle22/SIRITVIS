@@ -37,7 +37,7 @@ pip install SIRITVIS-1.0.tar.gz
 
 ## 👩‍💻 Usage ([documentation])
 
-Import Libraries
+### Import Libraries
 
 ```python
 from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, tweet_mapper
