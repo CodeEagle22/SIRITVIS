@@ -87,13 +87,14 @@ vis_model.visualize()
 ```
 
 To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard]
+(https://github.com/x-tabdeveloping/topic-wizard).
 ```python
 # cleaned_file variable could also used as csv_file attribute value
 
 vis_model = topic_visualise.TopicWizardvis(csv_file='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
 ```
-(https://github.com/x-tabdeveloping/topic-wizard).
+
 
 ### Twitter Topic Geo Visualisation 
 (under production)
