@@ -54,6 +54,12 @@ save_path = '../folder/path/to/store/the/data/'
 raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords).run()
 ```
 
+### Streaming Twitter Data
+
+```python
+raw_data = twitter_streamer.TwitterStreamer(auth_path=r'../folder/path/to/store/the/data/credentials.txt',save_path=r'../folder/path/to/store/the/data/',languages=['en'],locations=[51.416016,5.528511,90.966797,34.669359])
+```
+
 ### Cleaning Reddit, Twitter or Any External Text Data
 
 ```python
