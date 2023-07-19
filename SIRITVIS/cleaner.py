@@ -41,7 +41,7 @@ class Cleaner(object):
     # and an overview about the supported languages can be found at https://spacy.io/usage/models.
     # Default is the small "English" model called 'en_core_web_sm'.
     def __init__(self, data_source, data_save_name='my_cleaned_and_tokenized_data', languages=None, metadata=False,
-                 min_post_len=None, spacy_model='en_core_web_sm',data=None,file_format='csv',text_case=True):
+                 min_post_len=None, spacy_model='en_core_web_sm',data_source_type=None,file_format='csv',text_case=True):
         
 
 
@@ -61,7 +61,7 @@ class Cleaner(object):
 
             spacy_model (str): Name of the Spacy language model to load (default: 'en_core_web_sm').
 
-            data (str): Data to clean as a 'twitter' or None if loading from file (default: None).
+            data_source_type (str): Data to clean as a 'twitter' or None if loading from file (default: None).
 
             file_format (str): Format of the data file to load (default: 'csv').
 
@@ -77,7 +77,7 @@ class Cleaner(object):
         assert isinstance(metadata, bool), "metadata should be a boolean."
         assert min_post_len is None or (isinstance(min_post_len, int) and min_post_len > 0), "min_post_len should be a positive integer or None."
         assert isinstance(spacy_model, str), "spacy_model should be a string."
-        assert data is None or isinstance(data, str), "data should be a 'twitter' or None."
+        assert data_source_type is None or isinstance(data, str), "data should be a 'twitter' or None."
         assert isinstance(file_format, str), "file_format should be a 'csv' or 'pkl'."
         assert isinstance(text_case, bool), "text_case should be a boolean."
         
@@ -89,7 +89,7 @@ class Cleaner(object):
         self.load_path = data_source
         self.metadata = metadata
         self.min_post_len = min_post_len
-        self.data = data
+        self.data = data_source_type
         self.file_format = file_format
         self.text_case = text_case
         try:
