@@ -46,10 +46,13 @@ from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, twe
 ### Streaming Reddit Data
 
 ```python
+# Run the streaming process to retrieve raw data based on the specified keywords
+
+raw_data = streamer.run()
 client_id = "XXXXXXXXXX"
 client_secret = "XXXXXXXXX"
 user_agent = "XXXXXXXXXX"
-keywords = ['Specific','Keywords']
+keywords = ['Specific','Keywords'] # default is None
 save_path = '../folder/path/to/store/the/data/'
 raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords).run()
 ```
@@ -57,7 +60,14 @@ raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,sav
 ### Streaming Twitter Data
 
 ```python
-raw_data = twitter_streamer.TwitterStreamer(auth_path=r'../folder/path/to/store/the/data/credentials.txt',save_path=r'../folder/path/to/store/the/data/',languages=['en'],locations=[51.416016,5.528511,90.966797,34.669359])
+# Run the streaming process to retrieve raw data based on the specified keywords and for specific location
+
+auth_path = '../file/path/to/load/the/credentials.txt'
+save_path = '../folder/path/to/store/the/data/'
+languages = ['en'] # could select multiple languages
+locations = [51.416016,5.528511,90.966797,34.669359] # box coordinates.
+keywords = ['Specific','Keywords'] # default is None
+raw_data = twitter_streamer.TwitterStreamer(auth_path=auth_path,save_path=save_path,languages=languages,locations=locations,keywords=keywords)
 ```
 
 ### Cleaning Reddit, Twitter or Any External Text Data
@@ -88,7 +98,7 @@ To investigate internal structure of topics and their relations to words and ind
 ```python
 # cleaned_file variable could also used as file_path attribute value
 
-vis_model = topic_visualise.PyLDAvis(file_path='../csv/file/path/to/load/data.csv',text_column='text')
+vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
 ```
 
@@ -96,8 +106,9 @@ To investigate internal structure of topics and their relations to words and ind
 (https://github.com/x-tabdeveloping/topic-wizard).
 ```python
 # cleaned_file variable could also used as csv_file attribute value
+# please wait for a while for the word cloud to appear.
 
-vis_model = topic_visualise.TopicWizardvis(csv_file='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
+vis_model = topic_visualise.TopicWizardvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
 ```
 
@@ -109,8 +120,8 @@ vis_model.visualize()
 # saved_model variable could also used as model_file attribute value
 
 csv_file_path = '../file/path/of/data.csv'
-model_file = '../file/path/of/model.pkl'
-tweet_mapper.TweetMapper(csv_file_path,model_file)
+model_path = '../file/path/of/model.pkl'
+tweet_mapper.TweetMapper(csv_file_path,model_path)
 ```
 ## Community guidelines
 
@@ -125,7 +136,7 @@ Gillian Kant
 Benjamin Säfken
 
 ## License
-TTLocVis is published under the GNU GPLv3 license.
+SIRITVIS is published under the GNU GPLv3 license.
 
 
 
