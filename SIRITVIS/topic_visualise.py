@@ -48,9 +48,11 @@ class PyLDAvis():
         Initialize the PyLDAvis class.
 
         Parameters:
-        - file_path (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
+        - data_source (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
         - text_column (str): The name of the text column in the CSV file or DataFrame.
         """
+        assert isinstance(data_source, (str,pd.DataFrame)), "data_source should be a string path or preprocessed dataset variable"
+        assert text_column is None or isinstance(text_column, str), "text_column must be a str"
         self.file_path = data_source
         self.column_name = text_column
         self.num_topics = num_topics
@@ -132,6 +134,16 @@ class PyLDAvis():
 
 class TopicWizardvis():
     def __init__(self, data_source, num_topics=10, text_column='text'):
+        """
+        Initialize the PyLDAvis class.
+
+        Parameters:
+        - data_source (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
+        - text_column (str): The name of the text column in the CSV file or DataFrame.
+        """
+        assert isinstance(data_source, (str,pd.DataFrame)), "data_source should be a string path or preprocessed dataset variable"
+        assert text_column is None or isinstance(text_column, str), "text_column must be a str"
+
         self.csv_file = data_source
         self.num_topics = num_topics
         self.column_name = text_column
