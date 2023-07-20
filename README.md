@@ -48,7 +48,6 @@ from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, twe
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords
 
-raw_data = streamer.run()
 client_id = "XXXXXXXXXX"
 client_secret = "XXXXXXXXX"
 user_agent = "XXXXXXXXXX"
