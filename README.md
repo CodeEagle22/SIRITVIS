@@ -48,7 +48,6 @@ from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, twe
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords
 
-raw_data = streamer.run()
 client_id = "XXXXXXXXXX"
 client_secret = "XXXXXXXXX"
 user_agent = "XXXXXXXXXX"
@@ -75,7 +74,7 @@ raw_data = twitter_streamer.TwitterStreamer(auth_path=auth_path,save_path=save_p
 ```python
 # raw_data variable could also used as load_path attribute value
 
-clean_data = cleaner.Cleaner(load_path='../folder/path/or/csv/file/path/to/load/data/',data_save_name='twitter',data='twitter')
+clean_data = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_save_name='twitter',data='twitter')
 
 cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
 ```
@@ -85,7 +84,7 @@ cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
 ```python
 # cleaned_file variable could also used as dataset_path attribute value
 
-model = topic_model.TopicModeling(num_topics=10, dataset_path='../csv/file/path/to/load/data.csv',
+model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
 dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
 
