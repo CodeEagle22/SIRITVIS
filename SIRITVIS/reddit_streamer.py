@@ -4,14 +4,19 @@ from datetime import datetime
 import pandas as pd
 import re
 import warnings
+from textblob import TextBlob
 import praw
-from langdetect import detect
-import textblob as TextBlob
+
+
+
 
 import warnings
+# Suppress warnings
+warnings.filterwarnings("ignore")
 
-
-
+# Adjust log level to suppress log messages
+import logging
+logging.getLogger().setLevel(logging.ERROR)
 
 
 # 1. Data Scraping: SocialMediaStreamer class
@@ -58,16 +63,11 @@ import warnings
 # the respective platform's documentation and policies to ensure legal and ethical usage of the data.
 
 
-# Suppress warnings
-warnings.filterwarnings("ignore")
 
-# Adjust log level to suppress log messages
-import logging
-logging.getLogger().setLevel(logging.ERROR)
 
 class RedditStreamer():
     def __init__(self, client_id, client_secret, user_agent, save_path, keywords='all', subreddit_name='all'):
-        
+
         """
         Initialize the RedditScraper object.
 
@@ -94,7 +94,7 @@ class RedditStreamer():
         assert isinstance(keywords, (str, list)) or keywords == 'all', "keywords should be a string, a list, or 'all'."
         assert isinstance(subreddit_name, (str, list)) or subreddit_name == 'all', "subreddit_name should be a string, a list, or 'all'."
 
-        
+
         self.subreddit_name = subreddit_name
         self.client_id = client_id
         self.client_secret = client_secret
@@ -146,7 +146,7 @@ class RedditStreamer():
             # Extract the desired data from the posts
             for post in posts:
                 if post.selftext != '' and TextBlob(post.selftext).sentiment.polarity<0:
-                      
+
                       data.append([
                           self.clean_text(str(post.title)),
                           post.score,
@@ -162,7 +162,7 @@ class RedditStreamer():
         df = pd.DataFrame(data, columns=self.columns)
 
         # Chunk dataframe to reduce memory usage
-        chunk_size = 9000000000
+        chunk_size = 90000000
         chunks = [df[i:i + chunk_size] for i in range(0, len(df), chunk_size)]
 
         # Write chunks to separate pickle files
@@ -173,13 +173,13 @@ class RedditStreamer():
 
 
     def run(self):
-        
+
         self.connect_to_reddit()
-        
+
         while True:
             try:
                 self.scrape_data()
-                
+
             except KeyboardInterrupt:
                 print("Stopped at: " + datetime.now().strftime('%Y%m%d-%H%M%S'))
                 break

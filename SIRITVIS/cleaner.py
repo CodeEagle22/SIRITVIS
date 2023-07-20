@@ -20,6 +20,7 @@ from wordcloud import WordCloud
 import praw
 from geopy.geocoders import Nominatim
 import folium
+from pandas import json_normalize
 import warnings
 # Suppress warnings
 warnings.filterwarnings("ignore")
@@ -77,7 +78,7 @@ class Cleaner(object):
         assert isinstance(metadata, bool), "metadata should be a boolean."
         assert min_post_len is None or (isinstance(min_post_len, int) and min_post_len > 0), "min_post_len should be a positive integer or None."
         assert isinstance(spacy_model, str), "spacy_model should be a string."
-        assert data_source_type is None or isinstance(data, str), "data should be a 'twitter' or None."
+        assert data_source_type is None or isinstance(data_source_type, str), "data should be a 'twitter' or None."
         assert isinstance(file_format, str), "file_format should be a 'csv' or 'pkl'."
         assert isinstance(text_case, bool), "text_case should be a boolean."
         
@@ -311,7 +312,7 @@ class Cleaner(object):
             self.raw_data = pd.concat([self.raw_data, st], axis=1)  # append the X and Y coordinates to the dataframe
 
             # Tokenization (usage of static method):
-            self.raw_data['text_tokens'] = self.raw_data['text'].apply(lambda x: Cleaner._tokenizer(self.spacy_model, x))
+            self.raw_data['text_tokens'] = self.raw_data['text'].apply(lambda x: Cleaner._tokenizer(self.spacy_model, x,self.text_case))
             
             def is_land(latitude, longitude):
                 geolocator = Nominatim(user_agent="land_checker")

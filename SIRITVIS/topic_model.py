@@ -5,6 +5,8 @@ import string
 from nltk.corpus import stopwords
 from octis.models.NeuralLDA import NeuralLDA
 from octis.models.ProdLDA import ProdLDA
+from octis.models.LDA import LDA
+from octis.models.CTM import CTM
 from octis.evaluation_metrics.classification_metrics import AccuracyScore
 from octis.evaluation_metrics.coherence_metrics import Coherence
 from octis.evaluation_metrics.similarity_metrics import PairwiseJaccardSimilarity, InvertedRBO
@@ -383,7 +385,7 @@ class TopicModeling:
 
             model_path (str): Path to save the trained model (default: None).
 
-            train_model (str): Model to use for training (default: 'NeuralLDA'). Other Option is 'ProdLDA'
+            train_model (str): Model to use for training (default: 'NeuralLDA'). Other Options are 'ProdLDA', 'LDA', 'CTM'
 
         """
 
@@ -398,7 +400,7 @@ class TopicModeling:
         assert isinstance(num_epochs, int) and num_epochs > 0, "num_epochs should be a positive integer."
         assert isinstance(save_model, bool), "save_model should be a boolean."
         assert model_path is None or isinstance(model_path, str), "model_path should be None or a string."
-        assert train_model in ['NeuralLDA', 'ProdLDA'], "train_model should be either 'NeuralLDA' or 'ProdLDA'."
+        assert train_model in ['NeuralLDA', 'ProdLDA','LDA','CTM'], "train_model should be either 'NeuralLDA','ProdLDA','LDA' or 'CTM'."
 
 
         self.topk = num_topics
@@ -523,9 +525,15 @@ class TopicModeling:
             return False
 
         try:
-            model = self.model(num_topics=self.topk, lr=self.lr, batch_size=self.batch_size, activation=self.activation,
-                              dropout=self.dropout, num_epochs=self.num_epochs,
-                              num_layers=self.num_layers, num_neurons=self.num_neurons)
+            if self.model == LDA:
+                model = self.model(num_topics=self.topk,  chunksize=self.batch_size,
+                                decay=self.dropout, iterations=self.num_epochs,gamma_threshold=self.lr,random_state=42)
+                
+            else:
+                model = self.model(num_topics=self.topk, lr=self.lr, batch_size=self.batch_size, activation=self.activation,
+                                dropout=self.dropout, num_epochs=self.num_epochs,
+                                num_layers=self.num_layers, num_neurons=self.num_neurons)
+                
             self.nlda = model.train_model(self.dataset)
             
         except Exception as e:
@@ -589,17 +597,20 @@ class TopicModeling:
                 print("Error: coherence score failed:", e)
 
             
+            # Your evaluation code goes here, and the results are stored in self.evaluation_results
+
+            # Assuming you have already set the evaluation results as shown in your code
+          
             self.evaluation_results = ' Model Evaluation '
-            self.evaluation_results += ' Topic Diversity Score: {:.3f}   '.format(topic_diversity_score)
-            self.evaluation_results += ' Inverted RBO Score: {:.3f}  '.format(inverted_rbo_score)
-            self.evaluation_results += ' Accuracy Score: {:.3f}  '.format(accuracy_score)
-            self.evaluation_results += ' Pairwise Jaccard Similarity Score: {:.3f}   '.format(pairwise_jaccard_similarity_score)
-            self.evaluation_results += ' Coherence Score: {:.3f}  '.format(coherence_score)
-            self.evaluation_results += '                                                        '
+            self.evaluation_results += '\n\nTopic Diversity Score: {:.3f},   '.format(topic_diversity_score)
+            self.evaluation_results += 'Inverted RBO Score: {:.3f},  '.format(inverted_rbo_score)
+            self.evaluation_results += 'Accuracy Score: {:.3f}  '.format(accuracy_score)
+            self.evaluation_results += '\nPairwise Jaccard Similarity Score: {:.3f},   '.format(pairwise_jaccard_similarity_score)
+            self.evaluation_results += 'Coherence Score: {:.3f}  '.format(coherence_score)
 
             print('')
             print('')
-            print(str(self.evaluation_results))
+            print(str(self.evaluation_results).strip())  # Remove extra whitespace at the end
 
         except Exception as e:
             print("Error: Evaluating model failed:", e)

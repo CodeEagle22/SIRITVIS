@@ -22,7 +22,7 @@ class TweetMapper:
         Initialize the TweetMapper object.
 
         Args:
-            csv_file (str): The path to the CSV file.
+            data_source (str,pd.DataFrame): The path to the CSV file or clean_data variable.
             model_file (str or dict): The path to the model file (if str) or the model dictionary (if dict).
         """
 
@@ -71,7 +71,8 @@ class TweetMapper:
         self.df['positive_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x > 0 else 0)
         self.df['negative_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x < 0 else 0)
         self.df['neutral_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x == 0 else 0)
-        self.df['text_tokens'] = self.df['text_tokens'].str.replace('\'', '')
+        self.df['text_tokens'] = self.df['text_tokens'].astype(str)
+        self.df['text_tokens'] = self.df['text_tokens'].str.replace("\'", "")
 
         return self.df
     
@@ -157,7 +158,7 @@ class TweetMapper:
 
     def create_dropdowns(self):
         merged_df, merged_keyword = self.filter_dataset()
-        keywords = merged_keyword.copy()[:10]
+        keywords = merged_keyword.copy()[:50]
         options = [' '] + keywords
 
         # Create a keyword dropdown widget
@@ -194,11 +195,11 @@ class TweetMapper:
         merged_df, merged_keyword = self.filter_dataset()
         if change['new'] == ' ':
             self.country_dropdown.value = None
-            self.keyword_dropdown.options = [' '] + merged_keyword.copy()[:10]
+            self.keyword_dropdown.options = [' '] + merged_keyword.copy()[:50]
         else:
             selected_country = change['new']
             keywords = self.get_keywords_by_country(selected_country)
-            options = [' '] + merged_keyword.copy()[:10]
+            options = [' '] + merged_keyword.copy()[:50]
             self.keyword_dropdown.options = options
 
     def get_keywords_by_country(self, country):
