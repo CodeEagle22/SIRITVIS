@@ -84,7 +84,7 @@ cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
 ```python
 # cleaned_file variable could also used as dataset_path attribute value
 
-model = topic_model.TopicModeling(num_topics=10, dataset_path='../csv/file/path/to/load/data.csv',
+model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
 dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
 
