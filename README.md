@@ -136,7 +136,7 @@ Gillian Kant
 Benjamin Säfken
 
 ## License
-TTLocVis is published under the GNU GPLv3 license.
+SIRITVIS is published under the GNU GPLv3 license.
 
 
 
