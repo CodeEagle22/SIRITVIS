@@ -143,5 +143,5 @@ SIRITVIS is published under the GNU GPLv3 license.
 ## 🎓 References
 We utilized the fantastic "OCTIS" by Terragni, Silvia and Fersini, Elisabetta and Galuzzi, Bruno Giovanni and Tropeano, Pietro and Candelieri, Antonio [^1^] to enhance our application. "OCTIS" is a powerful library/tool that provided us with essential functionalities for our project.
 
-[^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS)https://github.com/MIND-Lab/OCTIS.
+[^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 
