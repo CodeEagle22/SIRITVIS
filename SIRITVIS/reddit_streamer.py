@@ -16,7 +16,7 @@ import logging
 logging.getLogger().setLevel(logging.ERROR)
 
 class RedditStreamer():
-    def __init__(self, client_id, client_secret, user_agent, save_path, keywords='all', subreddit_name='all', min_file_size_mb=1):
+    def __init__(self, client_id, client_secret, user_agent, save_path, keywords='all', subreddit_name='all'):
         """
         Initialize the RedditStreamer object.
 
@@ -35,8 +35,7 @@ class RedditStreamer():
         assert isinstance(save_path, str), "save_path should be a string."
         assert isinstance(keywords, (str, list)) or keywords == 'all', "keywords should be a string, a list, or 'all'."
         assert isinstance(subreddit_name, (str, list)) or subreddit_name == 'all', "subreddit_name should be a string, a list, or 'all'."
-        assert isinstance(min_file_size_mb, int) and min_file_size_mb >= 1, "min_file_size_mb should be an integer greater than or equal to 1."
-
+        
         self.subreddit_name = subreddit_name
         self.client_id = client_id
         self.client_secret = client_secret
@@ -46,7 +45,7 @@ class RedditStreamer():
         self.columns = ['title', 'score', 'author', 'id_str', 'subreddit', 'url', 'num_comments', 'text', 'created_at']
         self.reddit = None
         self.subreddit = None
-        self.min_file_size = min_file_size_mb * 1024 * 1024  # Convert to bytes
+        self.min_file_size = 1 * 1024 * 1024  # Convert to bytes
         self.data_buffer = []
         self.current_file_size = 0
         self.run()
