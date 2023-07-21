@@ -390,7 +390,7 @@ class Cleaner(object):
 
     def saving(self, save_path):
         # save data as pickle or csv.
-        _pack_size = 9000000000  # no of tweets saved in one go
+        _pack_size = 1000000000  
         parts_to_save = math.ceil(len(self.raw_data) / _pack_size)  # calculate how many parts to save (rounds up)
         upper_bound = _pack_size
         for i in range(0, parts_to_save):

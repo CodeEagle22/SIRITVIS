@@ -96,7 +96,14 @@ class TweetMapper:
 
         # Calculate the mean topic-document matrix
         n = math.floor(len(model['topic-document-matrix'][0]) / len(model['topics'][0]))
-        mean_list = [[sum(sublist[i:i+n]) / n for i in range(0, len(sublist), n)] for sublist in model['topic-document-matrix'].tolist()]
+        # Check if n is 0 to avoid division by zero
+        if n == 0:
+            # Set mean_list to an empty list since we can't divide by 0
+            mean_list = []
+        else:
+            mean_list = [[sum(sublist[i:i+n]) / n for i in range(0, len(sublist), n)] for sublist in model['topic-document-matrix'].tolist()]
+
+        # Flatten the mean_list to get two_list
         two_list = [item for sublist in mean_list for item in sublist[:len(model['topics'][0])]]
 
         total_count = sum(two_list)
