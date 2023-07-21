@@ -105,8 +105,7 @@ vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.
 vis_model.visualize()
 ```
 
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard]
-(https://github.com/x-tabdeveloping/topic-wizard).
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard)
 ```python
 # cleaned_file variable could also used as csv_file attribute value
 # please wait for a while for the word cloud to appear.
@@ -134,39 +133,15 @@ Additionally, we appreciate pull requests via GitHub. There are several areas wh
 
 ## Authors
 
-Sagar Narwade
+Sagar Narwade 
 Gillian Kant
 Benjamin Säfken
 
 ## License
 SIRITVIS is published under the GNU GPLv3 license.
 
-
-
 ## 🎓 References
+We utilized the fantastic "OCTIS" by Terragni, Silvia and Fersini, Elisabetta and Galuzzi, Bruno Giovanni and Tropeano, Pietro and Candelieri, Antonio [^1^] to enhance our application. "OCTIS" is a powerful library/tool that provided us with essential functionalities for our project.
 
-@inproceedings{terragni2020octis,
-    title={{OCTIS}: Comparing and Optimizing Topic Models is Simple!},
-    author={Terragni, Silvia and Fersini, Elisabetta and Galuzzi, Bruno Giovanni and Tropeano, Pietro and Candelieri, Antonio},
-    year={2021},
-    booktitle={Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations},
-    month = apr,
-    year = "2021",
-    publisher = "Association for Computational Linguistics",
-    url = "https://www.aclweb.org/anthology/2021.eacl-demos.31",
-    pages = "263--270",
-}
+[^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS)https://github.com/MIND-Lab/OCTIS
 
-@inproceedings{DBLP:conf/clic-it/TerragniF21,
-  author    = {Silvia Terragni and Elisabetta Fersini},
-  editor    = {Elisabetta Fersini and Marco Passarotti and Viviana Patti},
-  title     = {{OCTIS 2.0: Optimizing and Comparing Topic Models in Italian Is Even
-               Simpler!}},
-  booktitle = {Proceedings of the Eighth Italian Conference on Computational Linguistics,
-               CLiC-it 2021, Milan, Italy, January 26-28, 2022},
-  series    = {{CEUR} Workshop Proceedings},
-  volume    = {3033},
-  publisher = {CEUR-WS.org},
-  year      = {2021},
-  url       = {http://ceur-ws.org/Vol-3033/paper55.pdf},
-}
