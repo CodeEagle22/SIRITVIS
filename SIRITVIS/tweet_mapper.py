@@ -1,6 +1,6 @@
 import pandas as pd
 import folium
-from ipywidgets import Dropdown, interact
+from ipywidgets import Dropdown, interact, Checkbox
 import re
 import pickle
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer

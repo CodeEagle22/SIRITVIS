@@ -574,25 +574,33 @@ class TopicModeling:
             return False
 
         try:
+            self.evaluation_results = ' Model Evaluation '
             try:
                 topic_diversity_score = TopicDiversity(topk=self.topk).score(self.nlda)
+                self.evaluation_results += '\n\nTopic Diversity Score: {:.3f},   '.format(topic_diversity_score)
             except Exception as e:
                 print("Error: topic diversity failed:", e)
             try:
                 inverted_rbo_score = InvertedRBO(topk=self.topk).score(self.nlda)
+                self.evaluation_results += 'Inverted RBO Score: {:.3f},  '.format(inverted_rbo_score)
             except Exception as e:
                 print("Error: inverted rbo failed:", e)
             
             try:
                 accuracy_score = AccuracyScore(self.dataset).score(self.nlda)
+                self.evaluation_results += 'Accuracy Score: {:.3f}  '.format(accuracy_score)
+            
             except Exception as e:
                 print("Error: accuracy score failed:", e)
             try:
                 pairwise_jaccard_similarity_score = PairwiseJaccardSimilarity(topk=self.topk).score(self.nlda)
+                self.evaluation_results += '\nPairwise Jaccard Similarity Score: {:.3f},   '.format(pairwise_jaccard_similarity_score)
+            
             except Exception as e:
                 print("Error: pairwise jaccard similarity score failed:", e)
             try:
                 coherence_score = Coherence(texts=self.nlda['topics'], topk=self.topk, measure='c_v').score(self.nlda)
+                self.evaluation_results += 'Coherence Score: {:.3f}  '.format(coherence_score)
             except Exception as e:
                 print("Error: coherence score failed:", e)
 
@@ -601,19 +609,15 @@ class TopicModeling:
 
             # Assuming you have already set the evaluation results as shown in your code
           
-            self.evaluation_results = ' Model Evaluation '
-            self.evaluation_results += '\n\nTopic Diversity Score: {:.3f},   '.format(topic_diversity_score)
-            self.evaluation_results += 'Inverted RBO Score: {:.3f},  '.format(inverted_rbo_score)
-            self.evaluation_results += 'Accuracy Score: {:.3f}  '.format(accuracy_score)
-            self.evaluation_results += '\nPairwise Jaccard Similarity Score: {:.3f},   '.format(pairwise_jaccard_similarity_score)
-            self.evaluation_results += 'Coherence Score: {:.3f}  '.format(coherence_score)
-
+            
+            
+            
             print('')
             print('')
             print(str(self.evaluation_results).strip())  # Remove extra whitespace at the end
 
         except Exception as e:
-            print("Error: Evaluating model failed:", e)
+            print("Error: Evaluating model failed, Make sure dataset have enough data to train: ", e)
             return False
         return True
 
