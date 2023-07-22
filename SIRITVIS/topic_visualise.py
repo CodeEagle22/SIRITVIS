@@ -72,6 +72,8 @@ class PyLDAvis():
         - vis: The prepared visualization object.
         """
         try:
+
+            print('The visualisation is based on Latent Dirichlet Allocation (LDA) model.')
             # Read the CSV file or use the provided DataFrame
             if isinstance(self.file_path, pd.DataFrame):
                 data = self.file_path
@@ -154,6 +156,8 @@ class TopicWizardvis():
         
     def visualize(self):
         try:
+
+            print('The visualisation is based on Latent Dirichlet Allocation (LDA) model.')
             # Read the CSV file and retrieve the specified column
             if isinstance(self.csv_file, str):
                 file_extension = os.path.splitext(self.csv_file)[1]
