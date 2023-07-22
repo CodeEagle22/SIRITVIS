@@ -8,11 +8,9 @@ Social Interaction Research Insights Topic Visualization
 
 The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualization, and geo-visualization tools. These capabilities allow organizations to extract valuable insights and make data-driven decisions.
 
-The integration of established methodologies from data science, machine learning, and geospatial analysis ensures the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The geo-visualization tools facilitate a clear and intuitive understanding of the spatial distribution of topics.
+The integration of established methodologies from data science, machine learning, and geospatial analysis ensures the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The graph visualisation and geo-visualization tools facilitate a clear and intuitive understanding of the spatial distribution of topics.
 
-SIRITVIS is a powerful and versatile tool designed to streamline the analysis of text data from social media platforms, with a primary focus on extracting topic insights, specifically from Reddit and Twitter.
-
-One of the standout features of SIRITVIS is its ability to map the spatial distribution of Tweets on a world map, associating each location with its top trending topics and their frequency. The package classifies and color-codes locations based on their sentiments, providing a comprehensive count of positive, negative, and neutral tweets. Furthermore, users can explore specific keywords through a convenient dropdown interface and visualize their occurrences on the world map.
+One of the standout feature of SIRITVIS is its ability to map the spatial distribution of Tweets on a world map, associating each location with its top trending topics and their frequency. The package classifies and color-codes locations based on their sentiments, providing a comprehensive count of positive, negative, and neutral tweets. Furthermore, users can explore specific keywords through a convenient dropdown interface and visualize their occurrences on the world map.
 
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organizations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
@@ -141,7 +139,7 @@ Benjamin Säfken
 SIRITVIS is published under the GNU GPLv3 license.
 
 ## 🎓 References
-We utilized the fantastic "OCTIS" by Terragni, Silvia and Fersini, Elisabetta and Galuzzi, Bruno Giovanni and Tropeano, Pietro and Candelieri, Antonio [^1^] to enhance our application. "OCTIS" is a powerful library/tool that provided us with essential functionalities for our project.
+We utilized the fantastic "OCTIS" tool by Terragni, Silvia and Fersini, Elisabetta and Galuzzi, Bruno Giovanni and Tropeano, Pietro and Candelieri, Antonio [^1^] to enhance our application. "OCTIS" is a powerful library/tool that provided us with essential functionalities for our project.
 
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 
