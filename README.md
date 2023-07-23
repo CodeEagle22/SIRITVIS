@@ -139,7 +139,9 @@ Benjamin Säfken
 SIRITVIS is published under the GNU GPLv3 license.
 
 ## 🎓 References
-We utilized the fantastic "OCTIS" tool by Terragni, Silvia and Fersini, Elisabetta and Galuzzi, Bruno Giovanni and Tropeano, Pietro and Candelieri, Antonio [^1^] to enhance our application. "OCTIS" is a powerful library/tool that provided us with essential functionalities for our project.
+In our project, we utilized the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey and "topicwizard" [^3^] by Márton Kardos Python libraries for interactive topic model visualization, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
 
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
+[^2^]: [pyLDAvis](https://github.com/bmabey/pyLDAvis)
+[^3^]: [topic-wizard](https://github.com/x-tabdeveloping/topic-wizard)
 
