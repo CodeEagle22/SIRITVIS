@@ -19,7 +19,7 @@ setup(
     maintainer_email="sagarnarwade147@gmail.com",
     packages=find_packages(),
     install_requires=[
-    'praw==7.7.0',
+    'praw==7.7.1',
     'numpy',
     'pandas==1.5.3',
     'spacy',
