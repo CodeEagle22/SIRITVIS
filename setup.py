@@ -1,10 +1,5 @@
 from setuptools import setup, find_packages
-import warnings
 
-
-
-# Set the warning filter to "ignore"
-warnings.filterwarnings("ignore")
 try:
     with open("README.md", "r", encoding="utf-8") as fh:
         long_description = fh.read()
@@ -22,9 +17,10 @@ setup(
     description="SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisation",
     maintainer="Sagar Narwade",
     maintainer_email="sagarnarwade147@gmail.com",
-    python_requires='==3.10.*',
+    python_requires='==3.10',
     packages=find_packages(),
     install_requires=[
+        'pip==23.2.1',
         'praw==7.7.1',
         'numpy',
         'pandas==1.5.3',
