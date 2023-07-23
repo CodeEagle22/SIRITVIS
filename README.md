@@ -75,7 +75,7 @@ raw_data = twitter_streamer.TwitterStreamer(auth_path=auth_path,save_path=save_p
 
 ```python
 # raw_data variable could also used as load_path attribute value
-
+# cleaner_obj.clean_data returns the clean dataset without saving
 cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_save_name='dataset_file_name')
 
 cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
