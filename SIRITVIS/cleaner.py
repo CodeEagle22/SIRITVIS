@@ -101,7 +101,7 @@ class Cleaner(object):
             self.spacy_model = spacy.load(spacy_model)
         #self.spacy_model = spacy.load(spacy_model)  # loading the statistical spacy-model
         self.raw_data = self.loading()
-        self.raw_data = self.cleaning()
+        self.clean_data = self.cleaning()
 
     def loading(self):
         # All JSON files are read-in and merged together. Is was necessary to ensure that only
@@ -391,11 +391,11 @@ class Cleaner(object):
     def saving(self, save_path):
         # save data as pickle or csv.
         _pack_size = 1000000000  
-        parts_to_save = math.ceil(len(self.raw_data) / _pack_size)  # calculate how many parts to save (rounds up)
+        parts_to_save = math.ceil(len(self.clean_data) / _pack_size)  # calculate how many parts to save (rounds up)
         upper_bound = _pack_size
         for i in range(0, parts_to_save):
             lower_bound = upper_bound - _pack_size
-            file_to_save = self.raw_data.iloc[lower_bound:upper_bound, :]
+            file_to_save = self.clean_data.iloc[lower_bound:upper_bound, :]
             upper_bound = upper_bound + _pack_size
             file_to_save = file_to_save[file_to_save['text'] != 'nan'].reset_index(drop=True)
             if self.data == 'twitter':
