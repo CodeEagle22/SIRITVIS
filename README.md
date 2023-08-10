@@ -63,12 +63,33 @@ raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,sav
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords and for specific location
 
-auth_path = '../file/path/to/load/the/credentials.txt'
-save_path = '../folder/path/to/store/the/data/'
-languages = ['en'] # could select multiple languages
+# Twitter API credentials
+consumer_key = 'XXXXXXXXX'
+consumer_secret = 'XXXXXXXXX'
+access_token = 'XXXXXXXXX'
+access_secret = 'XXXXXXXXX'
+
+# Location and language settings
 locations = [51.416016,5.528511,90.966797,34.669359] # box coordinates.
+languages = ['en', 'es'] 
+
+# Keywords to track
 keywords = ['Specific','Keywords'] # default is None
-raw_data = twitter_streamer.TwitterStreamer(auth_path=auth_path,save_path=save_path,languages=languages,locations=locations,keywords=keywords)
+
+# Save path for collected data
+save_path = '../folder/path/to/store/the/data/'
+
+# Initialize and start Twitter streamer
+raw_data = twitter_streamer.TwitterStreamer(
+    consumer_key,
+    consumer_secret,
+    access_token,
+    access_secret,
+    languages,  
+    locations=locations,
+    keywords=keywords,
+    save_path=save_path  # Make sure to provide the save_path argument correctly
+)
 ```
 
 ### Cleaning Reddit, Twitter or Any External Text Data
