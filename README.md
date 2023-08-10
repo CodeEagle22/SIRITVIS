@@ -155,6 +155,7 @@ Additionally, we appreciate pull requests via GitHub. There are several areas wh
 Sagar Narwade 
 Gillian Kant
 Benjamin Säfken
+Benjamin Leiding
 
 ## License
 SIRITVIS is published under the GNU GPLv3 license.
