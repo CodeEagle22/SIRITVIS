@@ -22,13 +22,16 @@ import logging
 logging.getLogger().setLevel(logging.ERROR)
 
 class TwitterStreamer(StreamListener):
-    def __init__(self, auth_path, languages, locations, save_path=os.getcwd(), extended=True, keywords=[], hashtag=True):
+    def __init__(self, consumer_key, consumer_secret,access_token,access_secret, languages, locations, save_path=os.getcwd(), extended=True, keywords=[], hashtag=True):
         
         """
         Initialize the TweetMapper object.
 
         Args:
-            auth_path (str): Path to the file containing Twitter authentication credentials.
+            consumer_key (str): consumer_key for the Twitter API.
+            consumer_secret (str): consumer_secret for the Twitter API.
+            access_token (str): access_token for the Twitter API.
+            access_secret (str): access_secret for the Twitter API.
             languages (list): List of languages to filter tweets. e.g ['en']
             locations (list): Box coordinates of locations to filter tweets. e.g [51.416016,5.528511,90.966797,34.669359]
             save_path (str): Path to where the tweets will be saved (default: current working directory).
@@ -37,7 +40,10 @@ class TwitterStreamer(StreamListener):
             hashtag (bool): Flag to determine whether to save tweets with hashtags (default: True).
         """
 
-        assert isinstance(auth_path, str), "auth_path must be a string"
+        assert isinstance(consumer_key, str), "consumer_key must be a string"
+        assert isinstance(consumer_secret, str), "consumer_secret must be a string"
+        assert isinstance(access_token, str), "access_token must be a string"
+        assert isinstance(access_secret, str), "access_secret must be a string"
         assert isinstance(languages, list), "languages must be a list"
         assert isinstance(locations, list), "locations must be a list"
         assert isinstance(save_path, str), "save_path must be a string"
@@ -46,7 +52,10 @@ class TwitterStreamer(StreamListener):
         assert isinstance(hashtag, bool), "hashtag must be a boolean"
 
         super(StreamListener, self).__init__()
-        self.auth_path = auth_path
+        self.consumer_key = consumer_key
+        self.consumer_secret = consumer_secret
+        self.access_token = access_token
+        self.access_secret = access_secret
         self.api = self.access_auth()  # Access Twitter API using authentication credentials
         self.extended = extended  # Flag to determine whether to retrieve extended tweets
         self.hashtag = hashtag  # Flag to determine whether to save tweets with hashtags
@@ -60,22 +69,17 @@ class TwitterStreamer(StreamListener):
         
 
     def access_auth(self):
-        with open(self.auth_path, 'r') as twitter_access:
-            twitter_access = list(twitter_access)
+        
 
-        # Extract authentication credentials from file
-        consumer_key = twitter_access[0].rstrip()
-        consumer_secret = twitter_access[1].rstrip()
-        access_token = twitter_access[2].rstrip()
-        access_secret = twitter_access[3].rstrip()
-
+        
         # Set up OAuthHandler with authentication credentials
-        auth = OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_secret)
+        auth = OAuthHandler(self.consumer_key, self.consumer_secret)
+        auth.set_access_token(self.access_token, self.access_secret)
 
         # Create API object using authentication
         api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
         return api
+        
 
     def stream_process(self):
         self.stream = tw.Stream(auth=self.api.auth, listener=self, tweet_mode='extended')

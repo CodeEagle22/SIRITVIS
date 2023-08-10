@@ -337,10 +337,3 @@ class TweetMapper:
 
         # Display the map
         display(HTML(self.map._repr_html_()))
-
-
-    
-
-
-
-

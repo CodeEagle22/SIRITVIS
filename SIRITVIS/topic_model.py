@@ -25,6 +25,7 @@ from pathlib import Path
 from octis.dataset.dataset import Dataset
 from collections import Counter
 import nltk
+import math
 nltk.download('stopwords')
 import warnings
 # Suppress warnings
@@ -415,6 +416,7 @@ class TopicModeling:
         self.save_model = save_model
         self.model_path = model_path
         self.model = globals()[train_model]
+        self.t_model = str(train_model)
         self.df = None
         self.processed = None
         self.dataset = None
@@ -533,8 +535,11 @@ class TopicModeling:
                 model = self.model(num_topics=self.topk, lr=self.lr, batch_size=self.batch_size, activation=self.activation,
                                 dropout=self.dropout, num_epochs=self.num_epochs,
                                 num_layers=self.num_layers, num_neurons=self.num_neurons)
-                
+            
+
             self.nlda = model.train_model(self.dataset)
+
+            
             
         except Exception as e:
             print("Error: Training model failed:", e)
@@ -547,6 +552,7 @@ class TopicModeling:
         Saves the trained model to a file if the 'save_model' attribute is set to True.
         """
         if self.save_model:
+            
             if self.nlda is None:
                 print("Error: No trained model. Call train_model() first.")
                 return False
@@ -554,7 +560,7 @@ class TopicModeling:
             if self.model_path is None:
                 pkl_filename = self.model+'_trained_model.pkl'
             else:
-                pkl_filename = self.model_path+self.model+'_trained_model.pkl'
+                pkl_filename = self.model_path+str(self.t_model)+'_trained_model.pkl'
 
             try:
                 
@@ -573,34 +579,28 @@ class TopicModeling:
             print("Error: No trained model. Call train_model() first.")
             return False
 
+
+
         try:
-            self.evaluation_results = ' Model Evaluation '
             try:
                 topic_diversity_score = TopicDiversity(topk=self.topk).score(self.nlda)
-                self.evaluation_results += '\n\nTopic Diversity Score: {:.3f},   '.format(topic_diversity_score)
             except Exception as e:
                 print("Error: topic diversity failed:", e)
             try:
                 inverted_rbo_score = InvertedRBO(topk=self.topk).score(self.nlda)
-                self.evaluation_results += 'Inverted RBO Score: {:.3f},  '.format(inverted_rbo_score)
             except Exception as e:
                 print("Error: inverted rbo failed:", e)
             
             try:
                 accuracy_score = AccuracyScore(self.dataset).score(self.nlda)
-                self.evaluation_results += 'Accuracy Score: {:.3f}  '.format(accuracy_score)
-            
             except Exception as e:
                 print("Error: accuracy score failed:", e)
             try:
                 pairwise_jaccard_similarity_score = PairwiseJaccardSimilarity(topk=self.topk).score(self.nlda)
-                self.evaluation_results += '\nPairwise Jaccard Similarity Score: {:.3f},   '.format(pairwise_jaccard_similarity_score)
-            
             except Exception as e:
                 print("Error: pairwise jaccard similarity score failed:", e)
             try:
                 coherence_score = Coherence(texts=self.nlda['topics'], topk=self.topk, measure='c_v').score(self.nlda)
-                self.evaluation_results += 'Coherence Score: {:.3f}  '.format(coherence_score)
             except Exception as e:
                 print("Error: coherence score failed:", e)
 
@@ -609,15 +609,19 @@ class TopicModeling:
 
             # Assuming you have already set the evaluation results as shown in your code
           
-            
-            
-            
+            self.evaluation_results = ' Model Evaluation '
+            self.evaluation_results += '\n\nTopic Diversity Score: {:.3f},   '.format(topic_diversity_score)
+            self.evaluation_results += 'Inverted RBO Score: {:.3f},  '.format(inverted_rbo_score)
+            self.evaluation_results += 'Accuracy Score: {:.3f}  '.format(accuracy_score)
+            self.evaluation_results += '\nPairwise Jaccard Similarity Score: {:.3f},   '.format(pairwise_jaccard_similarity_score)
+            self.evaluation_results += 'Coherence Score: {:.3f}  '.format(coherence_score)
+        
             print('')
             print('')
             print(str(self.evaluation_results).strip())  # Remove extra whitespace at the end
 
         except Exception as e:
-            print("Error: Evaluating model failed, Make sure dataset have enough data to train: ", e)
+            print("Error: Evaluating model failed:", e)
             return False
         return True
 
