@@ -97,9 +97,9 @@ raw_data = twitter_streamer.TwitterStreamer(
 ```python
 # raw_data variable could also used as load_path attribute value
 # cleaner_obj.clean_data returns the clean dataset without saving
-cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_save_name='dataset_file_name')
-
-cleaned_file = clean_data.saving('../folder/path/to/store/the/cleaned/data/')
+cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_source_type='twitter or None')
+# cleaner_obj.clean_data 
+cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',data_save_name='dataset_file_name'))
 ```
 
 ### Train your a topic model on a corpus of short texts
