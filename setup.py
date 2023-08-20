@@ -40,7 +40,7 @@ setup(
         'pickle4==0.0.1',
         'plotly==5.15.0',
         'nltk==3.6.2',
-        'notebook==6.4.8',
+        'notebook==6.5.5',
         'ipywidgets',
         'tensorflow',
         'vaderSentiment',
