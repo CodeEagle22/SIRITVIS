@@ -1,9 +1,5 @@
 
 
-#or
-#if you wanna use the module right away 
-#import subprocess,sys
-#subprocess.check_call([sys.executable, "-m", "pip", "install", "scikit-learn==0.23.2"])
 
 import glob
 from heapq import nlargest
@@ -136,10 +132,10 @@ class PyLDAvis():
 
     
 
-class WordCloud():
+class Wordcloud():
     def __init__(self, data_source, text_column='text'):
         """
-        Initialize the PyLDAvis class.
+        Initialize the Word_Cloud class.
 
         Parameters:
         - data_source (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
