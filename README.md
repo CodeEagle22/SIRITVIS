@@ -124,12 +124,12 @@ vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.
 vis_model.visualize()
 ```
 
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [topicwizard](https://github.com/x-tabdeveloping/topic-wizard).
+To investigate internal structure of topics and their relations to words and indicidual documents we recommend using.
 ```python
 # cleaned_file variable could also used as csv_file attribute value
 # please wait for a while for the word cloud to appear.
 
-vis_model = topic_visualise.WordCloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
+vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
 vis_model.visualize()
 ```
 
