@@ -13,11 +13,11 @@ except Exception as e:
 setup(
     name='SIRITVIS',
     version='1.0',
-    author='Sagar Narwade, Gillian Kant, Benjamin Saefken',
+    author='Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding',
     description="SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisation",
     maintainer="Sagar Narwade",
     maintainer_email="sagarnarwade147@gmail.com",
-    python_requires='==3.10',
+    python_requires='>=3.10, <3.11',
     packages=find_packages(),
     install_requires=[
         'pip==23.2.1',
@@ -30,10 +30,8 @@ setup(
         'matplotlib',
         'tweepy==3.9.0',
         'urllib3',
-        'wordcloud',
         'langdetect',
         'octis',
-        'topic-wizard==0.3.1',
         'tweepy==3.9.0',
         'scikit-learn==1.2.2',
         'urllib3',
@@ -56,7 +54,7 @@ setup(
         'textblob==0.15.3'
     ],
     classifiers=[
-        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.10.*',
     ],
     
 )

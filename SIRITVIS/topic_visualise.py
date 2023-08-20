@@ -11,7 +11,6 @@ from heapq import nlargest
 from sklearn.decomposition import NMF
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import make_pipeline
-import topicwizard
 import pandas as pd
 from sklearn.decomposition import NMF
 from sklearn.decomposition import LatentDirichletAllocation
@@ -34,6 +33,9 @@ import pyLDAvis.lda_model
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 import warnings
+
+from wordcloud import WordCloud
+
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
@@ -134,8 +136,8 @@ class PyLDAvis():
 
     
 
-class TopicWizardvis():
-    def __init__(self, data_source, num_topics=10, text_column='text'):
+class WordCloud():
+    def __init__(self, data_source, text_column='text'):
         """
         Initialize the PyLDAvis class.
 
@@ -147,7 +149,6 @@ class TopicWizardvis():
         assert text_column is None or isinstance(text_column, str), "text_column must be a str"
 
         self.csv_file = data_source
-        self.num_topics = num_topics
         self.column_name = text_column
         self.vis = None
         self.cloud = None
@@ -157,7 +158,6 @@ class TopicWizardvis():
     def visualize(self):
         try:
 
-            print('The visualisation is based on Latent Dirichlet Allocation (LDA) model.')
             # Read the CSV file and retrieve the specified column
             if isinstance(self.csv_file, str):
                 file_extension = os.path.splitext(self.csv_file)[1]
@@ -178,20 +178,48 @@ class TopicWizardvis():
                 return None
 
 
-            cor = df[self.column_name].str.replace('rt', '').tolist()
-            # Create topic pipeline
-            pipeline = make_pipeline(
-                CountVectorizer(stop_words="english", min_df=10),
-                LatentDirichletAllocation(n_components=self.num_topics),
-            )
+            cor = df[self.column_name].str.replace(r'\b\w{1,2}\b', '').tolist()
+            
+            
 
-            # Then fit it on the given texts
-            pipeline.fit(cor)
 
+
+            # Extract the text from the DataFrame column
+            input_text = ' '.join(cor)
+
+            # Generate the word cloud with a custom colormap
+            wordcloud = WordCloud(width=2000, height=1000, background_color='white', colormap='copper').generate(input_text)
+
+            # Create an interactive plot
+            plt.figure(figsize=(10, 5))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')  # Turn off the axis
+
+            # Add interaction features
+            def zoom(event):
+                current_xlim = plt.gca().get_xlim()
+                current_ylim = plt.gca().get_ylim()
+                base_scale = 1.1
+                
+                if event.button == 'up':
+                    scale_factor = 1 / base_scale
+                elif event.button == 'down':
+                    scale_factor = base_scale
+                else:
+                    return
+
+                new_xlim = [x * scale_factor for x in current_xlim]
+                new_ylim = [y * scale_factor for y in current_ylim]
+
+                plt.gca().set_xlim(new_xlim)
+                plt.gca().set_ylim(new_ylim)
+                plt.draw()
+
+            plt.connect('scroll_event', zoom)
 
             # A large corpus takes a looong time to compute 2D projections for so
             # so you can speed up preprocessing by disabling it alltogether.
-            return topicwizard.visualize(cor, pipeline=pipeline, exclude_pages=["documents"])
+            return plt.show()
                 
         except FileNotFoundError:
             print("Error: File not found.")

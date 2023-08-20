@@ -579,7 +579,22 @@ class TopicModeling:
             print("Error: No trained model. Call train_model() first.")
             return False
 
+        def gradient_color(value):
+            start_color = (255, 0, 0)  # Red
+            end_color = (0, 255, 0)    # Green
+            r = int(start_color[0] + (end_color[0] - start_color[0]) * value)
+            g = int(start_color[1] + (end_color[1] - start_color[1]) * value)
+            b = int(start_color[2] + (end_color[2] - start_color[2]) * value)
+            return f'\033[38;2;{r};{g};{b}m'
 
+        def print_colored_progress_bar(value):
+            bar_length = 40
+            progress = int(value * bar_length)
+            bar = '█' * progress + '-' * (bar_length - progress)
+            percentage = int(value * 100)
+            color_code = gradient_color(value)
+            reset_color = '\033[0m'
+            return f'{color_code}[{bar}] {percentage}%{reset_color}'  # Return the formatted string
 
         try:
             try:
@@ -610,11 +625,11 @@ class TopicModeling:
             # Assuming you have already set the evaluation results as shown in your code
           
             self.evaluation_results = ' Model Evaluation '
-            self.evaluation_results += '\n\nTopic Diversity Score: {:.3f},   '.format(topic_diversity_score)
-            self.evaluation_results += 'Inverted RBO Score: {:.3f},  '.format(inverted_rbo_score)
-            self.evaluation_results += 'Accuracy Score: {:.3f}  '.format(accuracy_score)
-            self.evaluation_results += '\nPairwise Jaccard Similarity Score: {:.3f},   '.format(pairwise_jaccard_similarity_score)
-            self.evaluation_results += 'Coherence Score: {:.3f}  '.format(coherence_score)
+            self.evaluation_results += '\n\nAccuracy Score: {}\t{:.4f}'.format(print_colored_progress_bar(accuracy_score), accuracy_score)
+            self.evaluation_results += '\nTopic Diversity Score: {}\t{:.4f}'.format(print_colored_progress_bar(topic_diversity_score), topic_diversity_score)
+            self.evaluation_results += '\nInverted RBO Score: {}\t{:.4f}'.format(print_colored_progress_bar(inverted_rbo_score), inverted_rbo_score)
+            self.evaluation_results += '\nPairwise Jaccard Similarity Score: {}\t{:.4f}'.format(print_colored_progress_bar(1 - pairwise_jaccard_similarity_score), pairwise_jaccard_similarity_score)
+            self.evaluation_results += '\nCoherence Score: {}\t{:.4f}'.format(print_colored_progress_bar(coherence_score), coherence_score)
         
             print('')
             print('')
