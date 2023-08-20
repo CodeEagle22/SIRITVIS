@@ -42,7 +42,7 @@ pip install SIRITVIS-1.0.tar.gz
 ### Import Libraries
 
 ```python
-from SIRITVIS import reddit_streamer, cleaner, topic_model, WordCloud, tweet_mapper
+from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, tweet_mapper, twitter_streamer
 ```
 
 ### Streaming Reddit Data
