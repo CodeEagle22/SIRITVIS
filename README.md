@@ -129,7 +129,7 @@ To investigate internal structure of topics and their relations to words and ind
 # cleaned_file variable could also used as csv_file attribute value
 # please wait for a while for the word cloud to appear.
 
-vis_model = topic_visualise.TopicWizardvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
+vis_model = topic_visualise.WordCloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
 vis_model.visualize()
 ```
 
@@ -161,9 +161,8 @@ Benjamin Leiding
 SIRITVIS is published under the GNU GPLv3 license.
 
 ## 🎓 References
-In our project, we utilized the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey and "topicwizard" [^3^] by Márton Kardos Python libraries for interactive topic model visualization, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
+In our project, we utilized the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualization, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
 
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 [^2^]: [pyLDAvis](https://github.com/bmabey/pyLDAvis)
-[^3^]: [topic-wizard](https://github.com/x-tabdeveloping/topic-wizard)
 
