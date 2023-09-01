@@ -15,7 +15,7 @@ One of the standout feature of SIRITVIS is its ability to map the spatial distri
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organizations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
 ## How to cite
-Narwade, S., Kant, G., and Säfken, B. (2020), SIRITVIS: Social Interaction Research Insights Topic Visualization. SoftwareX, 5 (54), 2507, https://doi.org/10.21105/joss.02507.
+Narwade, S., Kant, G., and Säfken, B. (2020), SIRITVIS: Social Interaction Research Insights Topic Visualization. SoftwareX, 5 (54), 2507.
 
 
 ## Features
