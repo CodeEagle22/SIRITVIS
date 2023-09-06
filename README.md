@@ -107,7 +107,7 @@ limit =  int_number # number of post captions to extract. default is 100
 raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_username,instagram_password,hashtags,limit).run()
 ```
 
-### Cleaning Reddit, Twitter or Any External Text Data
+### Clean Streamed Data or Any External Text Data
 
 ```python
 # raw_data variable could also used as load_path attribute value
