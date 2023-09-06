@@ -103,7 +103,7 @@ save_path = '../folder/path/to/store/the/data/'
 instagram_username = 'XXXXXXXXX'
 instagram_password = 'XXXXXXXXX'
 hashtags = ['Specific','Keywords'] # default is ['instagram']
-limit =  int_number # number of post captions to extract. default is 100
+limit =  20 # number of post captions to extract. default is 100
 raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_username,instagram_password,hashtags,limit).run()
 ```
 
