@@ -358,7 +358,7 @@ class Preprocessing:
 
 class TopicModeling:
     def __init__(self, num_topics, dataset_source, learning_rate=0.001, batch_size=32, activation='softplus',
-                 num_layers=3, num_neurons=100, dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA'):
+                 num_layers=3, num_neurons=100, dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA',evaluation=['accuracy','topicdiversity','invertedrbo','jaccardsimilarity','coherence']):
 
         """
         Initialize the TopicModeling object.
@@ -388,8 +388,11 @@ class TopicModeling:
 
             train_model (str): Model to use for training (default: 'NeuralLDA'). Other Options are 'ProdLDA', 'LDA', 'CTM'
 
+            evaluation (str): Matrix to use for model evaluation (default: ['accuracy','topicdiversity','invertedrbo','jaccardsimilarity','coherence']).
+
         """
 
+        valid_values = ['accuracy', 'topicdiversity', 'invertedrbo', 'jaccardsimilarity', 'coherence']
         assert isinstance(num_topics, int) and num_topics > 0, "num_topics should be a positive integer."
         assert isinstance(dataset_source, (str,pd.DataFrame)), "dataset_path should be a string or preprocessed dataset variable"
         assert isinstance(learning_rate, float) and learning_rate > 0, "learning_rate should be a positive float."
@@ -402,6 +405,8 @@ class TopicModeling:
         assert isinstance(save_model, bool), "save_model should be a boolean."
         assert model_path is None or isinstance(model_path, str), "model_path should be None or a string."
         assert train_model in ['NeuralLDA', 'ProdLDA','LDA','CTM'], "train_model should be either 'NeuralLDA','ProdLDA','LDA' or 'CTM'."
+        assert isinstance(evaluation, list) and all(item in valid_values for item in evaluation), "Some elements in evaluation are not valid or evaluation is not a list. Elements must be 'accuracy','topicdiversity','invertedrbo','jaccardsimilarity','coherence'."
+
 
 
         self.topk = num_topics
@@ -422,6 +427,7 @@ class TopicModeling:
         self.dataset = None
         self.nlda = None
         self.evaluation_results = None
+        self.evaluation = evaluation
         
 
     def read_data(self):
@@ -623,14 +629,19 @@ class TopicModeling:
             # Your evaluation code goes here, and the results are stored in self.evaluation_results
 
             # Assuming you have already set the evaluation results as shown in your code
-          
+            
             self.evaluation_results = ' Model Evaluation '
-            self.evaluation_results += '\n\nAccuracy Score: {}\t{:.4f}'.format(print_colored_progress_bar(accuracy_score), accuracy_score)
-            self.evaluation_results += '\nTopic Diversity Score: {}\t{:.4f}'.format(print_colored_progress_bar(topic_diversity_score), topic_diversity_score)
-            self.evaluation_results += '\nInverted RBO Score: {}\t{:.4f}'.format(print_colored_progress_bar(inverted_rbo_score), inverted_rbo_score)
-            self.evaluation_results += '\nPairwise Jaccard Similarity Score: {}\t{:.4f}'.format(print_colored_progress_bar(1 - pairwise_jaccard_similarity_score), pairwise_jaccard_similarity_score)
-            self.evaluation_results += '\nCoherence Score: {}\t{:.4f}'.format(print_colored_progress_bar(coherence_score), coherence_score)
-        
+            if 'accuracy' in self.evaluation:
+                self.evaluation_results += '\n\nAccuracy Score: {}\t{:.4f}'.format(print_colored_progress_bar(accuracy_score), accuracy_score)
+            if 'topicdiversity' in self.evaluation:
+                self.evaluation_results += '\nTopic Diversity Score: {}\t{:.4f}'.format(print_colored_progress_bar(topic_diversity_score), topic_diversity_score)
+            if 'invertedrbo' in self.evaluation:
+                self.evaluation_results += '\nInverted RBO Score: {}\t{:.4f}'.format(print_colored_progress_bar(inverted_rbo_score), inverted_rbo_score)
+            if 'jaccardsimilarity' in self.evaluation:
+                self.evaluation_results += '\nPairwise Jaccard Similarity Score: {}\t{:.4f}'.format(print_colored_progress_bar(1 - pairwise_jaccard_similarity_score), pairwise_jaccard_similarity_score)
+            if 'coherence' in self.evaluation:
+                self.evaluation_results += '\nCoherence Score: {}\t{:.4f}'.format(print_colored_progress_bar(coherence_score), coherence_score)
+            
             print('')
             print('')
             print(str(self.evaluation_results).strip())  # Remove extra whitespace at the end

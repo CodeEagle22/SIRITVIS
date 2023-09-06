@@ -32,6 +32,7 @@ setup(
         'urllib3',
         'langdetect',
         'octis',
+        'topic-wizard==0.3.1',
         'tweepy==3.9.0',
         'scikit-learn==1.2.2',
         'urllib3',
@@ -51,7 +52,9 @@ setup(
         'wordcloud==1.8.2.2',
         'ipython==7.34.0',
         'tweepy==3.9.0',
-        'textblob==0.15.3'
+        'textblob==0.15.3',
+        'apify-client==1.4.0',
+        'instagram_private_api==1.6.0'
     ],
     classifiers=[
         'Programming Language :: Python :: 3.10.*',

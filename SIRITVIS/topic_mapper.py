@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 import logging
 logging.getLogger().setLevel(logging.ERROR)
 
-class TweetMapper:
+class TopicMapper:
     def __init__(self, data_source, model_source):
         """
         Initialize the TweetMapper object.

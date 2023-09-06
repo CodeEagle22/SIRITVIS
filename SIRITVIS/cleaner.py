@@ -251,7 +251,7 @@ class Cleaner(object):
                     self.raw_data.reset_index(inplace=True)
                     self.raw_data.rename(columns={'index': 'id_str'}, inplace=True)
                     self.raw_data = self.raw_data.drop_duplicates('id_str')  # remove duplicates
-
+                
                 if self.languages is not None:
                     self.raw_data = self.raw_data[self.raw_data['text'].apply(lambda x: is_text_in_language(x, self.languages))] # check for language
 
@@ -259,6 +259,7 @@ class Cleaner(object):
                 # entries (remove hyperlinks):
                 
                 self.raw_data['text'] = self.raw_data['text'].astype(str).apply(lambda x: re.split('https://t.co', x)[0])
+
 
             # remove and append Emojis:
             if self.metadata:
@@ -338,9 +339,26 @@ class Cleaner(object):
                 # Remove coordinates that do not belong to any country
                 self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
 
+            else:
+                
+                if 'center_coord_X' in self.raw_data.columns:
+                    
+                    def is_land(latitude, longitude):
+                        geolocator = Nominatim(user_agent="land_checker")
+                        try:
+                            location = geolocator.reverse(f"{latitude}, {longitude}", exactly_one=True, language="en")
+                            return location.raw['address']['country']
+                        except:
+                            return None
+
+                    # Remove coordinates that do not belong to any country
+                    self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
+                
+                    
+
             # Tokenization (usage of static method):
             self.raw_data['text_tokens'] = self.raw_data['text'].apply(lambda x: Cleaner._tokenizer(self.spacy_model, x,self.text_case))
-                
+            
             if self.min_post_len is not None:
                 # check the length of a tweet:
                 len_text = self.raw_data['text_tokens'].apply(lambda x: len(x))  # get the length of all text fields
@@ -348,32 +366,25 @@ class Cleaner(object):
                     len_text > self.min_post_len]  # take only texts with more than 100 characters
 
 
-            if self.metadata:
-                if self.data == 'twitter':
-                    user_df = json_normalize(self.raw_data['user'])  # unpack the nested dict
-
-                    # pick interesting columns
-                    user_df = user_df.loc[:, ['created_at', 'description', 'favourites_count', 'followers_count',
-                                            'friends_count', 'id', 'listed_count', 'location', 'name', 'screen_name',
-                                            'statuses_count']]
-                else:
-                    user_df = json_normalize(self.raw_data['author'])
-                    user_df.index = self.raw_data.index
-                    self.raw_data = self.raw_data.join(user_df)
-                    self.raw_data = self.raw_data.drop(['title',	'score',	'author',	'id_str',	'subreddit',	'url',	'num_comments'], axis=1)
+            
         
 
 
-            else:
-                if self.data == 'twitter':
-                    self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags', 'center_coord_X','center_coord_Y','country']]
-                else:
-                    try:
-                        self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags']]
-                    except:
-                        self.raw_data['created_at'] = datetime.datetime.now()
-                        self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags']]
             
+            if self.data == 'twitter':
+                self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags', 'center_coord_X','center_coord_Y','country']]
+            else:
+                if 'center_coord_X' in self.raw_data.columns:
+                    self.raw_data['created_at'] = datetime.now()
+                    self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags','center_coord_X','center_coord_Y','country']]
+                    
+                else:
+                    
+                    self.raw_data['created_at'] = datetime.now()
+                    self.raw_data = self.raw_data.loc[:, ['created_at', 'text', 'text_tokens', 'hashtags']]
+                    
+                    
+           
             return self.raw_data
 
     @staticmethod  # using static method, see: https://realpython.com/instance-class-and-static-methods-demystified/
@@ -408,9 +419,12 @@ class Cleaner(object):
         Args:
             data_save_name (str): Name of the cleaned and tokenized data file (default: 'my_cleaned_and_tokenized_data').
 
+            save_path (str): Path to save the scraped data. 
+
         """
 
         assert isinstance(data_save_name, str), "data_save_name should be a string." 
+        assert isinstance(save_path, str), "save_path should be a string."
 
         self.data_save_name = data_save_name
         # save data as pickle or csv.
@@ -423,14 +437,15 @@ class Cleaner(object):
             upper_bound = upper_bound + _pack_size
             file_to_save = file_to_save[file_to_save['text'] != 'nan'].reset_index(drop=True)
             if self.data == 'twitter':
-              file_to_save = file_to_save[['created_at', 'text', 'text_tokens','hashtags','center_coord_X','center_coord_Y','country']].dropna().reset_index(drop=True)
+              file_to_save = file_to_save.dropna().reset_index(drop=True)
               if self.file_format == 'pkl' :
                 file_to_save.to_pickle(os.path.join(save_path, self.data_save_name + '_part_twitter_' + str(i + 1) + '.pkl'))
               else:
                 file_to_save.to_csv(os.path.join(save_path, self.data_save_name + '_part_twitter_' + str(i + 1) + '.csv'))
             
             else:
-              file_to_save = file_to_save[['created_at', 'text', 'text_tokens','hashtags']].dropna().reset_index(drop=True)
+            
+              file_to_save = file_to_save.dropna().reset_index(drop=True)
               file_to_save = file_to_save[file_to_save['text_tokens'].str.len() >= 1].reset_index(drop=True)
               if self.file_format == 'pkl' :
                   file_to_save.to_pickle(os.path.join(save_path, self.data_save_name + '_part_' + str(i + 1) + '.pkl'))

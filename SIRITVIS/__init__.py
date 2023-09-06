@@ -3,4 +3,5 @@ from .twitter_streamer import TwitterStreamer
 from .cleaner import Cleaner
 from .topic_visualise import pyLDAvis, Wordcloud
 from .topic_model import TopicModeling
-from .tweet_mapper import TweetMapper
+from .topic_mapper import TopicMapper
+from .insta_streamer import InstagramStreamer
