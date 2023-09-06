@@ -6,7 +6,7 @@ Social Interaction Research Insights Topic Visualization
 
 ## Summary   
 
-The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualization, and geo-visualization tools. These capabilities allow organizations to extract valuable insights and make data-driven decisions.
+The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualization, and geo-visualization tools. These capabilities allow organizations to extract valuable insights and make data-driven decisions.
 
 The integration of established methodologies from data science, machine learning, and geospatial analysis ensures the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The graph visualisation and geo-visualization tools facilitate a clear and intuitive understanding of the spatial distribution of topics.
 
@@ -15,7 +15,7 @@ One of the standout feature of SIRITVIS is its ability to map the spatial distri
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organizations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
 ## How to cite
-Narwade, S., Kant, G., and Säfken, B. (2020), SIRITVIS: Social Interaction Research Insights Topic Visualization. SoftwareX, 5 (54), 2507, https://doi.org/10.21105/joss.02507.
+Narwade, S., Kant, G., and Säfken, B. (2020), SIRITVIS: Social Interaction Research Insights Topic Visualization. SoftwareX, 5 (54), 2507.
 
 
 ## Features
@@ -42,7 +42,7 @@ pip install SIRITVIS-1.0.tar.gz
 ### Import Libraries
 
 ```python
-from SIRITVIS import reddit_streamer, cleaner, topic_model, topic_visualise, tweet_mapper, twitter_streamer
+from SIRITVIS import twitter_streamer, insta_streamer, reddit_streamer, cleaner, topic_model, topic_visualise, topic_mapper
 ```
 
 ### Streaming Reddit Data
@@ -92,7 +92,22 @@ raw_data = twitter_streamer.TwitterStreamer(
 )
 ```
 
-### Cleaning Reddit, Twitter or Any External Text Data
+### Streaming Instagram Data
+
+```python
+# Run the streaming process to retrieve raw data based on the specified keywords
+# Sign_up [apify](https://apify.com/apify/instagram-hashtag-scraper) to get free api_token
+
+api_token = 'apify_api_XXXXXXXXX'
+save_path = '../folder/path/to/store/the/data/'
+instagram_username = 'XXXXXXXXX'
+instagram_password = 'XXXXXXXXX'
+hashtags = ['Specific','Keywords'] # default is ['instagram']
+limit =  20 # number of post captions to extract. default is 100
+raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_username,instagram_password,hashtags,limit).run()
+```
+
+### Clean Streamed Data or Any External Text Data
 
 ```python
 # raw_data variable could also used as load_path attribute value
@@ -109,7 +124,7 @@ cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',da
 
 model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
-dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA')
+dropout=0.2, num_epochs=100, save_model=False, model_path=None, train_model='NeuralLDA',evaluation=['topicdiversity','invertedrbo','jaccardsimilarity'])
 
 saved_model = model.run()
 ```
@@ -134,7 +149,7 @@ vis_model.visualize()
 ```
 
 
-### Twitter Topic Geo Visualisation 
+### Topic Geo Visualisation 
 
 ```python
 # cleaned_file variable could also used as csv_file_path attribute value
@@ -142,8 +157,9 @@ vis_model.visualize()
 
 csv_file_path = '../file/path/of/data.csv'
 model_path = '../file/path/of/model.pkl'
-tweet_mapper.TweetMapper(csv_file_path,model_path)
+topic_mapper.TopicMapper(csv_file_path,model_path)
 ```
+
 ## Community guidelines
 
 We encourage and welcome contributions to the SIRITVIS package. If you have any questions, want to report bugs, or have ideas for new features, please file an issue. 
