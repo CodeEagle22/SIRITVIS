@@ -110,7 +110,7 @@ raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_usern
 ### Clean Streamed Data or Any External Text Data
 
 ```python
-# raw_data variable could also used as load_path attribute value
+# raw_data variable might also be used as load_path attribute value
 # cleaner_obj.clean_data returns the clean dataset without saving
 cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_source_type='twitter or default:None')
 # cleaner_obj.clean_data     # get cleaned dataset without saving it
@@ -120,7 +120,7 @@ cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',da
 ### Train your a topic model on a corpus of short texts
 
 ```python
-# cleaned_file variable could also used as dataset_path attribute value
+# cleaned_file variable might also be used as dataset_path attribute value
 
 model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
@@ -141,7 +141,7 @@ vis_model.visualize()
 
 A graphical display of text data in which the importance of each word reflects its frequency or significance within the text.
 ```python
-# cleaned_file variable could also used as csv_file attribute value
+# cleaned_file variable might also be used as csv_file attribute value
 # please wait for a while for the word cloud to appear.
 
 vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
@@ -152,8 +152,8 @@ vis_model.visualize()
 ### Topic Geo Visualisation 
 
 ```python
-# cleaned_file variable could also used as csv_file_path attribute value
-# saved_model variable could also used as model_file attribute value
+# cleaned_file variable might also be used as csv_file_path attribute value
+# saved_model variable might also be used as model_file attribute value
 
 csv_file_path = '../file/path/of/data.csv'
 model_path = '../file/path/of/model.pkl'
@@ -168,10 +168,10 @@ Additionally, we appreciate pull requests via GitHub. There are several areas wh
 
 ## Authors
 
-Sagar Narwade 
-Gillian Kant
-Benjamin Säfken
-Benjamin Leiding
+Sagar Narwade, 
+Gillian Kant,
+Benjamin Säfken,
+Benjamin Leiding,
 
 ## License
 SIRITVIS is published under the GNU GPLv3 license.
