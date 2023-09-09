@@ -340,22 +340,22 @@ class Cleaner(object):
                 self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
 
             else:
-                
-                if 'center_coord_X' in self.raw_data.columns:
-                    
-                    def is_land(latitude, longitude):
-                        geolocator = Nominatim(user_agent="land_checker")
-                        try:
-                            location = geolocator.reverse(f"{latitude}, {longitude}", exactly_one=True, language="en")
-                            return location.raw['address']['country']
-                        except:
-                            return None
+                if 'country' not in self.raw_data.columns:
+                    if 'center_coord_X' in self.raw_data.columns:
+                        
+                        def is_land(latitude, longitude):
+                            geolocator = Nominatim(user_agent="land_checker")
+                            try:
+                                location = geolocator.reverse(f"{latitude}, {longitude}", exactly_one=True, language="en")
+                                return location.raw['address']['country']
+                            except:
+                                return None
 
-                    # Remove coordinates that do not belong to any country
-                    self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
-                
+                        # Remove coordinates that do not belong to any country
+                        self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
                     
-
+                    
+            
             # Tokenization (usage of static method):
             self.raw_data['text_tokens'] = self.raw_data['text'].apply(lambda x: Cleaner._tokenizer(self.spacy_model, x,self.text_case))
             
@@ -364,10 +364,6 @@ class Cleaner(object):
                 len_text = self.raw_data['text_tokens'].apply(lambda x: len(x))  # get the length of all text fields
                 self.raw_data = self.raw_data[
                     len_text > self.min_post_len]  # take only texts with more than 100 characters
-
-
-            
-        
 
 
             
@@ -428,7 +424,7 @@ class Cleaner(object):
 
         self.data_save_name = data_save_name
         # save data as pickle or csv.
-        _pack_size = 1000000000  
+        _pack_size = 100000
         parts_to_save = math.ceil(len(self.clean_data) / _pack_size)  # calculate how many parts to save (rounds up)
         upper_bound = _pack_size
         for i in range(0, parts_to_save):
