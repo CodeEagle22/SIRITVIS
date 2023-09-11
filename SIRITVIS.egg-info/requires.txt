@@ -11,10 +11,7 @@ urllib3
 langdetect
 octis
 topic-wizard==0.3.1
-tweepy==3.9.0
 scikit-learn==1.2.2
-urllib3
-langdetect
 folium==0.14.0
 pickle4==0.0.1
 plotly==5.15.0
@@ -29,7 +26,6 @@ Flask==2.2.5
 Flask-Caching==2.0.1
 wordcloud==1.8.2.2
 ipython==7.34.0
-tweepy==3.9.0
 textblob==0.15.3
 apify-client==1.4.0
 instagram_private_api==1.6.0
