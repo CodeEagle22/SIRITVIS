@@ -15,7 +15,7 @@ One of the standout feature of SIRITVIS is its ability to map the spatial distri
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organizations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
 ## How to cite
-Narwade, S., Kant, G., and Säfken, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualization. <Journal>.
+Narwade, S., Kant, G., and Säfken, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualization.
 
 
 ## Features
@@ -33,8 +33,7 @@ Attention: SIRITVIS is designed to run on Python 3.10, it has been fully tested 
 The package can be installed via pip:
 
 ```bash
-cd ../dist
-pip install SIRITVIS-1.0.tar.gz
+pip install SIRITVIS
 ```
 
 ## 👩‍💻 Usage ([documentation])
@@ -172,9 +171,6 @@ Sagar Narwade,
 Gillian Kant,
 Benjamin Säfken,
 Benjamin Leiding,
-
-## License
-SIRITVIS is published under the GNU GPLv3 license.
 
 ## 🎓 References
 In our project, we utilized the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualization, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
