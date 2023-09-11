@@ -141,7 +141,7 @@ vis_model.visualize()
 
 A graphical display of text data in which the importance of each word reflects its frequency or significance within the text.
 ```python
-# cleaned_file variable might also be used as csv_file attribute value
+# The cleaned_file variable might also be used as csv_file attribute value
 # please wait for a while for the word cloud to appear.
 
 vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
@@ -152,12 +152,12 @@ vis_model.visualize()
 ### Topic Geo Visualisation 
 
 ```python
-# cleaned_file variable might also be used as csv_file_path attribute value
-# saved_model variable might also be used as model_file attribute value
+# The cleaned_file variable might also be used as data_source attribute value
+# The saved_model variable might also be used as the model_source attribute value, for example, model_source = saved_model
 
-csv_file_path = '../file/path/of/data.csv'
-model_path = '../file/path/of/model.pkl'
-topic_mapper.TopicMapper(csv_file_path,model_path)
+data_source = '../file/path/of/data.csv'
+model_source = '../file/path/of/model.pkl' 
+topic_mapper.TopicMapper(data_source, model_source)
 ```
 
 ## Community guidelines
