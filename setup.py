@@ -13,7 +13,7 @@ except Exception as e:
 
 setup(
     name='SIRITVIS',
-    version='1.0',
+    version='1.0.0',
     author='Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding',
     description="SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisation",
     long_description=long_description,
