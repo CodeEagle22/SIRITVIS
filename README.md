@@ -24,7 +24,7 @@ Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Int
 - Data Cleaning 🧹
 - Topic Model Training and Evaluation :dart:
 - Topic Visual Insights 🔍
-- Twitter Topic Geo Visualisation 🌏
+- Trending Topic Geo Visualisation 🌏
 
 ## 🛠 Installation
 
@@ -148,7 +148,7 @@ vis_model.visualize()
 ```
 
 
-### Topic Geo Visualisation 
+### Trending Topic Geo Visualisation 
 
 ```python
 # The cleaned_file variable might also be used as data_source attribute value
