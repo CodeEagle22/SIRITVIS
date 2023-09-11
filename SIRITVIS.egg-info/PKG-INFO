@@ -5,5 +5,5 @@ Summary: SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisat
 Author: Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding
 Maintainer: Sagar Narwade
 Maintainer-email: sagarnarwade147@gmail.com
-Classifier: Programming Language :: Python :: 3.10.*
+Classifier: Programming Language :: Python :: 3.10
 Requires-Python: >=3.10, <3.11

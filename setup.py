@@ -57,7 +57,7 @@ setup(
         'instagram_private_api==1.6.0'
     ],
     classifiers=[
-        'Programming Language :: Python :: 3.10.*',
+        'Programming Language :: Python :: 3.10',
     ],
     
 )
