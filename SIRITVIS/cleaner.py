@@ -335,9 +335,9 @@ class Cleaner(object):
                         return location.raw['address']['country']
                     except:
                         return None
-
-                # Remove coordinates that do not belong to any country
-                self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
+                if 'country' not in self.raw_data.columns:
+                    # Remove coordinates that do not belong to any country
+                    self.raw_data['country'] = self.raw_data.apply(lambda row: is_land(row['center_coord_Y'], row['center_coord_X']), axis=1)
 
             else:
                 if 'country' not in self.raw_data.columns:
