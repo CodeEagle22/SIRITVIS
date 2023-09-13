@@ -110,7 +110,6 @@ raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_usern
 
 ```python
 # raw_data variable might also be used as load_path attribute value
-# cleaner_obj.clean_data returns the clean dataset without saving
 cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_source_type='twitter or default:None')
 # cleaner_obj.clean_data     # get cleaned dataset without saving it
 cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',data_save_name='dataset_file_name'))
@@ -119,7 +118,7 @@ cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',da
 ### Train your a topic model on a corpus of short texts
 
 ```python
-# cleaned_file variable might also be used as dataset_path attribute value
+# cleaned_file variable might also be used as dataset_source attribute value
 
 model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
@@ -132,7 +131,7 @@ saved_model = model.run()
 
 To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 ```python
-# cleaned_file variable could also used as file_path attribute value
+# cleaned_file variable could also used as data_source attribute value
 
 vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
@@ -140,7 +139,7 @@ vis_model.visualize()
 
 A graphical display of text data in which the importance of each word reflects its frequency or significance within the text.
 ```python
-# The cleaned_file variable might also be used as csv_file attribute value
+# The cleaned_file variable might also be used as data_source attribute value
 # please wait for a while for the word cloud to appear.
 
 vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
