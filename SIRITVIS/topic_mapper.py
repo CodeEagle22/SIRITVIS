@@ -1,3 +1,5 @@
+
+from ipywidgets import Button, Output
 import pandas as pd
 import folium
 from ipywidgets import Dropdown, interact, Checkbox
@@ -44,7 +46,14 @@ class TopicMapper:
           print("Make sure csv_file contains coordinate columns 'center_coord_Y' and 'center_coord_X'")
         self.keyword_rankings = {}
         self.country_dropdown = None
+        # Create an output widget to display download status
+        self.output_widget = Output()
+        
+        # Create an export button
+        self.export_button = Button(description="Export Map as HTML")
+        self.export_button.on_click(self.export_map)
 
+     
 
         # Create dropdowns
         self.create_dropdowns()
@@ -77,6 +86,25 @@ class TopicMapper:
         return self.df
     
         
+    def export_map(self, _):
+        # Get the selected keyword and country from the dropdowns
+        selected_keyword = self.keyword_dropdown.value if self.keyword_dropdown.value else "All"
+        selected_country = self.country_dropdown.value if self.country_dropdown.value else "All"
+
+        # Generate a filename based on the selected keyword and country
+        export_filename = f"map_{selected_country}_{selected_keyword}.html"
+        export_filename = export_filename.replace(" ", "_")  # Replace spaces with underscores
+
+        # Get the map as an HTML string
+        map_html = self.map.get_root().render()
+
+        # Save the map HTML to the generated filename
+        with open(export_filename, "w", encoding="utf-8") as html_file:
+            html_file.write(map_html)
+
+        # Display a message in the output widget
+        with self.output_widget:
+            print(f"Map exported as '{export_filename}'")
 
 
     def filter_dataset(self,keyword=None,country=None):
@@ -186,10 +214,13 @@ class TopicMapper:
             initial_keyword_options = [' '] + initial_keywords
             self.keyword_dropdown.options = initial_keyword_options
 
-        # Interact with the add_markers method based on dropdown values
+
+        # Add the export button to the widget
         interact(self.add_markers, keyword=self.keyword_dropdown, country=self.country_dropdown)
-
-
+        
+        # Display the export button
+        display(self.export_button)
+        display(self.output_widget)
 
 
     def on_dropdown_change(self, change):

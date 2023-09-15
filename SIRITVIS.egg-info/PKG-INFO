@@ -31,7 +31,7 @@ One of the standout feature of SIRITVIS is its ability to map the spatial distri
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organizations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
 ## How to cite
-Narwade, S., Kant, G., and Säfken, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualization. <Journal>.
+Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualization.
 
 
 ## Features
@@ -40,7 +40,7 @@ Narwade, S., Kant, G., and Säfken, B. (2023), SIRITVIS: Social Interaction Rese
 - Data Cleaning 🧹
 - Topic Model Training and Evaluation :dart:
 - Topic Visual Insights 🔍
-- Twitter Topic Geo Visualisation 🌏
+- Trending Topic Geo Visualisation 🌏
 
 ## 🛠 Installation
 
@@ -49,8 +49,7 @@ Attention: SIRITVIS is designed to run on Python 3.10, it has been fully tested 
 The package can be installed via pip:
 
 ```bash
-cd ../dist
-pip install SIRITVIS-1.0.tar.gz
+pip install SIRITVIS
 ```
 
 ## 👩‍💻 Usage ([documentation])
@@ -127,7 +126,6 @@ raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_usern
 
 ```python
 # raw_data variable might also be used as load_path attribute value
-# cleaner_obj.clean_data returns the clean dataset without saving
 cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_source_type='twitter or default:None')
 # cleaner_obj.clean_data     # get cleaned dataset without saving it
 cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',data_save_name='dataset_file_name'))
@@ -136,7 +134,7 @@ cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',da
 ### Train your a topic model on a corpus of short texts
 
 ```python
-# cleaned_file variable might also be used as dataset_path attribute value
+# cleaned_file variable might also be used as dataset_source attribute value
 
 model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
@@ -149,7 +147,7 @@ saved_model = model.run()
 
 To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 ```python
-# cleaned_file variable could also used as file_path attribute value
+# cleaned_file variable could also used as data_source attribute value
 
 vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
@@ -157,7 +155,7 @@ vis_model.visualize()
 
 A graphical display of text data in which the importance of each word reflects its frequency or significance within the text.
 ```python
-# The cleaned_file variable might also be used as csv_file attribute value
+# The cleaned_file variable might also be used as data_source attribute value
 # please wait for a while for the word cloud to appear.
 
 vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
@@ -165,7 +163,7 @@ vis_model.visualize()
 ```
 
 
-### Topic Geo Visualisation 
+### Trending Topic Geo Visualisation 
 
 ```python
 # The cleaned_file variable might also be used as data_source attribute value
@@ -188,9 +186,6 @@ Sagar Narwade,
 Gillian Kant,
 Benjamin Säfken,
 Benjamin Leiding,
-
-## License
-SIRITVIS is published under the GNU GPLv3 license.
 
 ## 🎓 References
 In our project, we utilized the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualization, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
