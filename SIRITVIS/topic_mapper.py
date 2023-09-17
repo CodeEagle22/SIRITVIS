@@ -21,7 +21,7 @@ logging.getLogger().setLevel(logging.ERROR)
 class TopicMapper:
     def __init__(self, data_source, model_source):
         """
-        Initialize the TweetMapper object.
+        Initialize the TopicMapper object.
 
         Args:
             data_source (str,pd.DataFrame): The path to the CSV file or clean_data variable.
@@ -76,10 +76,10 @@ class TopicMapper:
         # Add 'sentiment' column to the DataFrame
         self.df['sentiment'] = sentiments
 
-        # Calculate positive, negative, and neutral tweet counts
-        self.df['positive_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x > 0 else 0)
-        self.df['negative_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x < 0 else 0)
-        self.df['neutral_tweet_count'] = self.df['sentiment'].apply(lambda x: 1 if x == 0 else 0)
+        # Calculate positive, negative, and neutral post counts
+        self.df['positive_post_count'] = self.df['sentiment'].apply(lambda x: 1 if x > 0 else 0)
+        self.df['negative_post_count'] = self.df['sentiment'].apply(lambda x: 1 if x < 0 else 0)
+        self.df['neutral_post_count'] = self.df['sentiment'].apply(lambda x: 1 if x == 0 else 0)
         self.df['text_tokens'] = self.df['text_tokens'].astype(str)
         self.df['text_tokens'] = self.df['text_tokens'].str.replace("\'", "")
 
@@ -178,9 +178,9 @@ class TopicMapper:
                   'text_token_dict': lambda x: dict(sorted({k: v for item in x for k, v in item.items()}.items(), key=lambda item: item[1], reverse=True)),
                   'text_tokens': lambda x: ''.join([item for sublist in x for item in sublist]),
                   'sentiment': 'mean',
-                  'positive_tweet_count': 'sum',
-                  'negative_tweet_count': 'sum',
-                  'neutral_tweet_count': 'sum'
+                  'positive_post_count': 'sum',
+                  'negative_post_count': 'sum',
+                  'neutral_post_count': 'sum'
               }
           ).reset_index()
 
@@ -249,7 +249,7 @@ class TopicMapper:
         return sorted_keywords
 
 
-    def add_markers(self, keyword=None, country=None, enable_sentiment=True, enable_tweet_count=False):
+    def add_markers(self, keyword=None, country=None, enable_sentiment=True, enable_post_count=False):
         # Clear the map
         self.map = folium.Map(location=[self.center_lat, self.center_lon], zoom_start=2)
         
@@ -276,9 +276,9 @@ class TopicMapper:
             tokens = list(row['text_token_dict'].keys())
             frequency = list(row['text_token_dict'].values())
             total = sum(row['text_token_dict'].values())
-            if row['positive_tweet_count'] > row['negative_tweet_count'] and row['positive_tweet_count'] > row['neutral_tweet_count']:
+            if row['positive_post_count'] > row['negative_post_count'] and row['positive_post_count'] > row['neutral_post_count']:
                 priority = 1
-            elif row['negative_tweet_count'] > row['positive_tweet_count']and row['negative_tweet_count'] > row['neutral_tweet_count']:
+            elif row['negative_post_count'] > row['positive_post_count']and row['negative_post_count'] > row['neutral_post_count']:
                 priority = 2
             else:
                 priority = 3
@@ -291,46 +291,46 @@ class TopicMapper:
                 popup_text += f"<b>{country_name}</b> <br><br>"
 
             count = ""
-            if enable_tweet_count:
+            if enable_post_count:
                 if keyword and country:
                     summed_counts = filtered_df.groupby('country').agg({
-                        'positive_tweet_count': 'sum',
-                        'negative_tweet_count': 'sum',
-                        'neutral_tweet_count': 'sum'
+                        'positive_post_count': 'sum',
+                        'negative_post_count': 'sum',
+                        'neutral_post_count': 'sum'
                     }).reset_index()
-                    tweet_count = int(summed_counts['positive_tweet_count'] + summed_counts['negative_tweet_count'] + summed_counts['neutral_tweet_count'])
-                    positive_count = int(summed_counts['positive_tweet_count'])
-                    negative_count = int(summed_counts['negative_tweet_count'])
-                    neutral_count = int(summed_counts['neutral_tweet_count'])
-                    pos_count = row['positive_tweet_count']
-                    neg_count = row['negative_tweet_count']
-                    neu_count = row['neutral_tweet_count']
-                    count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span>  <b>({tweet_count})</b><br><span style='color: green'>Positive tweets: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative tweets: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral tweets: {neu_count}</span>  <b>({neutral_count})</b>"
+                    post_count = int(summed_counts['positive_post_count'] + summed_counts['negative_post_count'] + summed_counts['neutral_post_count'])
+                    positive_count = int(summed_counts['positive_post_count'])
+                    negative_count = int(summed_counts['negative_post_count'])
+                    neutral_count = int(summed_counts['neutral_post_count'])
+                    post_count = row['positive_post_count']
+                    neg_count = row['negative_post_count']
+                    neu_count = row['neutral_post_count']
+                    count = f"<span style='color: blue'>Total posts: {pos_count + neg_count + neu_count}</span>  <b>({post_count})</b><br><span style='color: green'>Positive posts: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative posts: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral posts: {neu_count}</span>  <b>({neutral_count})</b>"
                 elif keyword:
-                    pos_count = row['positive_tweet_count']
-                    neg_count = row['negative_tweet_count']
-                    neu_count = row['neutral_tweet_count']
-                    count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive tweets: {pos_count}</span><br><span style='color: red'>Negative tweets: {neg_count}</span><br><span style='color: gray'>Neutral tweets: {neu_count}</span>"
+                    pos_count = row['positive_post_count']
+                    neg_count = row['negative_post_count']
+                    neu_count = row['neutral_post_count']
+                    count = f"<span style='color: blue'>Total posts: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive posts: {pos_count}</span><br><span style='color: red'>Negative posts: {neg_count}</span><br><span style='color: gray'>Neutral posts: {neu_count}</span>"
                 elif country:
                     summed_counts = filtered_df.groupby('country').agg({
-                        'positive_tweet_count': 'sum',
-                        'negative_tweet_count': 'sum',
-                        'neutral_tweet_count': 'sum'
+                        'positive_post_count': 'sum',
+                        'negative_post_count': 'sum',
+                        'neutral_post_count': 'sum'
                     }).reset_index()
-                    tweet_count = int(summed_counts['positive_tweet_count'] + summed_counts['negative_tweet_count'] + summed_counts['neutral_tweet_count'])
-                    positive_count = int(summed_counts['positive_tweet_count'])
-                    negative_count = int(summed_counts['negative_tweet_count'])
-                    neutral_count = int(summed_counts['neutral_tweet_count'])
+                    post_count = int(summed_counts['positive_post_count'] + summed_counts['negative_post_count'] + summed_counts['neutral_post_count'])
+                    positive_count = int(summed_counts['positive_post_count'])
+                    negative_count = int(summed_counts['negative_post_count'])
+                    neutral_count = int(summed_counts['neutral_post_count'])
 
-                    pos_count = row['positive_tweet_count']
-                    neg_count = row['negative_tweet_count']
-                    neu_count = row['neutral_tweet_count']
-                    count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span>  <b>({tweet_count})</b><br><span style='color: green'>Positive tweets: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative tweets: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral tweets: {neu_count}</span>  <b>({neutral_count})</b>"
+                    pos_count = row['positive_post_count']
+                    neg_count = row['negative_post_count']
+                    neu_count = row['neutral_post_count']
+                    count = f"<span style='color: blue'>Total posts: {pos_count + neg_count + neu_count}</span>  <b>({post_count})</b><br><span style='color: green'>Positive posts: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative posts: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral posts: {neu_count}</span>  <b>({neutral_count})</b>"
                 else:
-                    pos_count = row['positive_tweet_count']
-                    neg_count = row['negative_tweet_count']
-                    neu_count = row['neutral_tweet_count']
-                    count = f"<span style='color: blue'>Total tweets: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive tweets: {pos_count}</span><br><span style='color: red'>Negative tweets: {neg_count}</span><br><span style='color: gray'>Neutral tweets: {neu_count}</span>"
+                    pos_count = row['positive_post_count']
+                    neg_count = row['negative_post_count']
+                    neu_count = row['neutral_post_count']
+                    count = f"<span style='color: blue'>Total posts: {pos_count + neg_count + neu_count}</span><br><span style='color: green'>Positive posts: {pos_count}</span><br><span style='color: red'>Negative posts: {neg_count}</span><br><span style='color: gray'>Neutral posts: {neu_count}</span>"
             else:
                 popup_text += "<br>".join([
                     f"<b>{rank} {token.capitalize()} {round((fre / sum(frequency)) * 100, 2)}%</b>"
@@ -343,7 +343,7 @@ class TopicMapper:
 
             popup_width = max(len(max(popup_text.split("<br>"), key=len)), 200)  # Adjust popup width
 
-            popup_text += count if enable_tweet_count else ""
+            popup_text += count if enable_post_count else ""
 
             # Determine the color of the marker based on sentiment if enabled, otherwise use the default color
             if enable_sentiment:
