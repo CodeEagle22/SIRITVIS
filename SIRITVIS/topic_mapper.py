@@ -302,7 +302,7 @@ class TopicMapper:
                     positive_count = int(summed_counts['positive_post_count'])
                     negative_count = int(summed_counts['negative_post_count'])
                     neutral_count = int(summed_counts['neutral_post_count'])
-                    post_count = row['positive_post_count']
+                    pos_count = row['positive_post_count']
                     neg_count = row['negative_post_count']
                     neu_count = row['neutral_post_count']
                     count = f"<span style='color: blue'>Total posts: {pos_count + neg_count + neu_count}</span>  <b>({post_count})</b><br><span style='color: green'>Positive posts: {pos_count}</span>  <b>({positive_count})</b><br><span style='color: red'>Negative posts: {neg_count}</span>  <b>({negative_count})</b><br><span style='color: gray'>Neutral posts: {neu_count}</span>  <b>({neutral_count})</b>"

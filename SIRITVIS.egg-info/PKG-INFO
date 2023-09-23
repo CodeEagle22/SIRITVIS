@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: SIRITVIS
-Version: 1.1.1
+Version: 1.1.2
 Summary: SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisation
 Home-page: https://github.com/CodeEagle22/SIRITVIS
 Author: Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding
@@ -182,7 +182,7 @@ topic_mapper.TopicMapper(data_source, model_source)
 
 We encourage and welcome contributions to the SIRITVIS package. If you have any questions, want to report bugs, or have ideas for new features, please file an issue. 
 
-Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit and Twitter or any external data sources, and improving the tweet_mapper function to make it more interactive and independent from the notebook.
+Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit, Instagram and Twitter or any external data sources, and improving the topic_mapper function to make it more interactive and independent from the notebook.
 
 ## Authors
 
