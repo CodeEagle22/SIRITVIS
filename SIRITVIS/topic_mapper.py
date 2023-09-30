@@ -251,7 +251,7 @@ class TopicMapper:
 
     def add_markers(self, keyword=None, country=None, enable_sentiment=True, enable_post_count=False):
         # Clear the map
-        self.map = folium.Map(location=[self.center_lat, self.center_lon], zoom_start=2)
+        self.map = folium.Map(location=[self.center_lat, self.center_lon], zoom_start=2,max_zoom=15, min_zoom=2)
         
         if keyword:
             filtered_dataset, merged_keywords = self.filter_dataset(keyword=keyword)
