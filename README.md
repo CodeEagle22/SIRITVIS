@@ -112,10 +112,10 @@ raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_usern
 # raw_data variable might also be used as load_path attribute value
 cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_source_type='twitter or default:None')
 # cleaner_obj.clean_data     # get cleaned dataset without saving it
-cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',data_save_name='dataset_file_name'))
+cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',data_save_name='dataset_file_name')
 ```
 
-### Train your a topic model on a corpus of short texts
+### Train your a topic model on corpus of short texts
 
 ```python
 # cleaned_file variable might also be used as dataset_source attribute value
