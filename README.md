@@ -2,20 +2,20 @@
 
 # SIRITVIS
 
-Social Interaction Research Insights Topic Visualization
+Social Interaction Research Insights Topic Visualisation
 
 ## Summary   
 
-The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualization, and geo-visualization tools. These capabilities allow organizations to extract valuable insights and make data-driven decisions.
+The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
 
-The integration of established methodologies from data science, machine learning, and geospatial analysis ensures the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The graph visualisation and geo-visualization tools facilitate a clear and intuitive understanding of the spatial distribution of topics.
+The integration of established methodologies from data science, machine learning, and geospatial analysis ensures the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The graph visualisation and geo-visualisation tools facilitate a clear and intuitive understanding of the spatial distribution of topics.
 
-One of the standout feature of SIRITVIS is its ability to map the spatial distribution of Tweets and Instagram post on a world map, associating each location with its top trending topics and their frequency. The package classifies and color-codes locations based on their sentiments, providing a comprehensive count of positive, negative, and neutral tweets. Furthermore, users can explore specific keywords through a convenient dropdown interface and visualize their occurrences on the world map.
+One of the standout feature of SIRITVIS is its ability to map the spatial distribution of Tweets and Instagram post on a world map, associating each location with its top trending topics and their frequency. The package classifies and color-codes locations based on their sentiments, providing a comprehensive count of positive, negative, and neutral tweets. Furthermore, users can explore specific keywords through a convenient dropdown interface and visualise their occurrences on the world map.
 
-The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organizations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
+The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organisations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
 ## How to cite
-Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualization.
+Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualisation.
 
 
 ## Features
@@ -78,7 +78,7 @@ keywords = ['Specific','Keywords'] # default is None
 # Save path for collected data
 save_path = '../folder/path/to/store/the/data/'
 
-# Initialize and start Twitter streamer
+# Initialise and start Twitter streamer
 raw_data = twitter_streamer.TwitterStreamer(
     consumer_key,
     consumer_secret,
@@ -176,7 +176,7 @@ Benjamin Säfken,
 Benjamin Leiding,
 
 ## 🎓 References
-In our project, we utilized the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualization, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
+In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualisation, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
 
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 [^2^]: [pyLDAvis](https://github.com/bmabey/pyLDAvis)
