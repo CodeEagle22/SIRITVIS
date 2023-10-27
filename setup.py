@@ -15,7 +15,7 @@ setup(
     name='SIRITVIS',
     version='1.1.3',
     author='Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding',
-    description="SIRITVIS: Social Media Interaction & Reaction Insights Topic Visualisation",
+    description="SIRITVIS: Social Media Interaction Reaction Insights Topic Visualisation",
     long_description=long_description,
     long_description_content_type='text/markdown',  
     url="https://github.com/CodeEagle22/SIRITVIS",
