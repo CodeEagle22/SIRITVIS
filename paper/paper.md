@@ -64,12 +64,16 @@ Furthermore, SIRITVIS places a strong emphasis on user-friendliness and accessib
 
 # Figures
 
-![pyLDAvis Visualisation\label{fig:pyLDAvis Visualisation}](pyldavis.png){}
+![pyLDAvis Visualisation\label{fig:pyLDAvis Visualisation}](pyldavis.png)
 
-![Word Cloud\label{fig:Word Cloud}](word_cloud.png){ }
+![Word Cloud\label{fig:Word Cloud}](word_cloud.png)
 
-![Topic Mapper Frequency Count\label{fig:Topic Mapper Frequency Count}](topic_mapper_frequency.png){  }
+![Topic Mapper Frequency Count\label{fig:Topic Mapper Frequency Count}](topic_mapper_frequency.png)
 
-![Topic Mapper Sentiment Count\label{fig:Topic Mapper Sentiment Count}](topic_mapper_sentiment.png){ }
+![Topic Mapper Sentiment Count\label{fig:Topic Mapper Sentiment Count}](topic_mapper_sentiment.png)
+
+# Acknowledgements
+
+We wish to formally acknowledge and express our gratitude for the substantial contributions of Christoph Weisser and Michael Schlee throughout the entire duration of this project.
 
 # References
