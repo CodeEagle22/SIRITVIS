@@ -72,4 +72,8 @@ Furthermore, SIRITVIS places a strong emphasis on user-friendliness and accessib
 
 ![Topic Mapper Sentiment Count\label{fig:Topic Mapper Sentiment Count}](topic_mapper_sentiment.png){ }
 
+# Acknowledgements
+
+We wish to formally acknowledge and express our gratitude for the substantial contributions of Christoph Weisser and Michael Schlee throughout the entire duration of this project.
+
 # References
