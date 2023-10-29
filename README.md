@@ -170,10 +170,10 @@ Additionally, we appreciate pull requests via GitHub. There are several areas wh
 
 ## Authors
 
-Sagar Narwade, 
-Gillian Kant,
-Benjamin Säfken,
-Benjamin Leiding,
+- Sagar Narwade
+- Gillian Kant
+- Benjamin Säfken
+- Benjamin Leiding
 
 ## 🎓 References
 In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualisation, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
@@ -184,7 +184,7 @@ In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terra
 ## License
 
 Copyright (c) [2023] [Sagar Narwade]
-This software is released under the MIT License.
-https://opensource.org/licenses/MIT
+This software is released under the [MIT License](https://opensource.org/licenses/MIT).
+
 
 
