@@ -1,3 +1,7 @@
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 import collections
 from datetime import datetime
 import json

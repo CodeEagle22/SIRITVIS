@@ -1,3 +1,7 @@
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 from apify_client import ApifyClient
 import pickle
 import pandas as pd

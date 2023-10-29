@@ -4,7 +4,7 @@
 
 Social Interaction Research Insights Topic Visualisation
 
-## Summary   
+## 📋 Summary   
 
 The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
 
@@ -14,11 +14,13 @@ One of the standout feature of SIRITVIS is its ability to map the spatial distri
 
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organisations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
-## How to cite
-Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualisation.
+## 📝 How to cite
+
+Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualisation. Journal of Open Source Software, https://joss.theoj.org/papers/b51be70e9634e45d8035ee20b6147d76.
 
 
-## Features
+
+## 💡 Features
 
 - Data Streaming 💾
 - Data Cleaning 🧹
@@ -162,22 +164,29 @@ model_source = '../file/path/of/model.pkl'
 topic_mapper.TopicMapper(data_source, model_source)
 ```
 
-## Community guidelines
+## 📣 Community guidelines
 
 We encourage and welcome contributions to the SIRITVIS package. If you have any questions, want to report bugs, or have ideas for new features, please file an issue. 
 
 Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit, Instagram and Twitter or any external data sources, and improving the topic_mapper function to make it more interactive and independent from the notebook.
 
-## Authors
+## 🖊️ Authors
 
-Sagar Narwade, 
-Gillian Kant,
-Benjamin Säfken,
-Benjamin Leiding,
+- Sagar Narwade
+- Gillian Kant
+- Benjamin Säfken
+- Benjamin Leiding
 
 ## 🎓 References
 In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terragni et al., which provided essential functionalities. Additionally, we incorporated the "pyLDAvis" [^2^] by Ben Mabey Python library for interactive topic model visualisation, enriching our application with powerful data insights. The seamless integration of these resources significantly contributed to the project's success, offering an enhanced user experience and valuable research capabilities.
 
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 [^2^]: [pyLDAvis](https://github.com/bmabey/pyLDAvis)
+
+## 📜 License
+
+Copyright (c) [2023] [Sagar Narwade]
+This software is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+
 
