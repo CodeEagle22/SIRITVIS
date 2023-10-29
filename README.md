@@ -4,6 +4,9 @@
 
 Social Interaction Research Insights Topic Visualisation
 
+![Local Image](images/image.jpg)
+
+
 ## 📋 Summary   
 
 The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
