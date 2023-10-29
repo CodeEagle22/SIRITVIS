@@ -1,3 +1,7 @@
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 import pickle
 from datetime import datetime
 import pandas as pd
