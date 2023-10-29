@@ -5,7 +5,7 @@
 Social Interaction Research Insights Topic Visualisation
 
 
-<img src="images/image.png" alt="Logo" height="80" width="80">
+<img src="images/image.png" alt="Logo" height="150" width="150">
 
 
 
