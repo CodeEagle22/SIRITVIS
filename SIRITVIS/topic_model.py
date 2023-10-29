@@ -1,6 +1,8 @@
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
 
 import pandas as pd
-
 import string
 from nltk.corpus import stopwords
 from octis.models.NeuralLDA import NeuralLDA
