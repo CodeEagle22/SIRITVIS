@@ -4,7 +4,7 @@
 
 Social Interaction Research Insights Topic Visualisation
 
-## Summary   
+## 📋 Summary   
 
 The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
 
@@ -20,7 +20,7 @@ Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Int
 
 
 
-## Features
+## 💡 Features
 
 - Data Streaming 💾
 - Data Cleaning 🧹
@@ -170,7 +170,7 @@ We encourage and welcome contributions to the SIRITVIS package. If you have any 
 
 Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit, Instagram and Twitter or any external data sources, and improving the topic_mapper function to make it more interactive and independent from the notebook.
 
-## 📜 Authors
+## 🖊️ Authors
 
 - Sagar Narwade
 - Gillian Kant
@@ -183,7 +183,7 @@ In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terra
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 [^2^]: [pyLDAvis](https://github.com/bmabey/pyLDAvis)
 
-## License
+## 📜 License
 
 Copyright (c) [2023] [Sagar Narwade]
 This software is released under the [MIT License](https://opensource.org/licenses/MIT).
