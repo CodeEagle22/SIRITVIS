@@ -4,8 +4,8 @@
 
 Social Interaction Research Insights Topic Visualisation
 
-![Local Image](images/image.png)
-<img src="images/image.png" alt="Alt Text" height="50" width="50">
+
+<img src="images/image.png" alt="Logo" height="80" width="80">
 
 
 
