@@ -1,35 +1,21 @@
-
-
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
 
 import glob
 from heapq import nlargest
-
-from sklearn.decomposition import NMF
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import NMF, LatentDirichletAllocation
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import make_pipeline
-import pandas as pd
-from sklearn.decomposition import NMF
-from sklearn.decomposition import LatentDirichletAllocation
-
-
-
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.pipeline import make_pipeline
-from multiprocessing import Pool
-from multiprocessing import cpu_count
+from multiprocessing import Pool, cpu_count
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-
 import pandas as pd
 from IPython.core.display import display, HTML
-
 import pyLDAvis
-import pyLDAvis.lda_model
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
+from pyLDAvis.lda_model import LDA
 import warnings
-
 from wordcloud import WordCloud
 
 
