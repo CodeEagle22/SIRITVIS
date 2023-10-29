@@ -181,3 +181,10 @@ In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terra
 [^1^]: [OCTIS](https://github.com/MIND-Lab/OCTIS).
 [^2^]: [pyLDAvis](https://github.com/bmabey/pyLDAvis)
 
+## License
+
+Copyright (c) [2023] [Sagar Narwade]
+This software is released under the MIT License.
+https://opensource.org/licenses/MIT
+
+
