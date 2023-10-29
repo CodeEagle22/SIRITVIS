@@ -4,7 +4,7 @@
 
 Social Interaction Research Insights Topic Visualisation
 
-![Local Image](images/images.png)
+![Local Image](images/image.png)
 
 
 ## 📋 Summary   
