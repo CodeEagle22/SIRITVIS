@@ -1,3 +1,7 @@
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 from apify_client import ApifyClient
 import pickle
 import pandas as pd
@@ -36,7 +40,7 @@ class InstagramStreamer:
         assert isinstance(save_path, str), "save_path should be a string."
         assert isinstance(instagram_username, str), "instagram_username should be a string."
         assert isinstance(instagram_password, str), "instagram_password should be a string."
-        assert isinstance(hashtags, list), "hahstags should be a list, default hashtags='instagram'."
+        assert isinstance(hashtags, list), "hashtags should be a list, default hashtags='instagram'."
         assert isinstance(limit, int), "limit should be a int, default limit=20."
 
         self.client = ApifyClient(api_token)

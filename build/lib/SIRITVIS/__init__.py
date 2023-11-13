@@ -1,3 +1,7 @@
+# Copyright (c) [year] [your name]
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 from .reddit_streamer import RedditStreamer
 from .twitter_streamer import TwitterStreamer
 from .cleaner import Cleaner
