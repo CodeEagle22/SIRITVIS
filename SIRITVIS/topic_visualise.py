@@ -111,27 +111,35 @@ class PyLDAvis():
             print("Error: File not found.")
         except pd.errors.EmptyDataError:
             print("Error: The CSV file is empty.")
+        except ValueError as ve:
+            if "max_df corresponds to fewer documents than min_df" in str(ve):
+                print(f"The dataset size is very small: {str(ve)}")
+            else:
+                print(f"An error occurred: {str(ve)}")
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            print(f"An unexpected error occurred: {str(e)}")
 
         
 
     
 
 class Wordcloud():
-    def __init__(self, data_source, text_column='text'):
+    def __init__(self, data_source, text_column='text', save_image=False):
         """
         Initialize the Word_Cloud class.
 
         Parameters:
         - data_source (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
         - text_column (str): The name of the text column in the CSV file or DataFrame.
+        - save_image (bool): Flag indicating whether to save the word cloud image.
         """
         assert isinstance(data_source, (str,pd.DataFrame)), "data_source should be a string path or preprocessed dataset variable"
         assert text_column is None or isinstance(text_column, str), "text_column must be a str"
+        assert isinstance(save_image, bool), "save_image must be a boolean"
 
         self.csv_file = data_source
         self.column_name = text_column
+        self.save_image = save_image
         self.vis = None
         self.cloud = None
         self.word = None
@@ -139,7 +147,6 @@ class Wordcloud():
         
     def visualize(self):
         try:
-
             # Read the CSV file and retrieve the specified column
             if isinstance(self.csv_file, str):
                 file_extension = os.path.splitext(self.csv_file)[1]
@@ -159,12 +166,7 @@ class Wordcloud():
                 print("Unsupported data type.")
                 return None
 
-
             cor = df[self.column_name].str.replace(r'\b\w{1,2}\b', '').tolist()
-            
-            
-
-
 
             # Extract the text from the DataFrame column
             input_text = ' '.join(cor)
@@ -199,9 +201,12 @@ class Wordcloud():
 
             plt.connect('scroll_event', zoom)
 
-            # A large corpus takes a looong time to compute 2D projections for so
-            # so you can speed up preprocessing by disabling it alltogether.
-            return plt.show()
+            # Save the word cloud image if save_image is True
+            if self.save_image:
+                plt.savefig('wordcloud.png')
+                
+            # Display the plot
+            plt.show()
                 
         except FileNotFoundError:
             print("Error: File not found.")
@@ -209,9 +214,8 @@ class Wordcloud():
             print("Error: The CSV file is empty.")
         except KeyError:
             print(f"Error: The column '{self.column_name}' does not exist in the CSV file. Define text_column name of your dataset")
-        except:
-            return
-
+        except Exception as e:
+            print("An error occurred:", str(e))
         
         
 
