@@ -430,6 +430,13 @@ class TopicModeling:
         self.nlda = None
         self.evaluation_results = None
         self.evaluation = evaluation
+
+        file_size = os.path.getsize(dataset_source)
+    
+        # Check if the file size is less than 1 MB
+        if file_size < 1024 * 1024:  # 1 MB = 1024 * 1024 bytes
+            print("Recommendation: Consider using a larger file with more data (at least 1 MB).")
+
         
 
     def read_data(self):
