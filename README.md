@@ -151,7 +151,7 @@ A graphical display of text data in which the importance of each word reflects i
 # The cleaned_file variable might also be used as data_source attribute value
 # please wait for a while for the word cloud to appear.
 
-vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text')
+vis_model = topic_visualise.Wordcloud(data_source='../csv/file/path/to/load/data.csv',text_column='text',save_image=False)
 vis_model.visualize()
 ```
 
