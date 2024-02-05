@@ -32,6 +32,13 @@ nltk.download('stopwords')
 import warnings
 # Suppress warnings
 warnings.filterwarnings("ignore")
+import ssl
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
 
 # Adjust log level to suppress log messages
 import logging

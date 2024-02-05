@@ -174,6 +174,7 @@ cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',da
 
 ```python
 # cleaned_file variable might also be used as dataset_source attribute value
+# Recommendation: Consider using a larger file with more data (at least 1 MB)
 
 model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
@@ -187,6 +188,7 @@ saved_model = model.run()
 To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 ```python
 # cleaned_file variable could also used as data_source attribute value
+# Recommendation: Consider using a larger file with more data (at least 1 MB)
 
 vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
