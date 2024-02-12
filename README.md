@@ -35,7 +35,7 @@ Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Int
 
 ## 🛠 Installation
 
-Attention: SIRITVIS is designed to run on Python 3.10, it has been fully tested under these conditions. We recommend installing a new (conda) environment using Python 3.10.10 for optimal compatibility and performance.
+Attention: SIRITVIS is specifically tailored for operation on Python 3.10, and its visualization capabilities are optimized for Python notebooks. Extensive testing has been conducted under these specifications. For the best compatibility and performance, we advise setting up a fresh (conda) environment utilizing Python 3.10.10.
 
 The package can be installed via pip:
 
