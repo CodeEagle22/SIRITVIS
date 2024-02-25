@@ -108,7 +108,6 @@ raw_data = twitter_streamer.TwitterStreamer(
 
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords
-# Sign_up [apify](https://apify.com/apify/instagram-hashtag-scraper) to get free api_token
 
 api_token = 'apify_api_XXXXXXXXX'
 save_path = '../folder/path/to/store/the/data/'
