@@ -24,7 +24,7 @@ Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Int
 
 ## Advisory
 
-- Ensure Python version 3.10.*.
+- Ensure Python version '>=3.10, <3.11'.
 - Utilize IDEs like Visual Studio or platforms like Google Colab for enhanced plot visualization.
 - Refer to the provided [sample dataset](https://github.com/CodeEagle22/SIRITVIS/tree/main/sample_dataset) for better comprehension.
 
