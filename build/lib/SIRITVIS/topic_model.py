@@ -4,6 +4,7 @@
 
 import pandas as pd
 import string
+import os
 from nltk.corpus import stopwords
 from octis.models.NeuralLDA import NeuralLDA
 from octis.models.ProdLDA import ProdLDA

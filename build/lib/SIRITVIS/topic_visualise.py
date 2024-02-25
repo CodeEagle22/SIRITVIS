@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from IPython.core.display import display, HTML
 import pyLDAvis
-from pyLDAvis.lda_model import LDA
+from pyLDAvis.lda_model import prepare
 import warnings
 from wordcloud import WordCloud
 
