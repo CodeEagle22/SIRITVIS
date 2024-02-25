@@ -8,7 +8,6 @@ Social Interaction Research Insights Topic Visualisation
 <img src="images/image.png" alt="Logo" height="180" width="180">
 
 
-
 ## 📋 Summary   
 
 The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
@@ -23,6 +22,10 @@ The innovative capabilities of this tool hold great potential in various domains
 
 Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualisation. Journal of Open Source Software, https://joss.theoj.org/papers/b51be70e9634e45d8035ee20b6147d76.
 
+## Requirements
+
+- Python 3.10.*
+- An Integrated Development Environment (IDE) like Visual Studio Code or Jupyter Notebook for better plot visualization.
 
 
 ## 💡 Features
@@ -35,7 +38,7 @@ Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Int
 
 ## 🛠 Installation
 
-Attention: SIRITVIS is designed to run on Python 3.10, it has been fully tested under these conditions. We recommend installing a new (conda) environment using Python 3.10.10 for optimal compatibility and performance.
+Attention: SIRITVIS is specifically tailored for operation on Python 3.10, and its visualization capabilities are optimized for Python notebooks. Extensive testing has been conducted under these specifications. For the best compatibility and performance, we advise setting up a fresh (conda) environment utilizing Python 3.10.10.
 
 The package can be installed via pip:
 
