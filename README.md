@@ -169,6 +169,8 @@ Topic Mapper excels at mapping the spatial distribution of tweets and Instagram 
 
 Users can effortlessly explore specific keywords through a dropdown interface, allowing them to see how frequently these keywords appear on the world map. This feature simplifies the process of grasping and navigating research findings.
 
+- Notice: Reddit data cannot be visualized on the topic_mapper due to the absence of coordinate values.
+  
 ```python
 # The cleaned_file variable might also be used as data_source attribute value
 # The saved_model variable might also be used as the model_source attribute value, for example, model_source = saved_model
