@@ -13,7 +13,7 @@ except Exception as e:
 
 setup(
     name='SIRITVIS',
-    version='1.1.7',
+    version='1.1.8',
     author='Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding',
     description="SIRITVIS: Social Media Interaction Reaction Insights Topic Visualisation",
     long_description=long_description,
@@ -36,7 +36,6 @@ setup(
         'urllib3',
         'langdetect',
         'octis',
-        'topic-wizard==0.3.1',
         'scikit-learn==1.2.2',
         'folium==0.14.0',
         'pickle4==0.0.1',
@@ -50,7 +49,7 @@ setup(
         'geopy',
         'Flask==2.2.5',
         'Flask-Caching==2.0.1',
-        'wordcloud==1.8.2.2',
+        'wordcloud==1.9.2',
         'ipython==7.34.0',
         'textblob==0.15.3',
         'apify-client==1.4.0',

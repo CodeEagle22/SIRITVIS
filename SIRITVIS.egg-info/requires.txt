@@ -10,7 +10,6 @@ tweepy==3.9.0
 urllib3
 langdetect
 octis
-topic-wizard==0.3.1
 scikit-learn==1.2.2
 folium==0.14.0
 pickle4==0.0.1
@@ -24,7 +23,7 @@ ipyleaflet
 geopy
 Flask==2.2.5
 Flask-Caching==2.0.1
-wordcloud==1.8.2.2
+wordcloud==1.9.2
 ipython==7.34.0
 textblob==0.15.3
 apify-client==1.4.0

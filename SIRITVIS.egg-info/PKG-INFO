@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: SIRITVIS
-Version: 1.1.7
+Version: 1.1.8
 Summary: SIRITVIS: Social Media Interaction Reaction Insights Topic Visualisation
 Home-page: https://github.com/CodeEagle22/SIRITVIS
 Author: Sagar Narwade, Gillian Kant, Benjamin Saefken, Benjamin Leiding
@@ -26,7 +26,6 @@ Requires-Dist: tweepy==3.9.0
 Requires-Dist: urllib3
 Requires-Dist: langdetect
 Requires-Dist: octis
-Requires-Dist: topic-wizard==0.3.1
 Requires-Dist: scikit-learn==1.2.2
 Requires-Dist: folium==0.14.0
 Requires-Dist: pickle4==0.0.1
@@ -40,7 +39,7 @@ Requires-Dist: ipyleaflet
 Requires-Dist: geopy
 Requires-Dist: Flask==2.2.5
 Requires-Dist: Flask-Caching==2.0.1
-Requires-Dist: wordcloud==1.8.2.2
+Requires-Dist: wordcloud==1.9.2
 Requires-Dist: ipython==7.34.0
 Requires-Dist: textblob==0.15.3
 Requires-Dist: apify-client==1.4.0
@@ -70,11 +69,11 @@ The innovative capabilities of this tool hold great potential in various domains
 
 Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualisation. Journal of Open Source Software, https://joss.theoj.org/papers/b51be70e9634e45d8035ee20b6147d76.
 
-## Requirements
+## Advisory
 
-- Python 3.10.*
-- An Integrated Development Environment (IDE) like Visual Studio Code or Jupyter Notebook for better plot visualization.
-
+- Ensure Python version '>=3.10, <3.11'.
+- Utilize IDEs like Visual Studio or platforms like Google Colab for enhanced plot visualization.
+- Refer to the provided [sample dataset](https://github.com/CodeEagle22/SIRITVIS/tree/main/sample_dataset) for better comprehension.
 
 ## 💡 Features
 
@@ -103,6 +102,7 @@ from SIRITVIS import twitter_streamer, insta_streamer, reddit_streamer, cleaner,
 ```
 
 ### Streaming Reddit Data
+- For authentication with the Reddit Streaming API, follow the steps outlined in this [tutorial](https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c).
 
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords
@@ -110,12 +110,13 @@ from SIRITVIS import twitter_streamer, insta_streamer, reddit_streamer, cleaner,
 client_id = "XXXXXXXXXX"
 client_secret = "XXXXXXXXX"
 user_agent = "XXXXXXXXXX"
-keywords = ['Specific','Keywords'] # default is None
+keywords = ['Specific','Keywords'] # default is None # Use multiple keywords for a more varied dataset during streaming data collection.
 save_path = '../folder/path/to/store/the/data/'
 raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords).run()
 ```
 
 ### Streaming Twitter Data
+- For authentication with the Twitter Streaming API, follow the page [Twitter Developer Account](https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api)
 
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords and for specific location
@@ -131,7 +132,7 @@ locations = [51.416016,5.528511,90.966797,34.669359] # box coordinates.
 languages = ['en', 'es'] 
 
 # Keywords to track
-keywords = ['Specific','Keywords'] # default is None
+keywords = ['Specific','Keywords'] # default is None # Use multiple keywords for a more varied dataset during streaming data collection.
 
 # Save path for collected data
 save_path = '../folder/path/to/store/the/data/'
@@ -150,16 +151,16 @@ raw_data = twitter_streamer.TwitterStreamer(
 ```
 
 ### Streaming Instagram Data
+- For authentication with the Instagram Streaming API, sign up the page [apify](https://apify.com/apify/instagram-hashtag-scraper)
 
 ```python
 # Run the streaming process to retrieve raw data based on the specified keywords
-# Sign_up [apify](https://apify.com/apify/instagram-hashtag-scraper) to get free api_token
 
 api_token = 'apify_api_XXXXXXXXX'
 save_path = '../folder/path/to/store/the/data/'
 instagram_username = 'XXXXXXXXX'
 instagram_password = 'XXXXXXXXX'
-hashtags = ['Specific','Keywords'] # default is ['instagram']
+hashtags = ['Specific','Keywords'] # default is ['instagram'] # Use multiple keywords for a more varied dataset during streaming data collection.
 limit =  20 # number of post captions to extract. default is 100
 raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_username,instagram_password,hashtags,limit).run()
 ```
@@ -174,10 +175,10 @@ cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',da
 ```
 
 ### Train your a topic model on corpus of short texts
-
+- Recommendation: Consider using a larger cleaned file with more data (at least 500 KB)
+  
 ```python
 # cleaned_file variable might also be used as dataset_source attribute value
-# Recommendation: Consider using a larger file with more data (at least 1 MB)
 
 model = topic_model.TopicModeling(num_topics=10, dataset_source='../csv/file/path/to/load/data.csv',
 learning_rate=0.001, batch_size=32, activation='softplus', num_layers=3, num_neurons=100,
@@ -187,17 +188,19 @@ saved_model = model.run()
 ```
 
 ### Topic Insights Visualisation 
+- To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
+- Recommendation: Consider using a larger cleaned file with more data (at least 500 KB)
 
-To investigate internal structure of topics and their relations to words and indicidual documents we recommend using [pyLDAvis](https://github.com/bmabey/pyLDAvis).
 ```python
 # cleaned_file variable could also used as data_source attribute value
-# Recommendation: Consider using a larger file with more data (at least 1 MB)
 
 vis_model = topic_visualise.PyLDAvis(data_source='../csv/file/path/to/load/data.csv',num_topics=5,text_column='text')
 vis_model.visualize()
 ```
 
 A graphical display of text data in which the importance of each word reflects its frequency or significance within the text.
+- Recommendation: Consider using a larger cleaned file with more data (at least 500 KB)
+
 ```python
 # The cleaned_file variable might also be used as data_source attribute value
 # please wait for a while for the word cloud to appear.
@@ -213,6 +216,8 @@ Topic Mapper excels at mapping the spatial distribution of tweets and Instagram 
 
 Users can effortlessly explore specific keywords through a dropdown interface, allowing them to see how frequently these keywords appear on the world map. This feature simplifies the process of grasping and navigating research findings.
 
+- Notice: Reddit data cannot be visualized on the topic_mapper due to the absence of coordinate values.
+  
 ```python
 # The cleaned_file variable might also be used as data_source attribute value
 # The saved_model variable might also be used as the model_source attribute value, for example, model_source = saved_model

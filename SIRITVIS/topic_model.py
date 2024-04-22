@@ -29,17 +29,21 @@ from octis.dataset.dataset import Dataset
 from collections import Counter
 import nltk
 import math
-nltk.download('stopwords')
-import warnings
-# Suppress warnings
-warnings.filterwarnings("ignore")
+
 import ssl
+
 try:
     _create_unverified_https_context = ssl._create_unverified_context
 except AttributeError:
     pass
 else:
     ssl._create_default_https_context = _create_unverified_https_context
+
+nltk.download('stopwords')
+import warnings
+# Suppress warnings
+warnings.filterwarnings("ignore")
+
 
 # Adjust log level to suppress log messages
 import logging
@@ -452,7 +456,9 @@ class TopicModeling:
         Reads the dataset from the provided file path.
         """
         try:
-            if isinstance(self.dataset_path, str):
+            if isinstance(self.dataset_path, pd.DataFrame):
+                self.df = self.dataset_path
+            elif isinstance(self.dataset_path, str):
                 if self.dataset_path.endswith('.pkl'):
                     self.df = pd.read_pickle(self.dataset_path).reset_index(drop=True)
                 elif self.dataset_path.endswith('.csv'):

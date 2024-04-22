@@ -8,15 +8,17 @@ from sklearn.decomposition import NMF, LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import make_pipeline
 from multiprocessing import Pool, cpu_count
-import numpy as np
+
 import os
-import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from IPython.core.display import display, HTML
 import pyLDAvis
 from pyLDAvis.lda_model import prepare
 import warnings
 from wordcloud import WordCloud
+
 
 
 # Suppress warnings
@@ -27,7 +29,7 @@ import logging
 logging.getLogger().setLevel(logging.ERROR)
 
 class PyLDAvis():
-    def __init__(self, data_source,num_topics=10, text_column='text'):
+    def __init__(self, data_source, num_topics=10, text_column='text'):
         """
         Initialize the PyLDAvis class.
 
@@ -35,7 +37,7 @@ class PyLDAvis():
         - data_source (str or DataFrame): The path to the CSV file or a DataFrame containing the data.
         - text_column (str): The name of the text column in the CSV file or DataFrame.
         """
-        assert isinstance(data_source, (str,pd.DataFrame)), "data_source should be a string path or preprocessed dataset variable"
+        assert isinstance(data_source, (str, pd.DataFrame)), "data_source should be a string path or preprocessed dataset variable"
         assert text_column is None or isinstance(text_column, str), "text_column must be a str"
         self.file_path = data_source
         self.column_name = text_column
@@ -50,14 +52,13 @@ class PyLDAvis():
 
     def visualize(self):
         """
-        Perform Latent Dirichlet Allocation (LDA) and prepare the visualization.
-
+        Perform Latent Dirichlet Allocation (LDA) and prepare the visualization. 
         Returns:
         - vis: The prepared visualization object.
         """
         try:
-
-            print('The visualisation is based on Latent Dirichlet Allocation (LDA) model.')
+            print('The visualization is based on Latent Dirichlet Allocation (LDA) model.')
+            
             # Read the CSV file or use the provided DataFrame
             if isinstance(self.file_path, pd.DataFrame):
                 data = self.file_path
@@ -80,6 +81,10 @@ class PyLDAvis():
                 print(f"Error: The column '{self.column_name}' does not exist in the data.")
                 return None
 
+            if len(data) < 200:
+                print("Warning: The dataset size is very small.")
+                data = pd.concat([data] * 40, ignore_index=True)  # Multiplying records 
+
             self.lines = data[self.column_name].tolist()
 
             # Create the TF vectorizer
@@ -100,26 +105,18 @@ class PyLDAvis():
             self.lda_tf.fit(self.dtms_tf)
 
             # Prepare the visualization
-            
-            
             self.vis = pyLDAvis.lda_model.prepare(self.lda_tf, self.dtms_tf, self.tf_vectorizer)
             pyLDAvis.enable_notebook()
             return pyLDAvis.display(self.vis)
-            
-        
-        except FileNotFoundError:
-            print("Error: File not found.")
-        except pd.errors.EmptyDataError:
-            print("Error: The CSV file is empty.")
+
         except ValueError as ve:
             if "max_df corresponds to fewer documents than min_df" in str(ve):
                 print(f"The dataset size is very small: {str(ve)}")
+            elif "NoneType' object has no attribute 'display_formatter" in str(ve):
+                print("Error: The file size is too small. Recommended file size is > 1 MB.")
             else:
                 print(f"An error occurred: {str(ve)}")
-        except Exception as e:
-            print(f"An unexpected error occurred: {str(e)}")
 
-        
 
     
 
