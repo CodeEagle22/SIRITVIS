@@ -39,8 +39,8 @@ class PyLDAvis():
         """
         assert isinstance(data_source, (str, pd.DataFrame)), "data_source should be a string path or preprocessed dataset variable"
         assert text_column is None or isinstance(text_column, str), "text_column must be a str"
-        self.file_path = data_source
-        self.column_name = text_column
+        self.data_source = data_source
+        self.text_column = text_column
         self.num_topics = num_topics
         self.lines = None
         self.tf_vectorizer = None
@@ -60,16 +60,16 @@ class PyLDAvis():
             print('The visualization is based on Latent Dirichlet Allocation (LDA) model.')
             
             # Read the CSV file or use the provided DataFrame
-            if isinstance(self.file_path, pd.DataFrame):
-                data = self.file_path
-            elif isinstance(self.file_path, str):
-                file_extension = os.path.splitext(self.file_path)[1]
+            if isinstance(self.data_source, pd.DataFrame):
+                data = self.data_source
+            elif isinstance(self.data_source, str):
+                file_extension = os.path.splitext(self.data_source)[1]
                 if file_extension == ".pkl":
                     # Read pickle file
-                    data = pd.read_pickle(self.file_path).dropna().reset_index(drop=True)
+                    data = pd.read_pickle(self.data_source).dropna().reset_index(drop=True)
                 elif file_extension == ".csv":
                     # Read CSV file
-                    data = pd.read_csv(self.file_path).dropna().reset_index(drop=True)
+                    data = pd.read_csv(self.data_source).dropna().reset_index(drop=True)
                 else:
                     print("Unsupported file format.")
                     return None
@@ -77,15 +77,16 @@ class PyLDAvis():
                 print("Invalid data type. Please provide either a DataFrame or a file path.")
                 return None
 
-            if self.column_name not in data.columns:
-                print(f"Error: The column '{self.column_name}' does not exist in the data.")
+            if self.text_column not in data.columns:
+                print(f"Error: The column '{self.text_column}' does not exist in the data.")
                 return None
 
+            
             if len(data) < 200:
                 print("Warning: The dataset size is very small.")
                 data = pd.concat([data] * 40, ignore_index=True)  # Multiplying records 
 
-            self.lines = data[self.column_name].tolist()
+            self.lines = data[self.text_column].tolist()
 
             # Create the TF vectorizer
             self.tf_vectorizer = CountVectorizer(strip_accents='unicode',
@@ -105,9 +106,11 @@ class PyLDAvis():
             self.lda_tf.fit(self.dtms_tf)
 
             # Prepare the visualization
+            
             self.vis = pyLDAvis.lda_model.prepare(self.lda_tf, self.dtms_tf, self.tf_vectorizer)
             pyLDAvis.enable_notebook()
             return pyLDAvis.display(self.vis)
+
 
         except ValueError as ve:
             if "max_df corresponds to fewer documents than min_df" in str(ve):
@@ -117,8 +120,7 @@ class PyLDAvis():
             else:
                 print(f"An error occurred: {str(ve)}")
 
-
-    
+        
 
 class Wordcloud():
     def __init__(self, data_source, text_column='text', save_image=False):

@@ -408,7 +408,8 @@ class TopicModeling:
 
         valid_values = ['accuracy', 'topicdiversity', 'invertedrbo', 'jaccardsimilarity', 'coherence']
         assert isinstance(num_topics, int) and num_topics > 0, "num_topics should be a positive integer."
-        assert isinstance(dataset_source, (str,pd.DataFrame)), "dataset_path should be a string or preprocessed dataset variable"
+        assert isinstance(dataset_source, (str, pd.DataFrame)), "dataset_path should be a string or preprocessed dataset variable"
+        # Check if learning_rate is a positive float
         assert isinstance(learning_rate, float) and learning_rate > 0, "learning_rate should be a positive float."
         assert isinstance(batch_size, int) and batch_size > 0, "batch_size should be a positive integer."
         assert activation in ['softplus', 'relu', 'sigmoid', 'swish', 'leakyrelu', 'rrelu', 'elu', 'selu', 'tanh'], "activation must be 'softplus', 'relu', 'sigmoid', 'swish', 'leakyrelu', 'rrelu', 'elu', 'selu' or 'tanh'."
@@ -443,12 +444,6 @@ class TopicModeling:
         self.evaluation_results = None
         self.evaluation = evaluation
 
-        file_size = os.path.getsize(dataset_source)
-    
-        # Check if the file size is less than 1 MB
-        if file_size < 1024 * 1024:  # 1 MB = 1024 * 1024 bytes
-            print("Recommendation: Consider using a larger file with more data (at least 1 MB).")
-
         
 
     def read_data(self):
@@ -480,7 +475,10 @@ class TopicModeling:
         """
         Preprocesses the data by removing 'RT', dropping NaN values, and saving the processed text to a file.
         """
-        
+        if len(self.df) < 200:
+                print("Warning: The dataset size is very small.")
+                self.df = pd.concat([self.df] * 40, ignore_index=True)  # Multiplying records 
+
         if self.df is None:
             print("Error: No data loaded. Call read_data() first.")
             return False
