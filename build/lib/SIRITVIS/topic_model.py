@@ -450,6 +450,8 @@ class TopicModeling:
         """
         Reads the dataset from the provided file path.
         """
+        
+          
         try:
             if isinstance(self.dataset_path, pd.DataFrame):
                 self.df = self.dataset_path
@@ -463,6 +465,11 @@ class TopicModeling:
                     return False
             else:
                 self.df = self.dataset_path
+
+     
+            
+            
+
         except FileNotFoundError:
             print("Error: Dataset file not found.")
             return False

@@ -35,31 +35,36 @@ class TopicMapper:
         assert isinstance(model_source, (str, dict)), "model_file must be a string path or a dictionary variable"
 
         # Read the data into a pandas DataFrame
-
-        if isinstance(data_source, str):
-            self.df = pd.read_csv(data_source)
-        else:
-            self.df = data_source
-
-        self.model_file = model_source
         try:
-          self.center_lat = self.df['center_coord_Y'].mean()
-          self.center_lon = self.df['center_coord_X'].mean()
-        except:
-          print("Make sure csv_file contains coordinate columns 'center_coord_Y' and 'center_coord_X'")
-        self.keyword_rankings = {}
-        self.country_dropdown = None
-        # Create an output widget to display download status
-        self.output_widget = Output()
+            if isinstance(data_source, str):
+                self.df = pd.read_csv(data_source)
+            else:
+                self.df = data_source
+
+            self.model_file = model_source
+            try:
+                self.center_lat = self.df['center_coord_Y'].mean()
+                self.center_lon = self.df['center_coord_X'].mean()
+            except:
+                print("Make sure csv_file contains coordinate columns 'center_coord_Y' and 'center_coord_X'")
+            self.keyword_rankings = {}
+            self.country_dropdown = None
+            # Create an output widget to display download status
+            self.output_widget = Output()
+            
+            # Create an export button
+            self.export_button = Button(description="Export Map as HTML")
+            self.export_button.on_click(self.export_map)
+
         
-        # Create an export button
-        self.export_button = Button(description="Export Map as HTML")
-        self.export_button.on_click(self.export_map)
 
-     
-
-        # Create dropdowns
-        self.create_dropdowns()
+            # Create dropdowns
+            self.create_dropdowns()
+        
+                
+        except KeyError:
+            print("KeyError: 'country' column does not exist in the dataset.")
+            return False  
 
     def perform_sentiment_analysis(self):
         # Initialize the sentiment analyzer
