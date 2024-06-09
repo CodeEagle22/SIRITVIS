@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.2 20190208//EN"
+                  "JATS-publishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+<front>
+<journal-meta>
+<journal-id></journal-id>
+<journal-title-group>
+<journal-title>Journal of Open Source Software</journal-title>
+<abbrev-journal-title>JOSS</abbrev-journal-title>
+</journal-title-group>
+<issn publication-format="electronic">2475-9066</issn>
+<publisher>
+<publisher-name>Open Journals</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">0</article-id>
+<article-id pub-id-type="doi">N/A</article-id>
+<title-group>
+<article-title>SIRITVIS: Social Interaction Research Insights Topic
+Visualisation</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0009-0004-9636-3611</contrib-id>
+<name>
+<surname>Narwade</surname>
+<given-names>Sagar</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0003-2346-2841</contrib-id>
+<name>
+<surname>Kant</surname>
+<given-names>Gillian</given-names>
+</name>
+<xref ref-type="aff" rid="aff-2"/>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0003-4702-3333</contrib-id>
+<name>
+<surname>Säfken</surname>
+<given-names>Benjamin</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Leiding</surname>
+<given-names>Benjamin</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<aff id="aff-1">
+<institution-wrap>
+<institution>Technische Universität Clausthal, Clausthal-Zellerfeld,
+Germany</institution>
+</institution-wrap>
+</aff>
+<aff id="aff-2">
+<institution-wrap>
+<institution>Georg-August-Universität Göttingen, Göttingen,
+Germany</institution>
+</institution-wrap>
+</aff>
+</contrib-group>
+<pub-date date-type="pub" publication-format="electronic" iso-8601-date="2023-10-23">
+<day>23</day>
+<month>10</month>
+<year>2023</year>
+</pub-date>
+<volume>¿VOL?</volume>
+<issue>¿ISSUE?</issue>
+<fpage>¿PAGE?</fpage>
+<permissions>
+<copyright-statement>Authors of papers retain copyright and release the
+work under a Creative Commons Attribution 4.0 International License (CC
+BY 4.0)</copyright-statement>
+<copyright-year>2022</copyright-year>
+<copyright-holder>The article authors</copyright-holder>
+<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/">
+<license-p>Authors of papers retain copyright and release the work under
+a Creative Commons Attribution 4.0 International License (CC BY
+4.0)</license-p>
+</license>
+</permissions>
+<kwd-group kwd-group-type="author">
+<kwd>Python</kwd>
+<kwd>Text analysis tool</kwd>
+<kwd>X, Twitter, Reddit, Instagram</kwd>
+<kwd>Topic Modelling</kwd>
+<kwd>Geospatial mapping</kwd>
+<kwd>Natural Language Processing</kwd>
+<kwd>Machine Learning</kwd>
+</kwd-group>
+</article-meta>
+</front>
+<body>
+<sec id="summary">
+  <title>Summary</title>
+  <p>SIRITVIS is a powerful text analysis tool that has been carefully
+  designed to analyse data from Reddit, X (Twitter), Instagram, and any
+  external text data sources. It utilizes the latest tools to
+  automatically extract information from these sources, clean the data,
+  and optimise topic modeling more efficiently. One feature of SIRITVIS
+  is its ability to map social media posts on a global scale, connecting
+  geographical locations with trending topics, thus providing valuable
+  insights into the worldwide trends and conversations shaping our
+  digital landscape. Additionally, it offers sentiment analysis on
+  mapped data using the well-regarded VADER tool
+  (<xref alt="Hutto &amp; Gilbert, 2014" rid="ref-hutto2014vader" ref-type="bibr">Hutto
+  &amp; Gilbert, 2014</xref>). This software is a valuable resource for
+  the scientific community, offering deep insights into public
+  discussions on various social platforms. It can be used for a wide
+  range of research purposes, including the analysis of recent
+  discussions on global geopolitical issues. Installing SIRITVIS is
+  straightforward, as it can be accomplished using the pip package
+  manager. Comprehensive installation instructions can typically be
+  found in the dedicated repository of the
+  package.<xref ref-type="fn" rid="fn1">1</xref></p>
+  <sec id="statement-of-need">
+    <title>Statement of Need</title>
+    <p>The surge of social media platforms has revolutionised the way we
+    communicate, share information, and express viewpoints on various
+    subjects. Among these platforms, Reddit, Instagram, and X (Twitter)
+    stand out as notable sources of public discourse. Examining text
+    data from these platforms offers valuable insights into public
+    sentiments, preferences, and trending discussions, benefiting fields
+    such as marketing, politics, and disaster management.</p>
+    <p>Dealing with the colossal volume of unstructured text data from
+    social media is challenging due to its dynamic nature and sheer
+    size. To address this challenge, we introduce SIRITVIS, a text
+    analysis package designed to simplify the analysis of social media
+    data. The package employs advanced neural topic models developed by
+    AVITM
+    (<xref alt="Srivastava &amp; Sutton, 2017" rid="ref-srivastava2017autoencoding" ref-type="bibr">Srivastava
+    &amp; Sutton, 2017</xref>) and other popular topic models, including
+    Latent Dirichlet Allocation (LDA)
+    (<xref alt="Blei et al., 2003" rid="ref-blei2003latent" ref-type="bibr">Blei
+    et al., 2003</xref>), Neural Latent Dirichlet Allocation (NeuralLDA)
+    (<xref alt="Srivastava &amp; Sutton, 2017" rid="ref-srivastava2017autoencoding" ref-type="bibr">Srivastava
+    &amp; Sutton, 2017</xref>), Product Latent Dirichlet Allocation
+    (ProdLDA)
+    (<xref alt="Srivastava &amp; Sutton, 2017" rid="ref-srivastava2017autoencoding" ref-type="bibr">Srivastava
+    &amp; Sutton, 2017</xref>), and Contextualised Topic Models (CTM)
+    (<xref alt="Bianchi et al., 2021" rid="ref-bianchi-etal-2021-cross" ref-type="bibr">Bianchi
+    et al., 2021</xref>). These models automatically identify and
+    extract top topics in an unsupervised manner, enabling users to
+    explore large text datasets and discover hidden patterns for
+    meaningful insights.</p>
+    <p>SIRITVIS encompasses a comprehensive suite of functionalities
+    designed for data extraction from social media platforms, including
+    X (Twitter), Reddit, and Instagram, facilitated through the
+    utilisation of respective application programming interfaces (APIs).
+    This extraction process is followed by a meticulous data
+    preprocessing phase, wherein valuable information is extracted from
+    raw data, and superfluous elements are expunged, utilising advanced
+    natural language processing (NLP) techniques. The resultant
+    processed data is subsequently employed for topic modeling, with the
+    flexibility for users to fine-tune hyperparameters according to
+    their domain expertise.</p>
+    <p>In addition, the package includes an evaluation module, which
+    allows for the assessment of trained models using a variety of
+    metrics tailored to the user’s specific requirements. Furthermore,
+    the software offers the capability to analyse and retrieve the most
+    proficiently trained models, further enhancing its utility and
+    practicality for scientific research and analysis.</p>
+    <p>To enrich the analysis and comprehension of textual data,
+    SIRITVIS includes two powerful data visualisation tools: PyLDAvis
+    (<xref alt="Sievert &amp; Shirley, n.d." rid="ref-sievert_shirley" ref-type="bibr">Sievert
+    &amp; Shirley, n.d.</xref>) and Word Cloud
+    (<xref alt="Mueller, 2023" rid="ref-Mueller_Wordcloud_2023" ref-type="bibr">Mueller,
+    2023</xref>). The useful data visualisation tool PyLDAvis, created
+    by Sievert and Shirley, improves the interpretation of topic models
+    from textual data. In order to give users a deeper and more
+    intuitive understanding of the latent themes contained in the text
+    corpus, it creates dynamic and interactive visualisations that
+    assist users in exploring the connections between subjects and their
+    associated keywords (see figure 1). On the other hand, the Word
+    Cloud tool offers an engaging and straightforward means of visually
+    representing the most frequently occurring words in the dataset,
+    simplifying the identification of crucial keywords and patterns at a
+    glance (see figure 2). Together, these tools provide users with a
+    comprehensive and user-friendly approach to uncover and communicate
+    the hidden patterns and insights within their textual data.</p>
+    <p>SIRITVIS is renowned for its remarkable ability to map the
+    spatial distribution of tweets and Instagram posts onto a global
+    map, linking each geographical location with its top trending topics
+    and their respective frequencies (see figure 3). Moreover, it excels
+    in the color-coding of these locations based on the sentiments
+    expressed in each post, providing an accurate count of positive,
+    negative, and neutral posts (see figure 4). Furthermore, SIRITVIS
+    facilitates a user-friendly exploration of specific keywords and
+    visualises their occurrences on the world map. This spatial insight
+    contributes significantly to an enhanced understanding of public
+    discussions and lends invaluable support to data-driven
+    decision-making across diverse domains.</p>
+  </sec>
+  <sec id="comparing-and-contrasting-available-toolsets">
+    <title>Comparing and Contrasting Available Toolsets</title>
+    <p>In recent years, the field of text data analysis from social
+    media has witnessed remarkable advancements, offering researchers
+    and practitioners an array of toolkits and approaches to delve into
+    the wealth of online content. Within this dynamic landscape, it
+    becomes imperative to discern the distinctive features of our
+    research, encapsulated in the SIRITVIS framework, as it stands apart
+    from existing related work.</p>
+    <p>Although alternatives such as TTLocVis
+    (<xref alt="Kant et al., 2020" rid="ref-Kant2020" ref-type="bibr">Kant
+    et al., 2020</xref>), TweetViz
+    (<xref alt="Stojanovski et al., 2014" rid="ref-stojanovski2014" ref-type="bibr">Stojanovski
+    et al., 2014</xref>) and Twitmo
+    (<xref alt="Abuchmueller, n.d." rid="ref-abuchmueller" ref-type="bibr">Abuchmueller,
+    n.d.</xref>) have their merits, SIRITVIS sets itself apart by
+    providing exceptional flexibility, usability, and comprehensiveness.
+    Its extensive array of advanced topic models, alongside a
+    distinctive capability for pinpointing geographical information and
+    seamless integration with pyLDAvis
+    (<xref alt="Sievert &amp; Shirley, n.d." rid="ref-sievert_shirley" ref-type="bibr">Sievert
+    &amp; Shirley, n.d.</xref>) for visualising outcomes, empowers
+    researchers to extract profound insights from social media text
+    data.</p>
+    <p>What sets SIRITVIS apart is its comprehensive suite of evaluation
+    metrics, facilitated by the octis tool
+    (<xref alt="Terragni et al., 2021" rid="ref-terragni2020octis" ref-type="bibr">Terragni
+    et al., 2021</xref>). These metrics cover important aspects such as
+    topic diversity, accuracy, inverted RBO, coherence, and Jaccard
+    similarity, ensuring that the Topic Models generated by SIRITVIS are
+    not only reliable, but also imbued with substantive meaning. This
+    robust evaluation framework is a hallmark of the research,
+    emphasizing the toolkit’s dedication to producing meaningful
+    results.</p>
+    <p>Furthermore, SIRITVIS places a strong emphasis on
+    user-friendliness and accessibility. Its intuitive interface and
+    detailed documentation cater to both novice and experienced users,
+    making the toolkit approachable and easy to navigate. Additionally,
+    SIRITVIS is designed to accommodate various data sources and
+    formats, ensuring that researchers can adapt it to their specific
+    research needs effortlessly. This commitment to accessibility
+    broadens the toolkit’s reach, making advanced text data analysis
+    more accessible to a wider community of researchers and
+    practitioners.</p>
+  </sec>
+</sec>
+<sec id="figures">
+  <title>Figures</title>
+  <p><bold>I (Gillian) would add a figure that gives an overview on the
+  key-features of the package, similar to the one you used in your
+  presentations over the last few months. Furthermore, I think it is
+  better to replace the current picture with two pictures, one, where
+  the topics are shown as a list on the map, and another, that is
+  showing the number of sentiments on the map. Additionally, a pyLDAvis
+  plot might be useful as a figure. Cite “Latent Dirichlet Allocation
+  (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Product Latent
+  Dirichlet Allocation (ProdLDA), and Contextualized Topic Models (CTM),
+  NLTK VADER.” Also, please cite, Twitmo! In general, I think one or two
+  more paragraphs going a bit more in-depth intot he packages
+  functionaltiy would be great!</bold></p>
+  <p><bold>First of all I have to say that the paper is well written and
+  for an external like me, who is not very much into topic models, well
+  understandable. Nevertheless I(Michael) want to do some minor remarks
+  but have to emphasize that some of the issues might came up due to my
+  lack of expertise in Topic models. (Line 27 - 28) You wrote utiliZe
+  and the sentence before analySis maybe you write consistently British
+  or American english. (Line 36 - 37) you wrote “The package includes
+  efficient data cleaning, transformation, training, and evaluation
+  functionalities, ensuring that the data is well-prepared for topic
+  model analysis.” It sounds like that all the steps (data cleaning,
+  transformation, training, evaluation functionalities) part of the
+  preparation process but training and evaluation is not part of the
+  data preparation. Maybe not a precise formulation? (Line 40) Why
+  “Cite?” you already cited it before? (Line 43 - 44) I was wondering in
+  which classes the locations are classified. (Line 56, 57, 58) The
+  hyphenation is in the middle of the sentence. (Line 57) Why is
+  pyLDAvis in apostrophes and do you have to cite it? Furthermore I
+  agree with Gillian that 2 more paragraphs diving a little bit deeper
+  in the functionality of the package would be nice.</bold></p>
+  <fig>
+    <caption><p>pyLDAvis
+    Visualisation<styled-content id="figU003ApyLDAvisU0020Visualisation"></styled-content></p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="media/pyldavis.png" />
+  </fig>
+  <fig>
+    <caption><p>Word
+    Cloud<styled-content id="figU003AWordU0020Cloud"></styled-content></p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="media/word_cloud.png" />
+  </fig>
+  <fig>
+    <caption><p>Topic Mapper Frequency
+    Count<styled-content id="figU003ATopicU0020MapperU0020FrequencyU0020Count"></styled-content></p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="media/topic_mapper_frequency.png" />
+  </fig>
+  <fig>
+    <caption><p>Topic Mapper Sentiment
+    Count<styled-content id="figU003ATopicU0020MapperU0020SentimentU0020Count"></styled-content></p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="media/topic_mapper_sentiment.png" />
+  </fig>
+</sec>
+</body>
+<back>
+<ref-list>
+  <ref id="ref-terragni2020octis">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Terragni</surname><given-names>Silvia</given-names></name>
+        <name><surname>Fersini</surname><given-names>Elisabetta</given-names></name>
+        <name><surname>Galuzzi</surname><given-names>Bruno Giovanni</given-names></name>
+        <name><surname>Tropeano</surname><given-names>Pietro</given-names></name>
+        <name><surname>Candelieri</surname><given-names>Antonio</given-names></name>
+      </person-group>
+      <article-title>OCTIS: Comparing and optimizing topic models is simple!</article-title>
+      <source>Proceedings of the 16th conference of the european chapter of the association for computational linguistics: System demonstrations</source>
+      <publisher-name>Association for Computational Linguistics</publisher-name>
+      <year iso-8601-date="2021-04">2021</year><month>04</month>
+      <uri>https://www.aclweb.org/anthology/2021.eacl-demos.31</uri>
+      <fpage>263</fpage>
+      <lpage>270</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-srivastava2017autoencoding">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Srivastava</surname><given-names>Akash</given-names></name>
+        <name><surname>Sutton</surname><given-names>Charles</given-names></name>
+      </person-group>
+      <article-title>Autoencoding variational inference for topic models</article-title>
+      <year iso-8601-date="2017">2017</year>
+      <uri>https://arxiv.org/abs/1703.01488</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-stojanovski2014">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Stojanovski</surname><given-names>Dario</given-names></name>
+        <name><surname>Dimitrovski</surname><given-names>Ivica</given-names></name>
+        <name><surname>Madjarov</surname><given-names>Gjorgji</given-names></name>
+      </person-group>
+      <article-title>Tweetviz: Twitter data visualization</article-title>
+      <source>Proceedings of the data mining and data warehouses</source>
+      <year iso-8601-date="2014">2014</year>
+      <fpage>1</fpage>
+      <lpage>4</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Kant2020">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Kant</surname><given-names>Gillian</given-names></name>
+        <name><surname>Weisser</surname><given-names>Christoph</given-names></name>
+        <name><surname>Säfken</surname><given-names>Benjamin</given-names></name>
+      </person-group>
+      <article-title>TTLocVis: A twitter topic location visualization package</article-title>
+      <source>Journal of Open Source Software</source>
+      <publisher-name>The Open Journal</publisher-name>
+      <year iso-8601-date="2020">2020</year>
+      <volume>5</volume>
+      <issue>54</issue>
+      <uri>https://doi.org/10.21105/joss.02507</uri>
+      <pub-id pub-id-type="doi">10.21105/joss.02507</pub-id>
+      <fpage>2507</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-blei2003latent">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Blei</surname><given-names>D. M.</given-names></name>
+        <name><surname>Ng</surname><given-names>A. Y.</given-names></name>
+        <name><surname>Jordan</surname><given-names>M. I.</given-names></name>
+      </person-group>
+      <article-title>Latent dirichlet allocation</article-title>
+      <source>Journal of Machine Learning Research</source>
+      <year iso-8601-date="2003">2003</year>
+      <volume>3</volume>
+      <fpage>993</fpage>
+      <lpage>1022</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Mueller_Wordcloud_2023">
+    <element-citation publication-type="software">
+      <person-group person-group-type="author">
+        <name><surname>Mueller</surname><given-names>Andreas C</given-names></name>
+      </person-group>
+      <article-title>Wordcloud</article-title>
+      <year iso-8601-date="2023-04">2023</year><month>04</month>
+      <uri>https://github.com/amueller/wordcloud</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-sievert_shirley">
+    <element-citation publication-type="book">
+      <person-group person-group-type="author">
+        <name><surname>Sievert</surname><given-names>Carson</given-names></name>
+        <name><surname>Shirley</surname><given-names>Kenneth</given-names></name>
+      </person-group>
+      <source>LDAvis: A method for visualizing and interpreting topics</source>
+      <uri>https://nlp.stanford.edu/events/illvi2014/papers/sievert-illvi2014.pdf</uri>
+      <fpage>63</fpage>
+      <lpage>70</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-bianchi-etal-2021-cross">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Bianchi</surname><given-names>Federico</given-names></name>
+        <name><surname>Terragni</surname><given-names>Silvia</given-names></name>
+        <name><surname>Hovy</surname><given-names>Dirk</given-names></name>
+        <name><surname>Nozza</surname><given-names>Debora</given-names></name>
+        <name><surname>Fersini</surname><given-names>Elisabetta</given-names></name>
+      </person-group>
+      <article-title>Cross-lingual contextualized topic models with zero-shot learning</article-title>
+      <source>Proceedings of the 16th conference of the european chapter of the association for computational linguistics: Main volume</source>
+      <publisher-name>Association for Computational Linguistics</publisher-name>
+      <publisher-loc>Online</publisher-loc>
+      <year iso-8601-date="2021-04">2021</year><month>04</month>
+      <uri>https://aclanthology.org/2021.eacl-main.143</uri>
+      <pub-id pub-id-type="doi">10.18653/v1/2021.eacl-main.143</pub-id>
+      <fpage>1676</fpage>
+      <lpage>1683</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-abuchmueller">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Abuchmueller</surname></name>
+      </person-group>
+      <article-title>GitHub - abuchmueller/Twitmo: Collect Twitter data and create topic models with R</article-title>
+      <uri>https://github.com/abuchmueller/Twitmo</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-hutto2014vader">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Hutto</surname><given-names>C. J.</given-names></name>
+        <name><surname>Gilbert</surname><given-names>Eric</given-names></name>
+      </person-group>
+      <article-title>VADER: A parsimonious rule-based model for sentiment analysis of social media text</article-title>
+      <source>Eighth international conference on weblogs and social media (ICWSM-14)</source>
+      <year iso-8601-date="2014">2014</year>
+    </element-citation>
+  </ref>
+</ref-list>
+<fn-group>
+  <fn id="fn1">
+    <label>1</label><p>https://github.com/CodeEagle22/SIRITVIS/</p>
+  </fn>
+</fn-group>
+</back>
+</article>

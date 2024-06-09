@@ -10,11 +10,11 @@ Social Interaction Research Insights Topic Visualisation
 
 ## 📋 Summary   
 
-The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Twitter, Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
+The SIRITVIS Python package offers a robust and scientifically grounded approach for gaining insights from data on platforms like Instagram and Reddit. By leveraging advanced Topic Models, including Latent Dirichlet Allocation (LDA), Neural Latent Dirichlet Allocation (NeuralLDA), Prod Latent Dirichlet Allocation (ProdLDA), and CTM Topic Models, SIRITVIS enables users to identify hidden patterns in vast text corpora in an unsupervised manner. The package provides a comprehensive set of features, including data streaming, preprocessing, model training, topic evaluation metrics, topic distribution, graph visualisation, and geo-visualisation tools. These capabilities allow organisations to extract valuable insights and make data-driven decisions.
 
 The integration of established methodologies from data science, machine learning, and geospatial analysis ensures the reliability and accuracy of the results. Rigorous preprocessing techniques and model training enhance the validity of the extracted topics, while scientifically validated evaluation metrics assess their quality and relevance. The graph visualisation and geo-visualisation tools facilitate a clear and intuitive understanding of the spatial distribution of topics.
 
-One of the standout feature of SIRITVIS is its ability to map the spatial distribution of Tweets and Instagram post on a world map, associating each location with its top trending topics and their frequency. The package classifies and color-codes locations based on their sentiments, providing a comprehensive count of positive, negative, and neutral tweets. Furthermore, users can explore specific keywords through a convenient dropdown interface and visualise their occurrences on the world map.
+One of the standout feature of SIRITVIS is its ability to map the spatial distribution of Instagram post or other text dataset with geo coordinates on a world map, associating each location with its top trending topics and their frequency. The package classifies and color-codes locations based on their sentiments, providing a comprehensive count of positive, negative, and neutral posts. Furthermore, users can explore specific keywords through a convenient dropdown interface and visualise their occurrences on the world map.
 
 The innovative capabilities of this tool hold great potential in various domains, such as marketing, politics, and disaster management, empowering data-driven decision-making through spatial topic distribution insights. Organisations can leverage SIRITVIS to gain a deeper understanding of their customers and stakeholders, foster engagement, and facilitate informed decision-making processes based on comprehensive social media data analysis.
 
@@ -51,7 +51,7 @@ pip install SIRITVIS
 ### Import Libraries
 
 ```python
-from SIRITVIS import twitter_streamer, insta_streamer, reddit_streamer, cleaner, topic_model, topic_visualise, topic_mapper
+from SIRITVIS import insta_streamer, reddit_streamer, cleaner, topic_model, topic_visualise, topic_mapper
 ```
 
 ### Streaming Reddit Data
@@ -68,40 +68,6 @@ save_path = '../folder/path/to/store/the/data/'
 raw_data = reddit_streamer.RedditStreamer(client_id,client_secret,user_agent,save_path,keywords).run()
 ```
 
-### Streaming Twitter Data
-- For authentication with the Twitter Streaming API, follow the page [Twitter Developer Account](https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api)
-
-```python
-# Run the streaming process to retrieve raw data based on the specified keywords and for specific location
-
-# Twitter API credentials
-consumer_key = 'XXXXXXXXX'
-consumer_secret = 'XXXXXXXXX'
-access_token = 'XXXXXXXXX'
-access_secret = 'XXXXXXXXX'
-
-# Location and language settings
-locations = [51.416016,5.528511,90.966797,34.669359] # box coordinates.
-languages = ['en', 'es'] 
-
-# Keywords to track
-keywords = ['Specific','Keywords'] # default is None # Use multiple keywords for a more varied dataset during streaming data collection.
-
-# Save path for collected data
-save_path = '../folder/path/to/store/the/data/'
-
-# Initialise and start Twitter streamer
-raw_data = twitter_streamer.TwitterStreamer(
-    consumer_key,
-    consumer_secret,
-    access_token,
-    access_secret,
-    languages,  
-    locations=locations,
-    keywords=keywords,
-    save_path=save_path  # Make sure to provide the save_path argument correctly
-)
-```
 
 ### Streaming Instagram Data
 - For authentication with the Instagram Streaming API, sign up the page [apify](https://apify.com/apify/instagram-hashtag-scraper)
@@ -122,7 +88,7 @@ raw_data  = insta_streamer.InstagramStreamer(api_token,save_path,instagram_usern
 
 ```python
 # raw_data variable might also be used as load_path attribute value
-cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/',data_source_type='twitter or default:None')
+cleaner_obj = cleaner.Cleaner(data_source='../folder/path/or/csv/file/path/to/load/data/')
 # cleaner_obj.clean_data     # get cleaned dataset without saving it
 cleaned_file = cleaner_obj.saving('../folder/path/to/store/the/cleaned/data/',data_save_name='dataset_file_name')
 ```
@@ -165,7 +131,7 @@ vis_model.visualize()
 
 ### Trending Topic Geo Visualisation 
 
-Topic Mapper excels at mapping the spatial distribution of tweets and Instagram posts globally. It accomplishes this by associating each location with its top trending topics and their frequencies, all using pre-trained topic models. Furthermore, it categorizes and color-codes these locations based on sentiment, providing users with a quick overview of sentiment distribution, including counts for positive, negative, and neutral tweets.
+Topic Mapper excels at mapping the spatial distribution of Instagram posts and other text data globally. It accomplishes this by associating each location with its top trending topics and their frequencies, all using pre-trained topic models. Furthermore, it categorizes and color-codes these locations based on sentiment, providing users with a quick overview of sentiment distribution, including counts for positive, negative, and neutral posts.
 
 Users can effortlessly explore specific keywords through a dropdown interface, allowing them to see how frequently these keywords appear on the world map. This feature simplifies the process of grasping and navigating research findings.
 
@@ -184,7 +150,7 @@ topic_mapper.TopicMapper(data_source, model_source)
 
 We encourage and welcome contributions to the SIRITVIS package. If you have any questions, want to report bugs, or have ideas for new features, please file an issue. 
 
-Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit, Instagram and Twitter or any external data sources, and improving the topic_mapper function to make it more interactive and independent from the notebook.
+Additionally, we appreciate pull requests via GitHub. There are several areas where potential contributions can make a significant impact, such as enhancing the quality of topics in topic models when dealing with noisy data from Reddit, Instagram or any external data sources, and improving the topic_mapper function to make it more interactive and independent from the notebook.
 
 ## 🖊️ Authors
 
