@@ -10,7 +10,7 @@ Social Interaction Research Insights Topic Visualisation
 
 ## 📋 Summary   
 
-The SIRITVIS Python package helps you understand data from social media platforms like Instagram and Reddit. It uses advanced techniques to find hidden patterns in large amounts of text data. SIRITVIS includes tools for gathering data, cleaning it, analyzing it, and visualizing the results. You can see where certain topics are being talked about on a map and how often they are mentioned.
+The SIRITVIS Python package helps you understand data from social media platforms like Instagram, Reddit or any other text data sources. It uses advanced techniques to find hidden patterns in large amounts of text data. SIRITVIS includes tools for gathering data, cleaning it, analyzing it, and visualizing the results. You can see where certain topics are being talked about on a map and how often they are mentioned.
 
 SIRITVIS uses well-known methods from data science, machine learning, and mapping to ensure accurate results. It cleans the data thoroughly and uses reliable models to find meaningful topics. You can evaluate the quality of these topics using built-in tools. The package also includes visual tools to help you easily see the distribution of topics on a map.
 
