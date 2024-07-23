@@ -57,9 +57,10 @@ The package includes tools for evaluating the performance of trained models usin
 To make understanding the data easier, SIRITVIS includes two powerful visualization tools: PyLDAvis and Word Cloud. PyLDAvis [@sievert-shirley-2014-ldavis] creates dynamic and interactive visualizations of topic models, helping users explore and understand the relationships between topics and their keywords (see Figure 1). The Word Cloud tool [@Mueller_Wordcloud_2023] visually displays the most frequently used words in a dataset, making it simple to spot key terms and patterns at a glance (see Figure 2). These tools provide a user-friendly way to uncover and communicate the insights hidden in text data.
 
 SIRITVIS is particularly known for its ability to map the locations of Instagram posts and Reddit comments globally, showing the most popular topics in each area and their frequencies (see Figure 3). It also uses color-coding to show the sentiments (positive, negative, or neutral) of posts at each location (see Figure 4). Additionally, SIRITVIS allows users to explore specific keywords and see where they appear on the world map. This spatial information is very useful for understanding public discussions and supporting data-driven decision-making in various fields.
+
 ## Comparing and Contrasting Available Toolsets
 
-In recent years, understanding what people say on social media has gotten better. One new way to do this is called SIRITVIS. It's different from other tools like TTLocVis [@Kant2020], TweetViz [@stojanovski2014], and Twitmo [@abuchmueller].
+In recent years, understanding what people say on social media has gotten better. One new way to do this is called SIRITVIS. It's different from other tools like TTLocVis [@Kant2020], TweetViz [@stojanovski2014], and Twitmo [@buchmuller2022twitmo].
 
 SIRITVIS helps people look at social media posts in an easy way. It can understand lots of different topics and even figure out where the posts are coming from on a map. Plus, it works well with another tool called pyLDAvis, which helps show the results in a nice way.
 

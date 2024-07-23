@@ -181,8 +181,10 @@ a Creative Commons Attribution 4.0 International License (CC BY
     Figure 4). Additionally, SIRITVIS allows users to explore specific
     keywords and see where they appear on the world map. This spatial
     information is very useful for understanding public discussions and
-    supporting data-driven decision-making in various fields. ##
-    Comparing and Contrasting Available Toolsets</p>
+    supporting data-driven decision-making in various fields.</p>
+  </sec>
+  <sec id="comparing-and-contrasting-available-toolsets">
+    <title>Comparing and Contrasting Available Toolsets</title>
     <p>In recent years, understanding what people say on social media
     has gotten better. One new way to do this is called SIRITVIS. It’s
     different from other tools like TTLocVis
@@ -190,8 +192,8 @@ a Creative Commons Attribution 4.0 International License (CC BY
     et al., 2020</xref>), TweetViz
     (<xref alt="Stojanovski et al., 2014" rid="ref-stojanovski2014" ref-type="bibr">Stojanovski
     et al., 2014</xref>), and Twitmo
-    (<xref alt="Abuchmueller, n.d." rid="ref-abuchmueller" ref-type="bibr">Abuchmueller,
-    n.d.</xref>).</p>
+    (<xref alt="Buchmüller et al., 2022" rid="ref-buchmuller2022twitmo" ref-type="bibr">Buchmüller
+    et al., 2022</xref>).</p>
     <p>SIRITVIS helps people look at social media posts in an easy way.
     It can understand lots of different topics and even figure out where
     the posts are coming from on a map. Plus, it works well with another
@@ -257,7 +259,7 @@ a Creative Commons Attribution 4.0 International License (CC BY
         <name><surname>Candelieri</surname><given-names>Antonio</given-names></name>
       </person-group>
       <article-title>OCTIS: Comparing and optimizing topic models is simple!</article-title>
-      <source>Proceedings of the 16th conference of the european chapter of the association for computational linguistics: System demonstrations</source>
+      <source>PROCEEDINGS OF THE 16TH CONFERENCE OF THE EUROPEAN CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS: SYSTEM DEMONSTRATIONS</source>
       <person-group person-group-type="editor">
         <name><surname>Gkatzia</surname><given-names>Dimitra</given-names></name>
         <name><surname>Seddah</surname><given-names>Djamé</given-names></name>
@@ -347,7 +349,7 @@ a Creative Commons Attribution 4.0 International License (CC BY
         <name><surname>Shirley</surname><given-names>Kenneth</given-names></name>
       </person-group>
       <article-title>LDAvis: A method for visualizing and interpreting topics</article-title>
-      <source>Proceedings of the workshop on interactive language learning, visualization, and interfaces</source>
+      <source>PROCEEDINGS OF THE WORKSHOP ON INTERACTIVE LANGUAGE LEARNING, VISUALIZATION, AND INTERFACES</source>
       <person-group person-group-type="editor">
         <name><surname>Chuang</surname><given-names>Jason</given-names></name>
         <name><surname>Green</surname><given-names>Spence</given-names></name>
@@ -374,7 +376,7 @@ a Creative Commons Attribution 4.0 International License (CC BY
         <name><surname>Fersini</surname><given-names>Elisabetta</given-names></name>
       </person-group>
       <article-title>Cross-lingual contextualized topic models with zero-shot learning</article-title>
-      <source>Proceedings of the 16th conference of the european chapter of the association for computational linguistics: Main volume</source>
+      <source>PROCEEDINGS OF THE 16TH CONFERENCE OF THE EUROPEAN CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS: MAIN VOLUME</source>
       <publisher-name>Association for Computational Linguistics</publisher-name>
       <publisher-loc>Online</publisher-loc>
       <year iso-8601-date="2021-04">2021</year><month>04</month>
@@ -384,13 +386,19 @@ a Creative Commons Attribution 4.0 International License (CC BY
       <lpage>1683</lpage>
     </element-citation>
   </ref>
-  <ref id="ref-abuchmueller">
-    <element-citation>
+  <ref id="ref-buchmuller2022twitmo">
+    <element-citation publication-type="article-journal">
       <person-group person-group-type="author">
-        <name><surname>Abuchmueller</surname></name>
+        <name><surname>Buchmüller</surname><given-names>Andreas</given-names></name>
+        <name><surname>Kant</surname><given-names>Gillian</given-names></name>
+        <name><surname>Weisser</surname><given-names>Christoph</given-names></name>
+        <name><surname>Säfken</surname><given-names>Benjamin</given-names></name>
+        <name><surname>Kis-Katos</surname><given-names>Krisztina</given-names></name>
+        <name><surname>Kneib</surname><given-names>Thomas</given-names></name>
       </person-group>
-      <article-title>GitHub - abuchmueller/twitmo: Collect twitter data and create topic models with r</article-title>
-      <uri>https://github.com/abuchmueller/Twitmo</uri>
+      <article-title>Twitmo: A twitter data topic modeling and visualization package for r</article-title>
+      <source>arXiv preprint arXiv:2207.11236</source>
+      <year iso-8601-date="2022">2022</year>
     </element-citation>
   </ref>
   <ref id="ref-Hutto_Gilbert_2014">
