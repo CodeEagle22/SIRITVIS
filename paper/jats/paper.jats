@@ -249,6 +249,30 @@ a Creative Commons Attribution 4.0 International License (CC BY
 <back>
 <ref-list>
   <title></title>
+  <ref id="ref-sievert-shirley-2014-ldavis">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Sievert</surname><given-names>Carson</given-names></name>
+        <name><surname>Shirley</surname><given-names>Kenneth</given-names></name>
+      </person-group>
+      <article-title>LDAvis: A method for visualizing and interpreting topics</article-title>
+      <source>Proceedings of the Workshop on Interactive Language Learning, Visualization, and Interfaces</source>
+      <person-group person-group-type="editor">
+        <name><surname>Chuang</surname><given-names>Jason</given-names></name>
+        <name><surname>Green</surname><given-names>Spence</given-names></name>
+        <name><surname>Hearst</surname><given-names>Marti</given-names></name>
+        <name><surname>Heer</surname><given-names>Jeffrey</given-names></name>
+        <name><surname>Koehn</surname><given-names>Philipp</given-names></name>
+      </person-group>
+      <publisher-name>Association for Computational Linguistics</publisher-name>
+      <publisher-loc>Baltimore, Maryland, USA</publisher-loc>
+      <year iso-8601-date="2014-06">2014</year><month>06</month>
+      <uri>https://aclanthology.org/W14-3110</uri>
+      <pub-id pub-id-type="doi">10.3115/v1/W14-3110</pub-id>
+      <fpage>63</fpage>
+      <lpage>70</lpage>
+    </element-citation>
+  </ref>
   <ref id="ref-terragni-etal-2021-octis">
     <element-citation publication-type="paper-conference">
       <person-group person-group-type="author">
@@ -259,7 +283,7 @@ a Creative Commons Attribution 4.0 International License (CC BY
         <name><surname>Candelieri</surname><given-names>Antonio</given-names></name>
       </person-group>
       <article-title>OCTIS: Comparing and optimizing topic models is simple!</article-title>
-      <source>PROCEEDINGS OF THE 16TH CONFERENCE OF THE EUROPEAN CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS: SYSTEM DEMONSTRATIONS</source>
+      <source>Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations</source>
       <person-group person-group-type="editor">
         <name><surname>Gkatzia</surname><given-names>Dimitra</given-names></name>
         <name><surname>Seddah</surname><given-names>Djamé</given-names></name>
@@ -271,6 +295,26 @@ a Creative Commons Attribution 4.0 International License (CC BY
       <pub-id pub-id-type="doi">10.18653/v1/2021.eacl-demos.31</pub-id>
       <fpage>263</fpage>
       <lpage>270</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-bianchi-etal-2021-cross">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Bianchi</surname><given-names>Federico</given-names></name>
+        <name><surname>Terragni</surname><given-names>Silvia</given-names></name>
+        <name><surname>Hovy</surname><given-names>Dirk</given-names></name>
+        <name><surname>Nozza</surname><given-names>Debora</given-names></name>
+        <name><surname>Fersini</surname><given-names>Elisabetta</given-names></name>
+      </person-group>
+      <article-title>Cross-lingual contextualized topic models with zero-shot learning</article-title>
+      <source>Proceedings of the 16th conference of the european chapter of the association for computational linguistics: Main volume</source>
+      <publisher-name>Association for Computational Linguistics</publisher-name>
+      <publisher-loc>Online</publisher-loc>
+      <year iso-8601-date="2021-04">2021</year><month>04</month>
+      <uri>https://aclanthology.org/2021.eacl-main.143</uri>
+      <pub-id pub-id-type="doi">10.18653/v1/2021.eacl-main.143</pub-id>
+      <fpage>1676</fpage>
+      <lpage>1683</lpage>
     </element-citation>
   </ref>
   <ref id="ref-srivastava2017autoencoding">
@@ -340,50 +384,6 @@ a Creative Commons Attribution 4.0 International License (CC BY
       <article-title>Wordcloud</article-title>
       <year iso-8601-date="2023-04">2023</year><month>04</month>
       <uri>https://github.com/amueller/wordcloud</uri>
-    </element-citation>
-  </ref>
-  <ref id="ref-sievert-shirley-2014-ldavis">
-    <element-citation publication-type="paper-conference">
-      <person-group person-group-type="author">
-        <name><surname>Sievert</surname><given-names>Carson</given-names></name>
-        <name><surname>Shirley</surname><given-names>Kenneth</given-names></name>
-      </person-group>
-      <article-title>LDAvis: A method for visualizing and interpreting topics</article-title>
-      <source>PROCEEDINGS OF THE WORKSHOP ON INTERACTIVE LANGUAGE LEARNING, VISUALIZATION, AND INTERFACES</source>
-      <person-group person-group-type="editor">
-        <name><surname>Chuang</surname><given-names>Jason</given-names></name>
-        <name><surname>Green</surname><given-names>Spence</given-names></name>
-        <name><surname>Hearst</surname><given-names>Marti</given-names></name>
-        <name><surname>Heer</surname><given-names>Jeffrey</given-names></name>
-        <name><surname>Koehn</surname><given-names>Philipp</given-names></name>
-      </person-group>
-      <publisher-name>Association for Computational Linguistics</publisher-name>
-      <publisher-loc>Baltimore, Maryland, USA</publisher-loc>
-      <year iso-8601-date="2014-06">2014</year><month>06</month>
-      <uri>https://aclanthology.org/W14-3110</uri>
-      <pub-id pub-id-type="doi">10.3115/v1/W14-3110</pub-id>
-      <fpage>63</fpage>
-      <lpage>70</lpage>
-    </element-citation>
-  </ref>
-  <ref id="ref-bianchi-etal-2021-cross">
-    <element-citation publication-type="paper-conference">
-      <person-group person-group-type="author">
-        <name><surname>Bianchi</surname><given-names>Federico</given-names></name>
-        <name><surname>Terragni</surname><given-names>Silvia</given-names></name>
-        <name><surname>Hovy</surname><given-names>Dirk</given-names></name>
-        <name><surname>Nozza</surname><given-names>Debora</given-names></name>
-        <name><surname>Fersini</surname><given-names>Elisabetta</given-names></name>
-      </person-group>
-      <article-title>Cross-lingual contextualized topic models with zero-shot learning</article-title>
-      <source>PROCEEDINGS OF THE 16TH CONFERENCE OF THE EUROPEAN CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS: MAIN VOLUME</source>
-      <publisher-name>Association for Computational Linguistics</publisher-name>
-      <publisher-loc>Online</publisher-loc>
-      <year iso-8601-date="2021-04">2021</year><month>04</month>
-      <uri>https://aclanthology.org/2021.eacl-main.143</uri>
-      <pub-id pub-id-type="doi">10.18653/v1/2021.eacl-main.143</pub-id>
-      <fpage>1676</fpage>
-      <lpage>1683</lpage>
     </element-citation>
   </ref>
   <ref id="ref-buchmuller2022twitmo">
