@@ -167,8 +167,8 @@ In our project, we utilised the "OCTIS" [^1^] tool, a fantastic library by Terra
 
 ## 📜 License
 
-Copyright (c) [2023] [Sagar Narwade]
-This software is released under the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). See the [LICENSE](./LICENSE) file for details.
+
 
 
 
