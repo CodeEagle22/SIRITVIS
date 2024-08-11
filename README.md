@@ -22,6 +22,18 @@ SIRITVIS is helpful in various areas, like marketing, politics, and disaster res
 
 Narwade, S., Kant, G., Säfken, B., and Leiding, B. (2023), SIRITVIS: Social Interaction Research Insights Topic Visualisation. Journal of Open Source Software, https://joss.theoj.org/papers/b51be70e9634e45d8035ee20b6147d76.
 
+## Markdown:
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.06243/status.svg)](https://doi.org/10.21105/joss.06243)
+
+HTML:
+<a style="border-width:0" href="https://doi.org/10.21105/joss.06243">
+  <img src="https://joss.theoj.org/papers/10.21105/joss.06243/status.svg" alt="DOI badge" >
+</a>
+
+
+
+
+
 ## Advisory
 
 - Ensure Python version '>=3.10, <3.11'.
