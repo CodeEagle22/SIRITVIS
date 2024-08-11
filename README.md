@@ -171,16 +171,4 @@ This project is licensed under the Creative Commons Attribution 4.0 Internationa
 
 
 
-Markdown:
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.06243/status.svg)](https://doi.org/10.21105/joss.06243)
-
-HTML:
-<a style="border-width:0" href="https://doi.org/10.21105/joss.06243">
-  <img src="https://joss.theoj.org/papers/10.21105/joss.06243/status.svg" alt="DOI badge" >
-</a>
-
-reStructuredText:
-.. image:: https://joss.theoj.org/papers/10.21105/joss.06243/status.svg
-   :target: https://doi.org/10.21105/joss.06243
-
 
